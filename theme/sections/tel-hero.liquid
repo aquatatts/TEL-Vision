@@ -12,6 +12,7 @@
   #shopify-section-{{ section.id }} .tel-hero__veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,.18) 0%,rgba(5,5,5,0) 28%,rgba(5,5,5,.2) 52%,rgba(5,5,5,{{ section.settings.veil | divided_by: 100.0 }}) 70%,rgba(5,5,5,.98) 100%)}
   #shopify-section-{{ section.id }} .tel-hero__content{position:absolute;left:var(--tel-gutter);right:var(--tel-gutter);bottom:32px}
   #shopify-section-{{ section.id }} .tel-hero__content .tel-h1{margin-bottom:26px}
+  #shopify-section-{{ section.id }} .tel-hero__content .tel-eyebrow{letter-spacing:.26em}
   @media(prefers-reduced-motion:no-preference){
     #shopify-section-{{ section.id }} .tel-hero__media--kb{animation:tel-kb-{{ section.id | md5 | slice: 0, 6 }} 18s ease-out forwards}
     @keyframes tel-kb-{{ section.id | md5 | slice: 0, 6 }}{from{transform:scale(1.10)}to{transform:scale(1)}}
@@ -20,7 +21,8 @@
     #shopify-section-{{ section.id }} .tel-hero{height:min(84vh,{{ section.settings.desktop_height }}px)}
     #shopify-section-{{ section.id }} .tel-hero__media img{object-position:50% 40%}
     #shopify-section-{{ section.id }} .tel-hero__veil{background:linear-gradient(180deg,rgba(5,5,5,.1) 0%,rgba(5,5,5,0) 40%,rgba(5,5,5,.55) 75%,rgba(5,5,5,.96) 100%),linear-gradient(90deg,rgba(5,5,5,.55) 0%,rgba(5,5,5,0) 55%)}
-    #shopify-section-{{ section.id }} .tel-hero__content{bottom:72px;max-width:640px}
+    #shopify-section-{{ section.id }} .tel-hero__content{bottom:72px;max-width:560px}
+    #shopify-section-{{ section.id }} .tel-hero__content .tel-eyebrow{letter-spacing:.34em}
   }
 </style>
 
