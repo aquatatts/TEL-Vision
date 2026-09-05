@@ -1,0 +1,125 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "cat-routine": {
+          "type": "category",
+          "settings": {
+            "title": "The routine"
+          }
+        },
+        "q-new": {
+          "type": "question",
+          "settings": {
+            "question": "Can I use it on a brand-new tattoo?",
+            "answer": "<p>That's exactly what it's built for. Restore Balm goes on from day zero: the thinnest possible layer on clean, dry skin, matte not shiny. Always follow the aftercare instructions your artist gives you first; the full day-by-day routine is in <a href=\"/pages/healing-guide\">The Healing Guide</a>.</p>"
+          }
+        },
+        "q-switch": {
+          "type": "question",
+          "settings": {
+            "question": "When do I switch from the balm to the cream?",
+            "answer": "<p>Restore Balm carries roughly the first two weeks while the skin closes. Once flaking is finished and there are no open patches, step down to Recovery Cream daily. That's the jar you'll use for as long as you own the tattoo.</p>"
+          }
+        },
+        "q-sealed": {
+          "type": "question",
+          "settings": {
+            "question": "Why is it sealed as a set?",
+            "answer": "<p>Because the routine is the product. The first two weeks decide how the piece settles; the years after decide how it looks in a decade. Selling the balm on its own would sell you half a job, so it's one set, one price, never sold apart.</p>"
+          }
+        },
+        "q-in": {
+          "type": "question",
+          "settings": {
+            "question": "What's actually in it?",
+            "answer": "<p>Ingredient-led hydration: sodium hyaluronate, glycerin, panthenol, shea butter and vitamin E, chosen to moisturise, condition and protect the skin's natural moisture barrier so your ink looks its sharpest.</p><p>Every batch is tested: no detectable lead, arsenic, mercury or cadmium, with a three-year shelf life. Nothing in the formula is there to pad a label.</p>"
+          }
+        },
+        "q-sensitive": {
+          "type": "question",
+          "settings": {
+            "question": "I have sensitive skin. Anything I should know?",
+            "answer": "<p>Patch test first: a small amount on the inside of your forearm, wait 24 hours. If you have a skin condition or a known allergy, check with your doctor or pharmacist before use, and always follow your artist's instructions on fresh work.</p>"
+          }
+        },
+        "q-last": {
+          "type": "question",
+          "settings": {
+            "question": "How long does a set last?",
+            "answer": "<p>Depends on the size of the work. For a typical piece, Restore Balm sees out the two-week close with plenty in reserve, and Recovery Cream gives you months of daily care. Thin layers are the trick: a drowned tattoo can't breathe, and thick layers just waste product.</p>"
+          }
+        },
+        "q-old": {
+          "type": "question",
+          "settings": {
+            "question": "Does it work on old, healed tattoos?",
+            "answer": "<p>That's half the reason it exists. Dry skin scatters light and makes black look grey; hydrated skin holds line work sharp and colour saturated. Recovery Cream, daily, on every piece you own. Sixty seconds after a shower.</p>"
+          }
+        },
+        "cat-orders": {
+          "type": "category",
+          "settings": {
+            "title": "Orders"
+          }
+        },
+        "q-ship": {
+          "type": "question",
+          "settings": {
+            "question": "How fast is shipping?",
+            "answer": "<p>Free standard shipping Australia-wide, dispatched from Surfers Paradise within 1–2 business days, tracking emailed. Express Post is $15 at checkout. Or skip the wait entirely: it's on the counter at Squires Ink, Shop 7/26 Orchid Ave, Surfers Paradise.</p>"
+          }
+        },
+        "q-returns": {
+          "type": "question",
+          "settings": {
+            "question": "What's the returns policy on skincare?",
+            "answer": "<p>Unopened, sealed sets can come back within 30 days. Opened products can't, for hygiene reasons, but if anything is faulty or not as described, the Australian Consumer Law has you covered and so do we. Full detail in <a href=\"/pages/shipping-and-returns\">Shipping &amp; Returns</a>.</p>"
+          }
+        },
+        "cat-tel": {
+          "type": "category",
+          "settings": {
+            "title": "TEL"
+          }
+        },
+        "q-who": {
+          "type": "question",
+          "settings": {
+            "question": "Who's behind TEL?",
+            "answer": "<p>Benny Aquilina: fifteen years under the needle, owner of Squires Ink Tattoo Studio in Surfers Paradise. Everything is built in-house and worn on his own skin before it carries the name. <a href=\"/pages/founder\">Read the founder's story</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "cat-routine",
+        "q-new",
+        "q-switch",
+        "q-sealed",
+        "q-in",
+        "q-sensitive",
+        "q-last",
+        "q-old",
+        "cat-orders",
+        "q-ship",
+        "q-returns",
+        "cat-tel",
+        "q-who"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "faq"
+  ]
+}

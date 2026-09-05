@@ -1,0 +1,73 @@
+{%- comment -%} TEL v6 · Story band: optional image (portrait, landscape or square), eyebrow, heading, pull quote, body, mono line, ornament, one button. Used for Studio, From the chair and Founder. {%- endcomment -%}
+{%- liquid
+  assign img = section.settings.image
+  assign aspect = section.settings.aspect | default: '4/5'
+  assign focal = section.settings.focal | default: '50% 30%'
+  assign img_alt = img.alt | default: section.settings.heading | strip_html
+-%}
+<style>
+  #shopify-section-{{ section.id }} .tel-story__media{margin:0 calc(-1 * var(--tel-gutter)) 32px}
+  #shopify-section-{{ section.id }} .tel-story__media img{display:block;width:100%;height:auto;aspect-ratio:{{ aspect }};object-fit:cover;object-position:{{ focal }}}
+  #shopify-section-{{ section.id }} .tel-quote{font-family:var(--tel-serif);font-size:31px;font-weight:400;font-style:italic;line-height:1.18;color:var(--tel-ink);margin:26px 0 22px;text-wrap:balance}
+  #shopify-section-{{ section.id }} .tel-attr{font-family:var(--tel-mono);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--tel-gold);margin:0 0 28px}
+  #shopify-section-{{ section.id }} .tel-attr span{display:block;color:var(--tel-mute);margin-top:6px;letter-spacing:.14em}
+  #shopify-section-{{ section.id }} .tel-orn{display:flex;align-items:center;gap:14px;color:var(--tel-gold);margin:34px 0 0}
+  #shopify-section-{{ section.id }} .tel-orn i{flex:1;height:1px;background:var(--tel-rule2)}
+  #shopify-section-{{ section.id }} .tel-orn b{font-weight:400;font-size:14px;line-height:1}
+  #shopify-section-{{ section.id }} .tel-story__mono{text-align:center;margin:18px 0 30px;color:var(--tel-gold)}
+  @media(min-width:900px){
+    #shopify-section-{{ section.id }} .tel-story{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+    #shopify-section-{{ section.id }} .tel-story--wide{grid-template-columns:1.15fr 1fr}
+    #shopify-section-{{ section.id }} .tel-story--end .tel-story__media{order:2}
+    #shopify-section-{{ section.id }} .tel-story__media{margin:0}
+    #shopify-section-{{ section.id }} .tel-quote{font-size:38px}
+    #shopify-section-{{ section.id }} .tel-story__mono{text-align:left}
+    #shopify-section-{{ section.id }} .tel-story--noimg{grid-template-columns:1fr;max-width:760px}
+  }
+</style>
+<section class="tel-band{% if section.settings.alt %} tel-band--alt{% endif %}">
+  <div class="tel-wrap tel-story{% if section.settings.image_position == 'end' %} tel-story--end{% endif %}{% if aspect == '3/2' %} tel-story--wide{% endif %}{% if img == blank %} tel-story--noimg{% endif %}">
+    {%- if img != blank -%}
+      <div class="tel-story__media">
+        {{- img | image_url: width: 1600 | image_tag: loading: 'lazy', sizes: '(min-width: 900px) 50vw, 100vw', widths: '600,900,1200,1600', alt: img_alt, width: img.width, height: img.height -}}
+      </div>
+    {%- endif -%}
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<p class="tel-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="tel-h tel-h2">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.quote != blank -%}<p class="tel-quote">“{{ section.settings.quote | escape }}”</p>{%- endif -%}
+      {%- if section.settings.attr_name != blank -%}<p class="tel-attr">{{ section.settings.attr_name | escape }}{% if section.settings.attr_role != blank %}<span>{{ section.settings.attr_role | escape }}</span>{% endif %}</p>{%- endif -%}
+      {%- if section.settings.body != blank -%}<div class="tel-p"{% if section.settings.quote == blank %} style="margin-top:18px"{% endif %}>{{ section.settings.body }}</div>{%- endif -%}
+      {%- if section.settings.ornament -%}<div class="tel-orn" aria-hidden="true"><i></i><b>✦</b><i></i></div>{%- endif -%}
+      {%- if section.settings.mono_line != blank -%}<p class="tel-mono tel-story__mono">{{ section.settings.mono_line | escape }}</p>{%- endif -%}
+      {%- if section.settings.button_text != blank -%}<a class="tel-btn{% if section.settings.button_solid %} tel-btn--solid{% endif %}" href="{{ section.settings.button_url | default: '#' }}"{% if section.settings.mono_line == blank %} style="margin-top:8px"{% endif %}>{{ section.settings.button_text | escape }}</a>{%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "TEL · Story band",
+  "tag": "div",
+  "class": "shopify-section--tel-band",
+  "disabled_on": { "groups": ["header", "footer", "custom.overlay"] },
+  "settings": [
+    { "type": "checkbox", "id": "alt", "label": "Slightly lifted background", "default": false },
+    { "type": "image_picker", "id": "image", "label": "Image (optional)" },
+    { "type": "select", "id": "image_position", "label": "Image position (desktop)", "options": [ { "value": "start", "label": "Left" }, { "value": "end", "label": "Right" } ], "default": "start" },
+    { "type": "select", "id": "aspect", "label": "Image shape", "options": [ { "value": "4/5", "label": "Portrait 4:5" }, { "value": "3/2", "label": "Landscape 3:2" }, { "value": "1/1", "label": "Square" } ], "default": "4/5" },
+    { "type": "select", "id": "focal", "label": "Image focal point", "options": [ { "value": "50% 15%", "label": "Top" }, { "value": "50% 30%", "label": "Upper third" }, { "value": "50% 50%", "label": "Centre" } ], "default": "50% 30%" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The studio" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Built at the counter of a working <em>studio</em>." },
+    { "type": "textarea", "id": "quote", "label": "Pull quote (optional)" },
+    { "type": "text", "id": "attr_name", "label": "Quote attribution" },
+    { "type": "text", "id": "attr_role", "label": "Attribution role" },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Every piece that leaves this counter comes back through it. We see what holds, what fades, and what it was looked after with. Hundreds of times a year.</p><p>So we built the thing that couldn't be bought.</p>" },
+    { "type": "checkbox", "id": "ornament", "label": "Ornament rule", "default": false },
+    { "type": "text", "id": "mono_line", "label": "Mono line" },
+    { "type": "text", "id": "button_text", "label": "Button", "default": "Our aim" },
+    { "type": "url", "id": "button_url", "label": "Button link" },
+    { "type": "checkbox", "id": "button_solid", "label": "Solid gold button", "default": false }
+  ],
+  "presets": [ { "name": "TEL · Story band", "category": "TEL" } ]
+}
+{% endschema %}

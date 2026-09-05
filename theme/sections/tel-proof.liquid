@@ -1,0 +1,61 @@
+{%- comment -%} TEL v6 · Proof strip: hairline gold icons, sideways scroll on mobile, five columns on desktop. {%- endcomment -%}
+<style>
+  #shopify-section-{{ section.id }} .tel-proof{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:var(--tel-gutter);scrollbar-width:none;background:var(--tel-bg);border-top:1px solid var(--tel-rule);border-bottom:1px solid var(--tel-rule)}
+  #shopify-section-{{ section.id }} .tel-proof::-webkit-scrollbar{display:none}
+  #shopify-section-{{ section.id }} .tel-proof__inner{display:contents;list-style:none;margin:0;padding:0}
+  #shopify-section-{{ section.id }} .tel-proof__item{list-style:none}
+  #shopify-section-{{ section.id }} .tel-proof__item{flex:0 0 46%;scroll-snap-align:start;padding:28px 18px 28px 0;border-right:1px solid var(--tel-rule);margin-right:18px}
+  #shopify-section-{{ section.id }} .tel-proof__item:first-child{margin-left:var(--tel-gutter)}
+  #shopify-section-{{ section.id }} .tel-proof__item:last-child{border-right:0;padding-right:var(--tel-gutter)}
+  #shopify-section-{{ section.id }} .tel-proof__item svg{width:26px;height:26px;stroke:var(--tel-gold);fill:none;stroke-width:1;margin-bottom:14px;display:block}
+  #shopify-section-{{ section.id }} .tel-proof__t{display:block;font-family:var(--tel-serif);font-weight:400;font-size:22px;line-height:1.1;margin:0 0 6px;color:var(--tel-ink)}
+  #shopify-section-{{ section.id }} .tel-proof__s{font-family:var(--tel-body);font-size:14px;color:var(--tel-mute);line-height:1.45;display:block}
+  @media(min-width:900px){
+    #shopify-section-{{ section.id }} .tel-proof{overflow:visible;padding:0 var(--tel-gutter)}
+    #shopify-section-{{ section.id }} .tel-proof__inner{display:grid;grid-template-columns:repeat({{ section.blocks.size | at_least: 1 }},1fr);max-width:1180px;margin:0 auto;width:100%}
+    #shopify-section-{{ section.id }} .tel-proof__item{flex:none;margin:0;padding:36px 24px}
+    #shopify-section-{{ section.id }} .tel-proof__item:first-child{margin-left:0;padding-left:0}
+    #shopify-section-{{ section.id }} .tel-proof__item:last-child{padding-right:0}
+    #shopify-section-{{ section.id }} .tel-proof__t{font-size:24px}
+  }
+</style>
+<section class="tel-proof" aria-label="{{ section.settings.aria | default: 'Batch testing' | escape }}">
+  <ul class="tel-proof__inner" role="list">
+  {%- for block in section.blocks -%}
+    <li class="tel-proof__item" {{ block.shopify_attributes }}>
+      {%- case block.settings.icon -%}
+        {%- when 'shield' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg>
+        {%- when 'check' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+        {%- when 'drop' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/></svg>
+        {%- when 'clock' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        {%- when 'document' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h6M9 16h6"/></svg>
+        {%- else -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.2 5.6L20 9.3l-4.4 3.9L17 19l-5-3-5 3 1.4-5.8L4 9.3l5.8-.7z"/></svg>
+      {%- endcase -%}
+      {%- if block.settings.title != blank -%}<strong class="tel-proof__t">{{ block.settings.title | escape }}</strong>{%- endif -%}
+      {%- if block.settings.text != blank -%}<span class="tel-proof__s">{{ block.settings.text | escape }}</span>{%- endif -%}
+    </li>
+  {%- endfor -%}
+  </ul>
+</section>
+{% schema %}
+{
+  "name": "TEL · Proof strip",
+  "tag": "section",
+  "class": "shopify-section--tel-proof",
+  "max_blocks": 6,
+  "disabled_on": { "groups": ["header", "footer", "custom.overlay"] },
+  "settings": [ { "type": "text", "id": "aria", "label": "Accessible label", "default": "Batch testing" } ],
+  "blocks": [ { "type": "item", "name": "Proof", "settings": [
+    { "type": "select", "id": "icon", "label": "Icon", "options": [ { "value": "shield", "label": "Shield" }, { "value": "check", "label": "Check" }, { "value": "drop", "label": "Drop" }, { "value": "clock", "label": "Clock" }, { "value": "document", "label": "Document" }, { "value": "star", "label": "Star" } ], "default": "shield" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Heavy metals" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Not detected. Lead, arsenic, mercury, cadmium, bismuth." }
+  ] } ],
+  "presets": [ { "name": "TEL · Proof strip", "category": "TEL", "blocks": [
+    { "type": "item", "settings": { "icon": "shield", "title": "Heavy metals", "text": "Not detected. Lead, arsenic, mercury, cadmium, bismuth." } },
+    { "type": "item", "settings": { "icon": "check", "title": "Microbiology", "text": "No pathogenic micro-organisms." } },
+    { "type": "item", "settings": { "icon": "drop", "title": "pH 6.7", "text": "Measured on batch." } },
+    { "type": "item", "settings": { "icon": "clock", "title": "Three years", "text": "Shelf life." } },
+    { "type": "item", "settings": { "icon": "document", "title": "ISO 22716 · GMP", "text": "Held at the manufacturing site." } }
+  ] } ]
+}
+{% endschema %}

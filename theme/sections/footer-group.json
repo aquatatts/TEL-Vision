@@ -1,0 +1,116 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "text-with-icons": {
+      "type": "text-with-icons",
+      "blocks": {
+        "icon-1": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-delivery-truck",
+            "icon_width": 24,
+            "mobile_icon_width": 24,
+            "title": "Free shipping Australia-wide",
+            "content": ""
+          }
+        },
+        "icon-2": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-shield",
+            "icon_width": 24,
+            "mobile_icon_width": 24,
+            "title": "Sealed sets. Never sold apart.",
+            "content": ""
+          }
+        },
+        "icon-3": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-target",
+            "icon_width": 24,
+            "mobile_icon_width": 24,
+            "title": "Built by a collector of fifteen years",
+            "content": ""
+          }
+        },
+        "icon-4": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-lock",
+            "icon_width": 24,
+            "mobile_icon_width": 24,
+            "title": "Secure checkout",
+            "content": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon-1",
+        "icon-2",
+        "icon-3",
+        "icon-4"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "stack_on_mobile": false,
+        "icon_color": "#C9A24B",
+        "text_color": "",
+        "text_alignment": "center"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "links": {
+          "type": "links",
+          "name": "Links",
+          "settings": {
+            "menu": "footer",
+            "collapse_on_mobile": false,
+            "show_menu_title": true,
+            "menu_title": ""
+          }
+        },
+        "text_PHEKQt": {
+          "type": "text",
+          "settings": {
+            "title": "Squires Ink · Surfers Paradise",
+            "content": "<p>Shop 7/26 Orchid Ave, Surfers Paradise QLD 4217</p><p>Mon–Thu 12pm–8pm · Fri–Sun 10am till late</p><p><a href=\"mailto:info@telcollection.com.au\">info@telcollection.com.au</a></p>",
+            "enable_follow_on_shop": true
+          }
+        }
+      },
+      "block_order": [
+        "links",
+        "text_PHEKQt"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": false,
+        "show_social_media": true,
+        "show_payment_icons": true,
+        "show_powered_by_shopify": false,
+        "show_country_selector": false,
+        "show_country_name": false,
+        "show_country_flag": false,
+        "show_locale_selector": false
+      }
+    }
+  },
+  "order": [
+    "text-with-icons",
+    "footer"
+  ]
+}

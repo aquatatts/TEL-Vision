@@ -1,0 +1,82 @@
+{%- comment -%} TEL v6 · Two-step ledger: when, not just what. Optional image under the intro (the two textures). {%- endcomment -%}
+{%- liquid
+  assign img = section.settings.image
+  assign focal = section.settings.focal | default: '50% 50%'
+  assign img_alt = img.alt | default: 'Restore Balm and Recovery Cream, open, top-down'
+-%}
+<style>
+  #shopify-section-{{ section.id }} .tel-step{padding:26px 0;border-top:1px solid var(--tel-rule)}
+  #shopify-section-{{ section.id }} .tel-steps__list{border-bottom:1px solid var(--tel-rule)}
+  #shopify-section-{{ section.id }} .tel-step__n{font-family:var(--tel-mono);font-size:10.5px;letter-spacing:.3em;color:var(--tel-gold);text-transform:uppercase;margin:0 0 10px}
+  #shopify-section-{{ section.id }} .tel-step__name{font-family:var(--tel-serif);font-weight:400;font-size:30px;margin:0 0 4px;line-height:1.05;color:var(--tel-ink)}
+  #shopify-section-{{ section.id }} .tel-step__d{font-family:var(--tel-mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--tel-mute);margin:0 0 12px}
+  #shopify-section-{{ section.id }} .tel-steps__intro{margin:18px 0 26px}
+  #shopify-section-{{ section.id }} .tel-steps__outro{margin:24px 0 18px}
+  #shopify-section-{{ section.id }} .tel-steps__media{margin:0 calc(-1 * var(--tel-gutter)) 30px}
+  #shopify-section-{{ section.id }} .tel-steps__media img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;object-position:{{ focal }}}
+  #shopify-section-{{ section.id }} .tel-steps__cap{font-family:var(--tel-mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--tel-mute);margin:12px 0 0;text-align:center}
+  @media(min-width:900px){
+    #shopify-section-{{ section.id }} .tel-steps{display:grid;grid-template-columns:1fr 1.25fr;gap:72px;align-items:start}
+    #shopify-section-{{ section.id }} .tel-step__name{font-size:38px}
+    #shopify-section-{{ section.id }} .tel-step{padding:32px 0}
+    #shopify-section-{{ section.id }} .tel-steps__media{margin:34px 0 0}
+    #shopify-section-{{ section.id }} .tel-steps__cap{text-align:left}
+  }
+</style>
+<section class="tel-band{% if section.settings.alt %} tel-band--alt{% endif %}">
+  <div class="tel-wrap tel-steps">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<p class="tel-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="tel-h tel-h2">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.intro != blank -%}<div class="tel-p tel-steps__intro">{{ section.settings.intro }}</div>{%- endif -%}
+      {%- if img != blank -%}
+        <div class="tel-steps__media">
+          {{- img | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 900px) 40vw, 100vw', widths: '600,900,1200,1400', alt: img_alt, width: img.width, height: img.height -}}
+          {%- if section.settings.caption != blank -%}<p class="tel-steps__cap">{{ section.settings.caption | escape }}</p>{%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+    <div>
+      <div class="tel-steps__list">
+      {%- for block in section.blocks -%}
+        <div class="tel-step" {{ block.shopify_attributes }}>
+          {%- if block.settings.label != blank -%}<p class="tel-step__n">{{ block.settings.label | escape }}</p>{%- endif -%}
+          {%- if block.settings.name != blank -%}<h3 class="tel-step__name">{{ block.settings.name | escape }}</h3>{%- endif -%}
+          {%- if block.settings.descriptor != blank -%}<p class="tel-step__d">{{ block.settings.descriptor | escape }}</p>{%- endif -%}
+          {%- if block.settings.body != blank -%}<div class="tel-p" style="margin:0">{{ block.settings.body }}</div>{%- endif -%}
+        </div>
+      {%- endfor -%}
+      </div>
+      {%- if section.settings.outro != blank -%}<div class="tel-p tel-steps__outro">{{ section.settings.outro }}</div>{%- endif -%}
+      {%- if section.settings.button_text != blank -%}<a class="tel-btn" href="{{ section.settings.button_url | default: '#' }}">{{ section.settings.button_text | escape }}</a>{%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "TEL · Two steps",
+  "tag": "div",
+  "class": "shopify-section--tel-steps",
+  "max_blocks": 4,
+  "disabled_on": { "groups": ["header", "footer", "custom.overlay"] },
+  "settings": [
+    { "type": "checkbox", "id": "alt", "label": "Slightly lifted background", "default": false },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why two" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Two stages. Two <em>formulas</em>." },
+    { "type": "richtext", "id": "intro", "label": "Intro", "default": "<p>Fresh work needs sealing. Settling work needs conditioning. The balm is too heavy for the second stage; the cream too light for the first.</p>" },
+    { "type": "image_picker", "id": "image", "label": "Image (optional)", "info": "Sits under the intro. The two open jars, top-down, make the argument." },
+    { "type": "select", "id": "focal", "label": "Image focal point", "options": [ { "value": "50% 30%", "label": "Upper third" }, { "value": "50% 50%", "label": "Centre" }, { "value": "50% 70%", "label": "Lower third" } ], "default": "50% 50%" },
+    { "type": "text", "id": "caption", "label": "Image caption (mono)" },
+    { "type": "richtext", "id": "outro", "label": "Outro", "default": "<p>Heavy, detailed work uses both, layered. Fifteen years in the chair says one product can't do it. That is why they're sealed together.</p>" },
+    { "type": "text", "id": "button_text", "label": "Button", "default": "The full protocol" },
+    { "type": "url", "id": "button_url", "label": "Button link" }
+  ],
+  "blocks": [ { "type": "step", "name": "Step", "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "Step one · Days 1–14" },
+    { "type": "text", "id": "name", "label": "Name", "default": "Restore Balm" },
+    { "type": "text", "id": "descriptor", "label": "Descriptor", "default": "Richer · Sealing · Protective" },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>A concentrated balm that lays down a protective layer and holds moisture in while the work closes over.</p>" }
+  ] } ],
+  "presets": [ { "name": "TEL · Two steps", "category": "TEL", "blocks": [ { "type": "step" }, { "type": "step", "settings": { "label": "Step two · The months after", "name": "Recovery Cream", "descriptor": "Calm · Condition · Refresh", "body": "<p>A lighter daily cream that sinks in fast to hydrate and soothe while the work settles. The stage most people skip. Don't.</p>" } } ] } ]
+}
+{% endschema %}
