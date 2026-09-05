@@ -94,7 +94,7 @@
             "icon": "none",
             "custom_icon": "",
             "title": "Built to a standard",
-            "content": "<p><strong>Formulated in Australia. Proven in a working studio. Manufactured to our specification by our production partner.</strong></p><p>Every batch is tested, not claimed: heavy metals not detected · no pathogenic microorganisms · pH 6.7 measured on batch · three-year shelf life · ISO 22716 and FDA GMP held at the manufacturing site.</p><p><em>One product. One price. No sales, no starter sizes, no half measures.</em></p>",
+            "content": "<p><strong>Formulated in Australia. Proven in a working studio. Manufactured to our specification by our production partner.</strong></p><p>Every batch is tested, not claimed: heavy metals not detected · no pathogenic microorganisms · pH 6.7 measured on batch · three-year shelf life · ISO 22716 and FDA GMP held at the manufacturing site.</p><p>Both ingredient lists are published in full, on the jar and on this page. Nothing hidden behind “and other ingredients”.</p><p><em>One product. One price. No sales, no starter sizes, no half measures.</em></p>",
             "liquid": "",
             "page": ""
           }
@@ -136,7 +136,7 @@
             "icon": "none",
             "custom_icon": "",
             "title": "What's in it",
-            "content": "<p><strong>Restore Balm.</strong> A rich, sealing base of petrolatum, beeswax and grape seed oil: the chemistry artists have trusted on fresh work for decades, built properly.</p><p><strong>Recovery Cream.</strong> A lighter daily cream layered with sodium hyaluronate, glycerin, panthenol, shea butter and vitamin E, with a botanical set chosen to soothe and condition settled skin.</p><p>Formulated with evidence-backed ingredients to moisturise, calm and comfort skin and protect its natural moisture barrier. Nothing in the formula is there to pad a label.</p><p><em>Full ingredient lists are printed on each jar.</em></p>",
+            "content": "<p>Both lists in full, exactly as they read on the jars.</p><p><strong>Restore Balm</strong><br>Petrolatum, Vitis Vinifera (Grape) Seed Oil, Paraffinum Liquidum (Mineral Oil), Cera Alba (Beeswax), Microcrystalline Wax, Chamomilla Recutita (Matricaria) Flower Oil, Lavandula Angustifolia (Lavender) Oil, Curcuma Longa Root Oil, Vanilla Planifolia Fruit Extract.</p><p><strong>Recovery Cream</strong><br>Aqua (Water), Glycerin, Propylene Glycol, Paraffinum Liquidum (Mineral Oil), Caprylic/Capric Triglyceride, Butyrospermum Parkii (Shea) Butter, Cera Alba (Beeswax), Cetearyl Alcohol, Dimethicone, Glyceryl Stearate, PEG-100 Stearate, PEG-20 Stearate, Panthenol, Phenoxyethanol, Methylparaben, Tocopherol, Sodium Hyaluronate, Xanthan Gum, Portulaca Oleracea Extract, Aloe Barbadensis Leaf Extract, Chrysanthellum Indicum Extract, Houttuynia Cordata Extract, Paeonia Suffruticosa Root Bark Extract, Opuntia Streptacantha Stem Extract, Scutellaria Baicalensis Root Extract, Butylene Glycol, 1,2-Hexanediol, Hydroxyacetophenone, Vanilla Planifolia Fruit Extract, CI 19140.</p><p><strong>The balm is built on petrolatum, and that is deliberate.</strong> Nothing holds moisture in better while fresh work closes over. What ruins tattoos is a thick layer, a bare tub and never stepping down — not the petrolatum itself. The full reasoning is in <a href=\"/pages/healing-guide\">The Healing Guide</a>.</p><p>The cream carries the conditioning half: glycerin and sodium hyaluronate to hold water, shea butter and panthenol to soften and comfort, tocopherol, and a botanical set led by purslane, aloe, houttuynia and baicalensis.</p>",
             "liquid": "",
             "page": ""
           }
@@ -332,7 +332,7 @@
           "type": "question",
           "settings": {
             "question": "I have sensitive skin. Anything I should know?",
-            "answer": "<p>Patch test first: a small amount on the inside of your forearm, wait 24 hours. If you have a skin condition or a known allergy, check with your doctor or pharmacist before use, and always follow your artist's instructions on fresh work.</p>"
+            "answer": "<p>Patch test first: a small amount on the inside of your forearm, wait 24 hours.</p><p>Worth knowing before you start. <strong>Restore Balm contains lavender, chamomile and turmeric oils.</strong> <strong>Recovery Cream is preserved with phenoxyethanol and methylparaben.</strong> If you have a known fragrance or essential-oil allergy, that is the part to check.</p><p>If you have a skin condition or a known allergy, check with your doctor or pharmacist before use — and always follow your artist's instructions on fresh work.</p>"
           }
         },
         "q-ship": {

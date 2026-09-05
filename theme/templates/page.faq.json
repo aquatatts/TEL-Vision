@@ -43,14 +43,14 @@
           "type": "question",
           "settings": {
             "question": "What's actually in it?",
-            "answer": "<p>Ingredient-led hydration: sodium hyaluronate, glycerin, panthenol, shea butter and vitamin E, chosen to moisturise, condition and protect the skin's natural moisture barrier so your ink looks its sharpest.</p><p>Every batch is tested: no detectable lead, arsenic, mercury or cadmium, with a three-year shelf life. Nothing in the formula is there to pad a label.</p>"
+            "answer": "<p>Both lists in full, exactly as they read on the jars.</p><p><strong>Restore Balm</strong><br>Petrolatum, Vitis Vinifera (Grape) Seed Oil, Paraffinum Liquidum (Mineral Oil), Cera Alba (Beeswax), Microcrystalline Wax, Chamomilla Recutita (Matricaria) Flower Oil, Lavandula Angustifolia (Lavender) Oil, Curcuma Longa Root Oil, Vanilla Planifolia Fruit Extract.</p><p><strong>Recovery Cream</strong><br>Aqua (Water), Glycerin, Propylene Glycol, Paraffinum Liquidum (Mineral Oil), Caprylic/Capric Triglyceride, Butyrospermum Parkii (Shea) Butter, Cera Alba (Beeswax), Cetearyl Alcohol, Dimethicone, Glyceryl Stearate, PEG-100 Stearate, PEG-20 Stearate, Panthenol, Phenoxyethanol, Methylparaben, Tocopherol, Sodium Hyaluronate, Xanthan Gum, Portulaca Oleracea Extract, Aloe Barbadensis Leaf Extract, Chrysanthellum Indicum Extract, Houttuynia Cordata Extract, Paeonia Suffruticosa Root Bark Extract, Opuntia Streptacantha Stem Extract, Scutellaria Baicalensis Root Extract, Butylene Glycol, 1,2-Hexanediol, Hydroxyacetophenone, Vanilla Planifolia Fruit Extract, CI 19140.</p><p>The balm is built on petrolatum, deliberately — nothing holds moisture in better while fresh work closes over. There is a section on why, and on what people get wrong with it, in <a href=\"/pages/healing-guide\">The Healing Guide</a>.</p><p>The cream carries the conditioning half: glycerin and sodium hyaluronate to hold water, shea butter and panthenol to soften and comfort, tocopherol, and a botanical set led by purslane, aloe, houttuynia and baicalensis.</p><p>Every batch is tested — no detectable lead, arsenic, mercury or cadmium — with a three-year shelf life.</p>"
           }
         },
         "q-sensitive": {
           "type": "question",
           "settings": {
             "question": "I have sensitive skin. Anything I should know?",
-            "answer": "<p>Patch test first: a small amount on the inside of your forearm, wait 24 hours. If you have a skin condition or a known allergy, check with your doctor or pharmacist before use, and always follow your artist's instructions on fresh work.</p>"
+            "answer": "<p>Patch test first: a small amount on the inside of your forearm, wait 24 hours.</p><p>Worth knowing before you start. <strong>Restore Balm contains lavender, chamomile and turmeric oils.</strong> <strong>Recovery Cream is preserved with phenoxyethanol and methylparaben.</strong> If you have a known fragrance or essential-oil allergy, that is the part to check.</p><p>If you have a skin condition or a known allergy, check with your doctor or pharmacist before use — and always follow your artist's instructions on fresh work.</p>"
           }
         },
         "q-last": {
