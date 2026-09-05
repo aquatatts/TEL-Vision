@@ -25,9 +25,22 @@
       if page_image == blank
         assign tel_share = 'https://cdn.shopify.com/s/files/1/0669/8870/3807/files/tel-ritual-duo-01-sealed-set-hero-r1.jpg?width=1200'
       endif
+      comment
+        Keep empty "coming soon" collections and Shopify's default frontpage collection
+        out of the index. Self-correcting: the noindex lifts the moment a chapter has stock.
+      endcomment
+      assign tel_noindex = false
+      if request.page_type == 'collection'
+        if collection.all_products_count == 0 or collection.handle == 'frontpage'
+          assign tel_noindex = true
+        endif
+      endif
     -%}
     {%- if tel_desc != blank -%}
       <meta name="description" content="{{ tel_desc | escape }}">
+    {%- endif -%}
+    {%- if tel_noindex -%}
+      <meta name="robots" content="noindex,follow">
     {%- endif -%}
 
     <link rel="canonical" href="{{ canonical_url }}">
