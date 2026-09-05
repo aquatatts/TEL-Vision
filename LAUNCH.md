@@ -18,7 +18,7 @@ The `theme/` folder in this repo is a byte-for-byte snapshot of every file chang
 
 1. Online Store → Preferences → Password protection → untick, Save. That is the launch.
 2. Check the homepage loads without the gate on a phone in a private window.
-3. Inventory: the chapter meter and the product page read live stock. Currently 450 of 500 are on hand. If the 50 already out are studio or gifted stock and you want the site to say 500, set the variant quantity to 500 before the password comes off.
+3. Inventory: decided. The site reads live stock, so launch morning shows **450 of 500** and counts down with every order. Leave the variant quantity at 450. Sets sold over the counter at Squires Ink do not touch Shopify stock, so knock those off the variant quantity by hand (Products → The Ritual Duo → Quantity) to keep the count honest. When it reaches zero the homepage flips to "Chapter One is closed" and the product page button changes on its own.
 
 ## Walk-through checklist (what to look at, in order)
 
@@ -30,7 +30,7 @@ Homepage
 - Proof strip scrolls sideways on a phone, five columns on desktop.
 - From the chair: Valerio portrait, quote, disclosure line, button to Trusted By.
 - Founder: settled-ink chest photo, landscape, quote and ornament rule, button to the founder page.
-- Chapter: big 500, "Chapter One is open…", meter.
+- Chapter: big 500, "Chapter One is open…", meter reading 450 of 500.
 - First access: Chapter One card beside the form. Submit a test email; the success message should appear in place.
 
 Product page (most ad traffic lands here)
