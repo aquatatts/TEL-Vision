@@ -46,6 +46,12 @@ Other pages
 - Header: no search icon; menu has Healing Guide as the fifth item. Footer has studio address and hours, Terms of Service link, truck and lock icons.
 - Newsletter popup is off for launch week.
 
+## Open before Thursday
+
+1. **Re-paste the meta description** (see below). The saved one still says "the years after".
+2. **New back-tattoo studio image.** Upload it to Content → Files at 4000 px on the long edge (Shopify rejects anything over 25 MP, and the camera originals are 42 MP). Tell me the filename and I'll place it — the natural home is the "From the chair" band or the Trusted By page, and it can go into the product gallery if it reads as product context rather than portfolio.
+3. **Release video, Sunday.** Not on the site yet. Decide whether it lands as the hero, a band below the two-stage section, or Instagram-only for launch week.
+
 ## Things only you can do in admin
 
 - **Homepage meta description and social sharing image (optional now).** Plain English: the *meta description* is the sentence Google shows under "TEL Collection" in search results; the *social sharing image* is the picture that appears when someone pastes telcollection.com.au into Instagram, WhatsApp, Messenger or Facebook. Both were empty. v6 now ships defaults for the homepage (the sentence below, and the sealed-set hero as the picture), so launch is covered. If you want to set them officially so every page and every app reads the same thing: Online Store → Preferences → "Title and meta description" (paste the sentence) and "Social sharing image" (upload the sealed-set frame, DSC02912 or the 4000 px copy from Content → Files). Whatever you set there takes over from the theme defaults automatically.
