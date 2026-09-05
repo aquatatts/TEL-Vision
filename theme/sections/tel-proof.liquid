@@ -2,6 +2,13 @@
 <style>
   #shopify-section-{{ section.id }} .tel-proof{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:var(--tel-gutter);scrollbar-width:none;background:var(--tel-bg);border-top:1px solid var(--tel-rule);border-bottom:1px solid var(--tel-rule)}
   #shopify-section-{{ section.id }} .tel-proof::-webkit-scrollbar{display:none}
+  #shopify-section-{{ section.id }} .tel-proof__head{max-width:1180px;margin:0 auto;padding:56px var(--tel-gutter) 0;text-align:center}
+  #shopify-section-{{ section.id }} .tel-proof__eyebrow{font-family:var(--tel-mono);font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--tel-gold);margin:0 0 16px}
+  #shopify-section-{{ section.id }} .tel-proof__h{font-family:var(--tel-serif);font-weight:400;font-size:clamp(28px,4vw,42px);line-height:1.1;letter-spacing:0;color:var(--tel-ink);margin:0;text-wrap:balance}
+  #shopify-section-{{ section.id }} .tel-proof__h em{font-style:italic;color:var(--tel-gold)}
+  #shopify-section-{{ section.id }} .tel-proof__sub{font-family:var(--tel-body);font-size:17px;line-height:1.6;color:var(--tel-mute);max-width:56ch;margin:18px auto 0}
+  #shopify-section-{{ section.id }} .tel-proof--headed{border-top:0}
+  @media(max-width:899px){#shopify-section-{{ section.id }} .tel-proof__head{padding-top:44px;text-align:left}#shopify-section-{{ section.id }} .tel-proof__sub{margin-left:0}}
   #shopify-section-{{ section.id }} .tel-proof__inner{display:contents;list-style:none;margin:0;padding:0}
   #shopify-section-{{ section.id }} .tel-proof__item{list-style:none}
   #shopify-section-{{ section.id }} .tel-proof__item{flex:0 0 46%;scroll-snap-align:start;padding:28px 18px 28px 0;border-right:1px solid var(--tel-rule);margin-right:18px}
@@ -19,7 +26,20 @@
     #shopify-section-{{ section.id }} .tel-proof__t{font-size:24px}
   }
 </style>
-<section class="tel-proof" aria-label="{{ section.settings.aria | default: 'Batch testing' | escape }}">
+{%- liquid
+  assign has_head = false
+  if section.settings.heading != blank or section.settings.eyebrow != blank or section.settings.sub != blank
+    assign has_head = true
+  endif
+-%}
+{%- if has_head -%}
+<div class="tel-proof__head">
+  {%- if section.settings.eyebrow != blank -%}<p class="tel-proof__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+  {%- if section.settings.heading != blank -%}<h2 class="tel-proof__h">{{ section.settings.heading }}</h2>{%- endif -%}
+  {%- if section.settings.sub != blank -%}<p class="tel-proof__sub">{{ section.settings.sub | escape }}</p>{%- endif -%}
+</div>
+{%- endif -%}
+<section class="tel-proof{% if has_head %} tel-proof--headed{% endif %}" aria-label="{{ section.settings.aria | default: 'Batch testing' | escape }}">
   <ul class="tel-proof__inner" role="list">
   {%- for block in section.blocks -%}
     <li class="tel-proof__item" {{ block.shopify_attributes }}>
@@ -44,7 +64,12 @@
   "class": "shopify-section--tel-proof",
   "max_blocks": 6,
   "disabled_on": { "groups": ["header", "footer", "custom.overlay"] },
-  "settings": [ { "type": "text", "id": "aria", "label": "Accessible label", "default": "Batch testing" } ],
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading", "info": "Wrap a word in <em></em> for the gold italic." },
+    { "type": "textarea", "id": "sub", "label": "Sub-line" },
+    { "type": "text", "id": "aria", "label": "Accessible label", "default": "Batch testing" }
+  ],
   "blocks": [ { "type": "item", "name": "Proof", "settings": [
     { "type": "select", "id": "icon", "label": "Icon", "options": [ { "value": "shield", "label": "Shield" }, { "value": "check", "label": "Check" }, { "value": "drop", "label": "Drop" }, { "value": "clock", "label": "Clock" }, { "value": "document", "label": "Document" }, { "value": "star", "label": "Star" } ], "default": "shield" },
     { "type": "text", "id": "title", "label": "Title", "default": "Heavy metals" },
@@ -55,7 +80,7 @@
     { "type": "item", "settings": { "icon": "check", "title": "Microbiology", "text": "No pathogenic micro-organisms." } },
     { "type": "item", "settings": { "icon": "drop", "title": "pH 6.7", "text": "Measured on batch." } },
     { "type": "item", "settings": { "icon": "clock", "title": "Three years", "text": "Shelf life." } },
-    { "type": "item", "settings": { "icon": "document", "title": "ISO 22716 · GMP", "text": "Held at the manufacturing site." } }
+    { "type": "item", "settings": { "icon": "document", "title": "ISO 22716 · FDA GMP", "text": "Held at the manufacturing site." } }
   ] } ]
 }
 {% endschema %}

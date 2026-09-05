@@ -51,6 +51,7 @@ Other pages
 - **Homepage meta description and social sharing image (optional now).** Plain English: the *meta description* is the sentence Google shows under "TEL Collection" in search results; the *social sharing image* is the picture that appears when someone pastes telcollection.com.au into Instagram, WhatsApp, Messenger or Facebook. Both were empty. v6 now ships defaults for the homepage (the sentence below, and the sealed-set hero as the picture), so launch is covered. If you want to set them officially so every page and every app reads the same thing: Online Store → Preferences → "Title and meta description" (paste the sentence) and "Social sharing image" (upload the sealed-set frame, DSC02912 or the 4000 px copy from Content → Files). Whatever you set there takes over from the theme defaults automatically.
   Sentence: "Sealed two-step tattoo aftercare from a Surfers Paradise studio. Restore Balm for fresh ink, Recovery Cream for the months after. Free shipping Australia-wide."
   **Re-paste this.** The sentence currently saved in Preferences says "the years after". That claim now belongs to the everyday moisturiser (Chapter Two), not to Recovery Cream — see "Product ladder" below. Online Store → Preferences → Meta description → replace → Save.
+- **Hide the five empty collections (2 minutes, do before Thursday).** Products → Collections. Open each of **Movement, Threads, Vision, Collective** and Shopify's default **Home page**, and in the right-hand *Publishing* panel untick **Online Store**. They have no products, nothing links to them, but Google will index them from the sitemap as thin "Coming soon" pages on a brand-new domain. Re-tick the moment a chapter has stock. (The API refuses to unpublish, so this one has to be done by hand.)
 - **Checkout branding.** Settings → Checkout → Customize: square TEL mark as logo, gold `#C9A24B` accent, dark background if the plan allows.
 - ~~**Full ingredient lists (INCI).**~~ Done. Both lists are now published verbatim from the jars on the product page ("What's in it"), the FAQs page and the Shopify product description. The Healing Guide carries a "Why the balm is petrolatum" section explaining the first ingredient.
 - **"FDA GMP" claim.** The proof strip says "ISO 22716 · GMP"; the accordion says "ISO 22716 and FDA GMP". Confirm the manufacturer's certificate wording before launch; if it is only ISO 22716, drop "FDA" from the accordion.
@@ -58,6 +59,18 @@ Other pages
 - **Two leftover files** in v6 that the API is not allowed to delete: `sections/tel-spec-strip-probe.liquid` (now emptied, no preset) and `templates/product.pre-order.json`. Both are harmless; delete them in Edit code if you want a clean list.
 - **Klaviyo.** Both signup forms tag the Shopify customer `newsletter`. Check Klaviyo's Shopify integration is syncing subscribers and that a welcome email exists; the on-site success copy no longer promises one.
 - **Judge.me.** The app embed is still installed but the badge and widget are removed from the product page and Trusted By. Re-add them once the first five or so reviews are in.
+
+## Brand architecture — keeping the fragrance pivot cheap
+
+TEL is a lifestyle brand that started in aftercare, not a tattoo-aftercare brand. Chapter Two may be a signature scent. The site is already built so that pivot is a content edit, not a rebuild — keep it that way:
+
+- **The category word never goes in brand-level furniture.** Logo lockup, homepage H1, tagline, email footer, Instagram bio, packaging outer. Right now the homepage H1 is "Earned. Not given." — category-free, and it works for a fragrance unchanged. The word "tattoo" lives only in product-level copy: the product page, the Healing Guide, the Ritual collection. Those are chapters; they are *meant* to be specific.
+- **The organising idea sits one level above tattoos, and it is already written.** "Built on discipline. Driven by purpose. Proven under the gun." · "TEL isn't a brand you buy once. It's a standard you choose." · "People who hold themselves to a higher standard shouldn't have to drop it at the studio door." That last line is the pivot, already on the Our Aim page.
+- **The studio is origin, not category.** Hermès was a saddlery; nobody thinks it is about horses. The studio stays forever as *where the standard was proven*, which is exactly how Our Aim frames it. Never let it become *what the brand is about*.
+- **The bridge to fragrance is permanence.** A tattoo is the most permanent thing you put on your body; a signature scent is the most permanent thing about how you are remembered. Both are marks you choose to wear. "Earned. Not given." carries across unchanged.
+- **Every homepage string is a theme setting.** The `tel-*` sections (hero, spec strip, product, steps, proof, band, chapter, newsletter) are generic. A fragrance homepage is a copy-and-image swap in the theme editor.
+- **The list is the asset that crosses categories.** "One email when Chapter Two opens" is the only thing that carries a Ritual buyer into a fragrance launch.
+- **One thing that will look odd later and should not be changed now:** the product handle `/products/tattoo-aftercare-kit`. It is earning search traffic; leave it. New chapters get category-free handles.
 
 ## Product ladder — read this before writing any new copy
 

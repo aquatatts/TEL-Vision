@@ -106,7 +106,7 @@
             "icon": "none",
             "custom_icon": "",
             "title": "From the founder",
-            "content": "<p><em>“I’ve looked after work with everything the market sells, and most of it made promises my skin never kept. So I built the thing I could never buy.”</em></p><p>— Benny Aquilina · seventeen years under the needle · owner, Squires Ink, Surfers Paradise</p><p><a href=\"/pages/founder\"><strong>Read the full story →</strong></a></p>",
+            "content": "<p><em>“I’ve looked after work with everything the market sells, and most of it made promises my skin never kept. So I built the thing I could never buy.”</em></p><p>— Benny Aquilina · seventeen years under the needle · owner, Squires Ink, Surfers Paradise</p><p>Aftercare is usually made at a distance from the chair. This was made at the counter of a working studio, by the person who owns it — and it goes on his own skin before it goes on anyone else's.</p><p><a href=\"/pages/founder\"><strong>Read the full story →</strong></a></p>",
             "liquid": "",
             "page": ""
           }
@@ -228,7 +228,7 @@
           "type": "item",
           "settings": {
             "icon": "document",
-            "title": "ISO 22716 · GMP",
+            "title": "ISO 22716 · FDA GMP",
             "text": "Held at the manufacturing site."
           }
         }
@@ -241,6 +241,9 @@
         "p5"
       ],
       "settings": {
+        "eyebrow": "The chemistry",
+        "heading": "We live and breathe tattoos — we know <em>chemistry</em>.",
+        "sub": "Both ingredient lists published in full, in order, exactly as they read on the jar. Every batch tested, not claimed. Nothing in there we can't explain.",
         "aria": "Batch testing"
       }
     },

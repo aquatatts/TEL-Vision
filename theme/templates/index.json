@@ -158,7 +158,7 @@
           "type": "item",
           "settings": {
             "icon": "document",
-            "title": "ISO 22716 · GMP",
+            "title": "ISO 22716 · FDA GMP",
             "text": "Held at the manufacturing site."
           }
         }
@@ -171,6 +171,9 @@
         "p5"
       ],
       "settings": {
+        "eyebrow": "The chemistry",
+        "heading": "We live and breathe tattoos — we know <em>chemistry</em>.",
+        "sub": "Both ingredient lists published in full, in order, exactly as they read on the jar. Every batch tested, not claimed. Nothing in there we can't explain.",
         "aria": "Batch testing"
       }
     },
@@ -208,7 +211,7 @@
         "quote": "Nothing goes on a client's skin that has not been proven on my own first.",
         "attr_name": "Benny Aquilina",
         "attr_role": "Seventeen years under the needle · Owner, Squires Ink",
-        "body": "<p>Every piece that leaves this counter comes back through it. We see what holds, what fades, and what it was looked after with. Hundreds of times a year.</p><p>So we built the thing that couldn't be bought.</p>",
+        "body": "<p>Every piece that leaves this counter comes back through it. We see what holds, what fades, and what it was looked after with. Hundreds of times a year.</p><p>Aftercare is usually made at a distance from the chair. This was made at the counter of a working studio, by the person who owns it — and it goes on his own skin before it goes on anyone else's.</p><p>So we built the thing that couldn't be bought.</p>",
         "ornament": true,
         "mono_line": "Squires Ink · Orchid Avenue · Surfers Paradise",
         "button_text": "The founder",
