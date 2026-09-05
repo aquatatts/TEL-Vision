@@ -49,14 +49,31 @@ Other pages
 ## Things only you can do in admin
 
 - **Homepage meta description and social sharing image (optional now).** Plain English: the *meta description* is the sentence Google shows under "TEL Collection" in search results; the *social sharing image* is the picture that appears when someone pastes telcollection.com.au into Instagram, WhatsApp, Messenger or Facebook. Both were empty. v6 now ships defaults for the homepage (the sentence below, and the sealed-set hero as the picture), so launch is covered. If you want to set them officially so every page and every app reads the same thing: Online Store → Preferences → "Title and meta description" (paste the sentence) and "Social sharing image" (upload the sealed-set frame, DSC02912 or the 4000 px copy from Content → Files). Whatever you set there takes over from the theme defaults automatically.
-  Sentence: "Sealed two-step tattoo aftercare from a Surfers Paradise studio. Restore Balm for fresh ink, Recovery Cream for the years after. Free shipping Australia-wide." 
+  Sentence: "Sealed two-step tattoo aftercare from a Surfers Paradise studio. Restore Balm for fresh ink, Recovery Cream for the months after. Free shipping Australia-wide."
+  **Re-paste this.** The sentence currently saved in Preferences says "the years after". That claim now belongs to the everyday moisturiser (Chapter Two), not to Recovery Cream — see "Product ladder" below. Online Store → Preferences → Meta description → replace → Save.
 - **Checkout branding.** Settings → Checkout → Customize: square TEL mark as logo, gold `#C9A24B` accent, dark background if the plan allows.
-- **Full ingredient lists (INCI).** The new "What's in it" accordion names the actives and says the full list is on each jar. Send the two INCI lists and it becomes a two-line edit.
+- ~~**Full ingredient lists (INCI).**~~ Done. Both lists are now published verbatim from the jars on the product page ("What's in it"), the FAQs page and the Shopify product description. The Healing Guide carries a "Why the balm is petrolatum" section explaining the first ingredient.
 - **"FDA GMP" claim.** The proof strip says "ISO 22716 · GMP"; the accordion says "ISO 22716 and FDA GMP". Confirm the manufacturer's certificate wording before launch; if it is only ISO 22716, drop "FDA" from the accordion.
 - **Password page on the live v3 theme.** It still shows "5.0 · 10 verified reviews", which cannot be backed up yet. In v6 that line reads "Built in a working studio · Surfers Paradise". If the gate stays up past Sunday, change the line in the v3 editor too (Theme editor → password page → Proof line).
 - **Two leftover files** in v6 that the API is not allowed to delete: `sections/tel-spec-strip-probe.liquid` (now emptied, no preset) and `templates/product.pre-order.json`. Both are harmless; delete them in Edit code if you want a clean list.
 - **Klaviyo.** Both signup forms tag the Shopify customer `newsletter`. Check Klaviyo's Shopify integration is syncing subscribers and that a welcome email exists; the on-site success copy no longer promises one.
 - **Judge.me.** The app embed is still installed but the badge and widget are removed from the product page and Trusted By. Re-add them once the first five or so reviews are in.
+
+## Product ladder — read this before writing any new copy
+
+Chapter Two is a premium everyday moisturiser for tattooed skin. To leave it room, the site no longer says Recovery Cream is the jar you use forever. The ladder is:
+
+| | Job | Horizon |
+|---|---|---|
+| Restore Balm | Seals the fresh wound | Days 1–14 |
+| Recovery Cream | Carries the piece through settling | The months after, and as long as you want it looking sharp |
+| **Chapter Two — the moisturiser** | Maintenance, daily, on healed work | **For as long as you own the piece** |
+
+Recovery vs maintenance is a real distinction, not a marketing split — the name *Recovery* Cream already argues it. Do not let "for as long as you own the tattoo", "for life" or "forever" reattach to Recovery Cream anywhere; that phrase is reserved.
+
+The Healing Guide's ∞ panel now belongs to **the daily habit**, not to the jar, so it still answers the "lost in year three" argument without over-claiming.
+
+Our Aim → "Where it's heading" now names the moisturiser first in the pipeline. It is not mentioned anywhere in the buying flow (product page, homepage), so nobody holds off buying the Duo waiting for it.
 
 ## What changed, in one screen
 

@@ -81,8 +81,8 @@
             "show_below_gallery": true,
             "icon": "none",
             "custom_icon": "",
-            "title": "Heavy work — the layered protocol",
-            "content": "<p>Big work is not a big version of small work. A multi-session rework over old ink, a full back, a solid black fill — the skin takes far more than a single-sitting piece ever will. Heavy work needs its own protocol.</p><p><strong>Critical stage — both, layered.</strong> Recovery Cream first, Restore Balm straight over the top.</p><p><strong>Closing stage — Restore Balm alone.</strong> Thin layer, morning and night.</p><p><strong>Second stage — Recovery Cream alone.</strong> Weeks out, step down. Daily cream, until it’s settled.</p>",
+            "title": "Heavy work and full-day sessions — the layered protocol",
+            "content": "<p>Big work is not a big version of small work. A full day in the chair, a multi-session rework over old ink, a full back, a solid black fill — the ink is driven in harder and the skin is worked for hours at a stretch, and it takes far more punishment than a short sitting ever delivers. The aftercare card you get handed is written for a small tattoo. Heavy work needs its own protocol.</p><p><strong>Critical stage — both, layered.</strong> Recovery Cream first, Restore Balm straight over the top.</p><p><strong>Closing stage — Restore Balm alone.</strong> Thin layer, morning and night.</p><p><strong>Second stage — Recovery Cream alone.</strong> Weeks out, step down. Daily cream, until it’s settled.</p>",
             "liquid": "",
             "page": ""
           }
@@ -318,7 +318,7 @@
           "type": "question",
           "settings": {
             "question": "When do I switch from the balm to the cream?",
-            "answer": "<p>Restore Balm carries roughly the first two weeks while the skin closes. Once flaking is finished and there are no open patches, step down to Recovery Cream daily. That's the jar you'll use for as long as you own the tattoo.</p>"
+            "answer": "<p>Restore Balm carries roughly the first two weeks while the skin closes. Once flaking is finished and there are no open patches, step down to Recovery Cream daily. That's the jar that carries the piece through the months it takes to settle, and for as long as you want it looking sharp.</p>"
           }
         },
         "q-sealed": {
