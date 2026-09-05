@@ -23,7 +23,7 @@
       endif
       assign tel_share = blank
       if page_image == blank
-        assign tel_share = images['tel-ritual-duo-01-sealed-set-hero-clean-v2.jpg']
+        assign tel_share = 'https://cdn.shopify.com/s/files/1/0669/8870/3807/files/tel-ritual-duo-01-sealed-set-hero-r1.jpg?width=1200'
       endif
     -%}
     {%- if tel_desc != blank -%}
@@ -55,11 +55,13 @@
       <meta property="og:description" content="{{ tel_desc | escape }}">
     {%- endif -%}
     {%- if tel_share != blank -%}
-      <meta property="og:image" content="https:{{ tel_share | image_url: width: 1200 }}">
-      <meta property="og:image:secure_url" content="https:{{ tel_share | image_url: width: 1200 }}">
+      <meta property="og:image" content="{{ tel_share }}">
+      <meta property="og:image:secure_url" content="{{ tel_share }}">
       <meta property="og:image:width" content="1200">
       <meta property="og:image:height" content="800">
-      <meta name="twitter:image" content="https:{{ tel_share | image_url: width: 1200 }}">
+      <meta property="og:image:alt" content="The Ritual Duo sealed set - Restore Balm and Recovery Cream, TEL Collection">
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:image" content="{{ tel_share }}">
     {%- endif -%}
     {%- render 'microdata-schema' -%}
     {%- render 'css-variables' -%}
