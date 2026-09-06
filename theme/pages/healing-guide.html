@@ -1,0 +1,190 @@
+<style>
+.telhg *{box-sizing:border-box;margin:0;padding:0}
+.telhg{--hg-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;--hg-serif:var(--heading-font-family,Georgia,serif);--hg-body:var(--text-font-family,Georgia,serif);background:#080808;color:#C9C1B4;font-family:var(--hg-body);line-height:1.65;padding:56px 22px 72px;-webkit-text-size-adjust:100%}
+.telhg .wrap{max-width:760px;margin:0 auto}
+.telhg header{border-bottom:1px solid #221F1A;padding-bottom:26px;margin-bottom:30px}
+.telhg .brand{font-family:var(--hg-mono);color:#C9A24B;font-size:11px;letter-spacing:.34em;text-transform:uppercase;margin-bottom:16px}
+.telhg h1{font-family:var(--hg-serif);font-size:clamp(38px,6vw,64px);line-height:1.04;font-weight:400;color:#F5F0E8}
+.telhg .sub{color:#C9C1B4;font-size:17px;margin-top:14px;max-width:56ch}
+.telhg h2{font-family:var(--hg-mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#C9A24B;margin:44px 0 16px;border-bottom:1px solid #221F1A;padding-bottom:10px;font-weight:400}
+.telhg h3{font-family:var(--hg-serif);font-size:22px;font-weight:400;color:#F5F0E8;margin-bottom:8px;line-height:1.15}
+.telhg p{margin:0 0 13px;font-size:17px}
+.telhg b,.telhg strong{color:#F5F0E8;font-weight:500}
+.telhg .lede{font-family:var(--hg-serif);font-size:22px;line-height:1.4;color:#ece7dd}
+.telhg .rule{background:#0E0D0B;border-left:1px solid #C9A24B;padding:16px 18px;margin:0 0 20px}
+.telhg .rule p{margin:0;font-size:16.5px;color:#ece7dd}
+.telhg .stage{display:flex;gap:18px;margin-bottom:24px}
+.telhg .when{flex:0 0 104px}
+.telhg .when .day{font-family:var(--hg-serif);color:#C9A24B;font-weight:400;font-size:22px;line-height:1.1}
+.telhg .when .clock{font-family:var(--hg-mono);color:#9A9285;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;margin-top:5px}
+.telhg .body p:last-child{margin-bottom:0}
+.telhg .use{display:inline-block;font-family:var(--hg-mono);background:transparent;border:1px solid rgba(201,162,75,.45);color:#C9A24B;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;margin-bottom:8px;font-weight:400}
+.telhg .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.telhg .card{background:#0E0D0B;border:1px solid #221F1A;padding:18px 20px}
+.telhg .card h3{font-size:20px;margin-bottom:10px}
+.telhg .card p{font-size:15.5px;color:#C9C1B4;margin:0 0 9px}
+.telhg .card p:last-child{margin-bottom:0}
+.telhg .card.gold{border-color:rgba(201,162,75,.45);background:#15130c}
+.telhg .warn{background:#1a1210;border:1px solid #b5544a;padding:18px 20px;margin:20px 0}
+.telhg .warn h3{color:#e08b80;font-size:20px;margin-bottom:10px}
+.telhg ul{margin:0 0 13px 0;padding:0;list-style:none}
+.telhg li{position:relative;padding-left:20px;margin-bottom:9px;font-size:16px}
+.telhg li:before{content:"";position:absolute;left:0;top:10px;width:6px;height:6px;background:#C9A24B;border-radius:50%}
+.telhg li.no:before{content:"";background:none;border-left:2px solid #b5544a;border-top:2px solid #b5544a;transform:rotate(-45deg);width:8px;height:8px;border-radius:0;top:8px}
+.telhg .layer{background:#0E0D0B;border:1px solid #221F1A;padding:18px 20px;margin-bottom:12px}
+.telhg .layer .tag{font-family:var(--hg-serif);color:#C9A24B;font-weight:400;font-size:21px;display:block;margin-bottom:6px}
+.telhg .layer p{margin:0;font-size:16px;color:#C9C1B4}
+.telhg .quote{font-family:var(--hg-serif);border-left:1px solid #C9A24B;padding:4px 0 4px 18px;margin:0 0 16px;color:#F5F0E8;font-size:21px;line-height:1.35;font-style:italic}
+.telhg .quote .who{display:block;margin-top:12px;font-family:var(--hg-mono);color:#9A9285;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-style:normal}
+.telhg .big{font-family:var(--hg-serif);font-size:56px;font-weight:400;color:#C9A24B;line-height:1;display:block;margin-bottom:8px}
+.telhg .cta{background:#15130c;border:1px solid rgba(201,162,75,.45);padding:24px;margin:32px 0 0;text-align:center}
+.telhg .cta h3{font-size:26px;margin-bottom:8px}
+.telhg .cta p{font-size:15.5px;color:#C9C1B4;margin-bottom:0}
+.telhg .foot{margin-top:40px;padding-top:18px;border-top:1px solid #221F1A;color:#9A9285;font-size:13px;line-height:1.65}
+.telhg .foot b{color:#C9A24B!important}
+.telhg a{color:#C9A24B;text-decoration:none;border-bottom:1px solid rgba(201,162,75,.45)}
+@media (max-width:560px){.telhg{padding:40px 18px 56px}.telhg .grid{grid-template-columns:1fr}.telhg .stage{flex-direction:column;gap:6px}.telhg .when{flex:none}.telhg .when .clock{display:inline;margin-left:10px}}
+</style>
+<div class="telhg"><div class="wrap">
+<header><div class="brand">TEL Collection</div>
+<h1>The Healing Guide</h1>
+<div class="sub">How to heal a tattoo properly — and how to keep it looking like that in ten years. Written by a collector of seventeen years, not a marketing department.</div></header>
+<p class="lede">Your tattoo is an open wound with ink in it. For the next two weeks your job is simple: keep it clean, keep it moisturised, and stop touching it. Almost every ruined heal comes from doing too much, not too little.</p>
+<div class="rule"><p><b>Before anything else:</b> follow the aftercare instructions your artist gave you. They know what they put in your skin, how deep it went and how long they were on it. This guide fills in the gaps — it does not overrule the person who did the work.</p></div>
+<h2>The standard heal — day by day</h2>
+<div class="stage">
+<div class="when">
+<div class="day">Day 0</div>
+<div class="clock">First night</div>
+</div>
+<div class="body">
+<p>Leave the wrap on for as long as your artist told you — usually 2–4 hours for a standard wrap, or up to 3–5 days for a second-skin film. Do not peek.</p>
+<p>When it comes off: wash your hands first. Rinse the tattoo under lukewarm running water with a fragrance-free soap, using clean fingers only — no cloth, no sponge, no scrubbing. Pat it dry with paper towel, never a bath towel. Let it air for ten minutes.</p>
+<p><span class="use">Restore Balm</span><br>Then the thinnest possible layer of <b>Restore Balm</b> on clean dry skin. Thin enough that it looks matte, not shiny. A drowned tattoo cannot breathe and will scab badly.</p>
+</div>
+</div>
+<div class="stage">
+<div class="when">
+<div class="day">Days 1–3</div>
+<div class="clock">Weeping stage</div>
+</div>
+<div class="body">
+<p>Expect plasma, ink and a bit of blood on your sheets. This is normal and it is why you sleep on an old towel. The tattoo will feel hot, tight and sunburnt.</p>
+<p><span class="use">Restore Balm</span><br>Wash and re-apply <b>Restore Balm</b> morning and night, and any other time it feels tight. Three washes a day is fine if you work with your hands or you sweat. Always dry it properly before balm goes on.</p>
+</div>
+</div>
+<div class="stage">
+<div class="when">
+<div class="day">Days 4–7</div>
+<div class="clock">The itch</div>
+</div>
+<div class="body">
+<p>It starts to flake and it will itch like nothing else. Flaky skin coming off with a little colour in it is normal — that is dead skin, not your tattoo leaving.</p>
+<p><b>Do not scratch and do not pick.</b> Every scab you pull is a hole in the tattoo that has to be patched later. If the itch is unbearable, slap it lightly with a flat palm or apply balm — hydration kills the itch faster than anything.</p>
+</div>
+</div>
+<div class="stage">
+<div class="when">
+<div class="day">Weeks 2–4</div>
+<div class="clock">The false finish</div>
+</div>
+<div class="body">
+<p>The surface has closed and it looks healed. It is not. Underneath, the deeper layers are still settling, and the tattoo will look slightly cloudy or dull for a few weeks — that is a layer of new skin sitting over the ink. It clears.</p>
+<p><span class="use">Switch to Recovery Cream</span><br>Once the flaking has finished and there are no open patches, step down to <b>Recovery Cream</b> daily. Lighter, sinks in fast, no residue. This is the point where most people stop doing anything at all — and it is the exact point where the next ten years are decided.</p>
+</div>
+</div>
+<div class="stage">
+<div class="when">
+<div class="day">Month 2+</div>
+<div class="clock">The long game</div>
+</div>
+<div class="body">
+<p><span class="use">Recovery Cream</span><br>Daily cream, on every tattoo you own, through the months the work takes to settle and for as long as you want it looking sharp. Sixty seconds after a shower. Dry skin scatters light and makes black look grey; hydrated skin holds line work sharp and keeps colour saturated.</p>
+<p>And wear sunscreen on it. Sun is the single biggest cause of faded tattoos — more than age, more than aftercare, more than the artist. SPF 50 on exposed work, every time, once it is fully healed.</p>
+</div>
+</div>
+<h2>Heavy work and full-day sessions — the layered protocol</h2>
+<p>Big work is not a big version of small work. A full day in the chair, a multi-session rework over old ink, a full back, a solid black fill — the ink is driven in harder and the skin is worked for hours at a stretch, and it takes far more punishment than a short sitting ever delivers. The aftercare card you get handed is written for a small tattoo. Heavy work needs its own protocol.</p>
+<div class="layer">
+<span class="tag">Critical stage — both, layered</span><p>Recovery Cream first, Restore Balm straight over the top. The cream carries hydration into skin that has been worked hard; the balm seals it in and shields it. This is the only time you use both in one application, and heavy work is the only time it is needed.</p>
+</div>
+<div class="layer">
+<span class="tag">Closing stage — Restore Balm alone</span><p>Once the worst is behind it, the skin doesn't need flooding — it needs protecting while it knits. Thin layer, morning and night.</p>
+</div>
+<div class="layer">
+<span class="tag">Long stage — Recovery Cream alone</span><p>Weeks out, step down. Daily cream through the months heavy work takes to settle, and on for as long as you want it looking sharp.</p>
+</div>
+<h2>Normal — versus call your artist</h2>
+<div class="grid">
+<div class="card">
+<h3>Normal. Leave it alone.</h3>
+<ul>
+<li>Redness and warmth around the lines for the first few days</li>
+<li>Plasma weeping, and ink on your sheets or clothes</li>
+<li>Flaking, peeling and coloured skin coming away</li>
+<li>Vicious itching around days 4–7</li>
+<li>A cloudy, dull, "milky" look for two to four weeks</li>
+<li>Small patchy spots that fill back in as it settles</li>
+</ul>
+</div>
+<div class="card">
+<h3>Ring the studio. Today.</h3>
+<ul>
+<li>Redness that keeps <b>spreading outwards</b> after day three</li>
+<li>Yellow or green discharge, or a smell</li>
+<li>Pain that is getting worse instead of better</li>
+<li>Fever, chills, or swollen glands</li>
+<li>A raised, hot, angry rash — possible reaction</li>
+<li>Red streaks running away from the tattoo — go to a doctor, not the studio</li>
+</ul>
+</div>
+</div>
+<div class="warn">
+<h3>The list of ways people wreck a good tattoo</h3>
+<ul>
+<li class="no">Picking or scratching scabs — every one is a gap you will pay to have fixed</li>
+<li class="no">Soaking it: no baths, pools, spas or ocean for at least two weeks</li>
+<li class="no">Sun on a fresh tattoo, and no sunscreen on an unhealed one</li>
+<li class="no">Slathering it — a thick greasy layer traps bacteria and makes scabbing worse</li>
+<li class="no">Digging into a communal tub that has been open and double-dipped all week, or reaching for nappy cream and whatever else is in the bathroom cupboard</li>
+<li class="no">Tight clothing, gym straps or anything that rubs over it</li>
+<li class="no">Heavy training and heavy sweating in the first few days</li>
+<li class="no">Letting a pet sleep on it, or re-wrapping it in clingfilm overnight</li>
+</ul>
+</div>
+<h2>Why the balm is petrolatum</h2>
+<p>Ask around a studio and someone will tell you never to put petroleum jelly on a tattoo. That advice is half right, and it is worth understanding properly, because <b>Restore Balm is built on petrolatum and that is a deliberate decision.</b></p>
+<p>Petrolatum is the most effective occlusive there is. It sits on the surface and holds the skin's own moisture in while the work closes over — which is exactly the job in the first fortnight. Nothing on a chemist shelf does that part better.</p>
+<p>It is not an outsider ingredient in this world, either. Petrolatum has been used on skin during tattooing for decades, precisely because it holds moisture at the surface without interfering with the work.</p>
+<p>So the suspicion was never really about the ingredient. It was about four things:</p>
+<div class="layer"><span class="tag">Too thick</span><p>A heavy layer stops the surface breathing, softens the scab and drags colour with it when it lifts. Thin enough to look matte, never shiny.</p></div>
+<div class="layer"><span class="tag">A bare tub</span><p>Straight petroleum jelly is an occlusive and nothing else. Nothing conditioning, nothing for comfort, nothing for the skin underneath.</p></div>
+<div class="layer"><span class="tag">Hygiene</span><p>A tub that has sat open on a shelf and been double-dipped all week is a contamination risk on skin that has not closed yet.</p></div>
+<div class="layer"><span class="tag">Never stepping down</span><p>People stay on a heavy occlusive for months. Two weeks, then move to the cream. That is the whole reason this is a two-step set.</p></div>
+<p><b>Restore Balm is petrolatum built properly:</b> grape seed oil, beeswax and microcrystalline wax for structure, with chamomile, lavender and turmeric oils. Sealed, not scooped out of an open tub. Thin layer, clean hands, two weeks, then step down.</p>
+<p>Both ingredient lists are published in full on the <a href="/pages/faqs">FAQs page</a> and on the product page. Nothing hidden.</p>
+<p><b>We live and breathe tattoos — we know chemistry.</b> Well enough to put the least fashionable ingredient in the range first on the label, and then explain exactly why it is there.</p>
+<h2>The part nobody tells you</h2>
+<p>Ask most people about aftercare and they will tell you about the first two weeks. That is the easy part — it is painful and obvious, so people do it.</p>
+<p><b>Tattoos are not lost in month one. They are lost in year three.</b> The line work softens, the black goes flat and grey, the colour drops half a stop, and nobody can point at the day it happened. That is sun, dry skin and neglect doing their work slowly. It is also almost entirely preventable, and it costs sixty seconds a day.</p>
+<div class="grid">
+<div class="card gold">
+<span class="big">14</span><h3>days of Restore Balm</h3>
+<p>Gets the wound closed cleanly, with no scabbing damage and no patchy heal. This is the part everybody already knows to do.</p>
+</div>
+<div class="card gold">
+<span class="big">∞</span><h3>the daily sixty seconds</h3>
+<p>Recovery Cream through the months it takes to settle, then daily for as long as you want the piece looking sharp. Keeps it black and saturated. This is the part almost nobody does — and it is the difference between a ten-year-old piece that still reads and one that has gone soft.</p>
+</div>
+</div>
+<p style="margin-top:18px">That is why <b>The Ritual Duo</b> is sealed and never sold apart. Selling you the balm on its own would be selling you half a job.</p>
+<h2>From the founder</h2>
+<div class="quote">“I've been getting tattooed for seventeen years — head to toe, with multiple clean reworks over old ink. I had my entire back removed by laser and fully reworked over three days straight in the chair with two artists, and a chest rebuilt over five full-day sessions on top of that. Sit through work like that and you learn something most people never do: how hard the ink has to be driven into the skin to bury what's already there. That's not a tattoo, that's a beating — and it makes what you do afterwards twice as important. I've healed work with everything the market sells, and most of it made promises my skin never kept. So I built the thing I could never buy.”<span class="who">— Benny Aquilina · seventeen years under the gun · owner, Squires Ink Tattoo Studio, Surfers Paradise</span>
+</div>
+<div class="cta">
+<h3>The Ritual Duo</h3>
+<p>Restore Balm + Recovery Cream · 60 ml each · sealed set · $59.95<br>Ask at the counter at Squires Ink, or find it at telcollection.com.au</p>
+</div>
+<div class="foot">
+<b style="color:#C9A24B">Built on discipline. Driven by purpose. Proven under the gun.</b><br>TEL Collection is Aqua747 Pty Ltd · ABN 62 679 571 021<br>Squires Ink Tattoo Studio · Shop 7/26 Orchid Ave, Surfers Paradise QLD 4217<br><br>This guide is general information for healthy adults and is not medical advice. It does not replace the instructions your artist gave you. If you have a skin condition, a known allergy, are pregnant, or you think your tattoo is infected, speak to your artist or a doctor.</div>
+</div></div>

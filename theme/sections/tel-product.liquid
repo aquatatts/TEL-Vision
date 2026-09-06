@@ -1,0 +1,92 @@
+{%- comment -%} TEL v6 · Product plate: real photography on a lifted plate, hairline price ledger, one button. {%- endcomment -%}
+{%- liquid
+  assign product = section.settings.product
+  assign variant = product.selected_or_first_available_variant
+  assign img = section.settings.image
+  assign img_alt = img.alt | default: 'The Ritual Duo — Restore Balm and Recovery Cream'
+  assign run = section.settings.run_size | default: 500
+  assign remaining = variant.inventory_quantity | default: 0
+  if remaining < 0
+    assign remaining = 0
+  endif
+  if remaining > run
+    assign remaining = run
+  endif
+-%}
+<style>
+  #shopify-section-{{ section.id }} .tel-plate{position:relative;margin:28px calc(-1 * var(--tel-gutter)) 26px;background:var(--tel-bg2)}
+  #shopify-section-{{ section.id }} .tel-plate img{display:block;width:100%;height:auto}
+  #shopify-section-{{ section.id }} .tel-plate::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(var(--tel-gold-rgb) / .18);pointer-events:none}
+  #shopify-section-{{ section.id }} .tel-price{display:grid;grid-template-columns:auto 1fr;align-items:end;gap:18px;padding:18px 0;margin:22px 0 18px}
+  #shopify-section-{{ section.id }} .tel-price__amt{font-family:var(--tel-serif);font-size:36px;font-weight:400;color:var(--tel-ink);font-variant-numeric:tabular-nums;line-height:1;white-space:nowrap}
+  #shopify-section-{{ section.id }} .tel-price__amt small{font-family:var(--tel-mono);font-size:10px;letter-spacing:.14em;color:var(--tel-mute);margin-right:8px}
+  #shopify-section-{{ section.id }} .tel-price .tel-mono{text-align:right;line-height:1.7;padding-bottom:4px;max-width:14ch;justify-self:end}
+  #shopify-section-{{ section.id }} .tel-remaining{font-family:var(--tel-mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--tel-gold);text-align:center;margin:18px 0 0}
+  #shopify-section-{{ section.id }} .tel-micro{font-family:var(--tel-mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--tel-mute);text-align:center;margin-top:14px;line-height:1.9}
+  @media(min-width:900px){
+    #shopify-section-{{ section.id }} .tel-plate{margin:0}
+    #shopify-section-{{ section.id }} .tel-product__grid{display:grid;grid-template-columns:1.1fr 1fr;gap:72px;align-items:center}
+    #shopify-section-{{ section.id }} .tel-micro{text-align:left}
+    #shopify-section-{{ section.id }} .tel-remaining{text-align:left}
+    #shopify-section-{{ section.id }} .tel-price__amt{font-size:44px}
+  }
+</style>
+<section class="tel-band" id="tel-product">
+  <div class="tel-wrap tel-product__grid">
+    <div class="tel-cols__media">
+      <div class="tel-plate">
+        {%- if img != blank -%}
+          {{- img | image_url: width: 1600 | image_tag: loading: 'lazy', sizes: '(min-width: 900px) 50vw, 100vw', widths: '600,900,1200,1600', alt: img_alt, width: img.width, height: img.height -}}
+        {%- elsif product.featured_image != blank and section.settings.use_product_image -%}
+          {{- product.featured_image | image_url: width: 1600 | image_tag: loading: 'lazy', sizes: '(min-width: 900px) 50vw, 100vw', widths: '600,900,1200,1600' -}}
+        {%- else -%}
+          <img src="{{ 'tel-plate.jpg' | asset_url }}" alt="The Ritual Duo — Restore Balm and Recovery Cream beside the sealed box" width="1400" height="1400" loading="lazy">
+        {%- endif -%}
+      </div>
+    </div>
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<p class="tel-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="tel-h tel-h2" style="margin-bottom:20px">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.lead != blank -%}<div class="tel-p tel-p--lead">{{ section.settings.lead }}</div>{%- endif -%}
+      {%- if section.settings.body != blank -%}<div class="tel-p">{{ section.settings.body }}</div>{%- endif -%}
+      {%- if product != blank -%}
+        <div class="tel-price tel-ledger">
+          <div class="tel-price__amt"><small>{{ cart.currency.iso_code }}</small>{{ variant.price | money_without_currency }}</div>
+          {%- if section.settings.shipping_line != blank -%}<div class="tel-mono">{{ section.settings.shipping_line | escape }}</div>{%- endif -%}
+        </div>
+        {%- if variant.available -%}
+          <a class="tel-btn tel-btn--solid" href="{{ product.url }}">{{ section.settings.button_text | default: 'Shop the Ritual' | escape }}</a>
+          {%- if section.settings.show_remaining and variant.inventory_management != blank and remaining > 0 -%}<p class="tel-remaining">Chapter One · {{ remaining }} of {{ run }} sets remaining</p>{%- endif -%}
+        {%- else -%}
+          <a class="tel-btn" href="#tel-newsletter">{{ section.settings.closed_text | default: 'Chapter One is closed' | escape }}</a>
+        {%- endif -%}
+      {%- endif -%}
+      {%- if section.settings.micro_1 != blank or section.settings.micro_2 != blank -%}<div class="tel-micro">{{ section.settings.micro_1 | escape }}{% if section.settings.micro_1 != blank and section.settings.micro_2 != blank %}<br>{% endif %}{{ section.settings.micro_2 | escape }}</div>{%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "TEL · Product plate",
+  "tag": "div",
+  "class": "shopify-section--tel-product",
+  "disabled_on": { "groups": ["header", "footer", "custom.overlay"] },
+  "settings": [
+    { "type": "product", "id": "product", "label": "Product" },
+    { "type": "image_picker", "id": "image", "label": "Plate image", "info": "Leave empty for the built-in packaging render." },
+    { "type": "checkbox", "id": "use_product_image", "label": "Fall back to the product's featured image", "default": false },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Ritual Duo" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Sealed, because the routine is the <em>product</em>." },
+    { "type": "richtext", "id": "lead", "label": "Lead", "default": "<p>One set. Two formulas. Restore Balm for fresh work. Recovery Cream for the second stage and the months after.</p>" },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Detailed work needs both. No single product does the job, so they don't come apart. Not as a discount. As a discipline.</p>" },
+    { "type": "text", "id": "shipping_line", "label": "Line beside the price", "default": "Free shipping · Australia-wide" },
+    { "type": "text", "id": "button_text", "label": "Button", "default": "Shop the Ritual" },
+    { "type": "checkbox", "id": "show_remaining", "label": "Show sets remaining under the button", "default": true },
+    { "type": "number", "id": "run_size", "label": "Run size", "default": 500 },
+    { "type": "text", "id": "closed_text", "label": "Button when sold out", "default": "Chapter One is closed" },
+    { "type": "text", "id": "micro_1", "label": "Micro line 1", "default": "Ships in 1–2 days from Surfers Paradise" },
+    { "type": "text", "id": "micro_2", "label": "Micro line 2", "default": "Sealed sets · Never sold apart" }
+  ],
+  "presets": [ { "name": "TEL · Product plate", "category": "TEL" } ]
+}
+{% endschema %}

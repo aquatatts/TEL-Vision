@@ -1,0 +1,73 @@
+{%- comment -%} TEL v6 · Hero: full-bleed scene, slow push-in, gradient veil, type low and left. {%- endcomment -%}
+{%- liquid
+  assign img = section.settings.image
+  assign mimg = section.settings.mobile_image
+  assign focal = section.settings.focal | default: '50% 50%'
+  assign img_alt = img.alt | default: section.settings.heading | strip_html
+-%}
+<style>
+  #shopify-section-{{ section.id }} .tel-hero{position:relative;overflow:hidden;background:#050505;height:min({{ section.settings.mobile_height }}px,84vh);height:min({{ section.settings.mobile_height }}px,84svh);color:var(--tel-ink)}
+  #shopify-section-{{ section.id }} .tel-hero__media{position:absolute;inset:0;transform-origin:50% 30%}
+  #shopify-section-{{ section.id }} .tel-hero__media img{width:100%;height:100%;object-fit:cover;object-position:{{ focal }};display:block}
+  #shopify-section-{{ section.id }} .tel-hero__veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,.18) 0%,rgba(5,5,5,0) 28%,rgba(5,5,5,.2) 52%,rgba(5,5,5,{{ section.settings.veil | divided_by: 100.0 }}) 70%,rgba(5,5,5,.98) 100%)}
+  #shopify-section-{{ section.id }} .tel-hero__content{position:absolute;left:var(--tel-gutter);right:var(--tel-gutter);bottom:32px}
+  #shopify-section-{{ section.id }} .tel-hero__content .tel-h1{margin-bottom:26px}
+  #shopify-section-{{ section.id }} .tel-hero__content .tel-eyebrow{letter-spacing:.26em}
+  @media(prefers-reduced-motion:no-preference){
+    #shopify-section-{{ section.id }} .tel-hero__media--kb{animation:tel-kb-{{ section.id | md5 | slice: 0, 6 }} 18s ease-out forwards}
+    @keyframes tel-kb-{{ section.id | md5 | slice: 0, 6 }}{from{transform:scale(1.10)}to{transform:scale(1)}}
+  }
+  @media(min-width:900px){
+    #shopify-section-{{ section.id }} .tel-hero{height:min(84vh,{{ section.settings.desktop_height }}px)}
+    #shopify-section-{{ section.id }} .tel-hero__media img{object-position:50% 40%}
+    #shopify-section-{{ section.id }} .tel-hero__veil{background:linear-gradient(180deg,rgba(5,5,5,.1) 0%,rgba(5,5,5,0) 40%,rgba(5,5,5,.55) 75%,rgba(5,5,5,.96) 100%),linear-gradient(90deg,rgba(5,5,5,.55) 0%,rgba(5,5,5,0) 55%)}
+    #shopify-section-{{ section.id }} .tel-hero__content{bottom:72px;max-width:560px}
+    #shopify-section-{{ section.id }} .tel-hero__content .tel-eyebrow{letter-spacing:.34em}
+  }
+</style>
+
+<div class="tel-hero">
+  <div class="tel-hero__media{% if section.settings.kenburns %} tel-hero__media--kb{% endif %}">
+    {%- if img != blank -%}
+      <picture>
+        {%- if mimg != blank -%}
+          <source media="(max-width: 899px)" srcset="{{ mimg | image_url: width: 800 }} 800w, {{ mimg | image_url: width: 1200 }} 1200w, {{ mimg | image_url: width: 1600 }} 1600w" sizes="100vw">
+        {%- endif -%}
+        {{- img | image_url: width: 2400 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '100vw', widths: '800,1200,1600,2000,2400', alt: img_alt, width: img.width, height: img.height -}}
+      </picture>
+    {%- else -%}
+      <img src="{{ 'tel-scene-hero.jpg' | asset_url }}" alt="{{ shop.name | escape }} — The Ritual Duo" width="1200" height="1797" loading="eager" fetchpriority="high">
+    {%- endif -%}
+  </div>
+  <div class="tel-hero__veil" aria-hidden="true"></div>
+  <div class="tel-hero__content">
+    {%- if section.settings.eyebrow != blank -%}<p class="tel-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    {%- if section.settings.heading != blank -%}<h1 class="tel-h tel-h1">{{ section.settings.heading }}</h1>{%- endif -%}
+    {%- if section.settings.button_text != blank -%}
+      <a class="tel-btn tel-btn--solid" href="{{ section.settings.button_url | default: '#' }}">{{ section.settings.button_text | escape }}</a>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "TEL · Hero scene",
+  "tag": "section",
+  "class": "shopify-section--tel-hero",
+  "disabled_on": { "groups": ["header", "footer", "custom.overlay"] },
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "Leave empty to use the built-in Chapter One scene (assets/tel-scene-hero.jpg). Replace with the CGI turntable still when it lands." },
+    { "type": "image_picker", "id": "mobile_image", "label": "Mobile image (optional)" },
+    { "type": "select", "id": "focal", "label": "Mobile focal point", "options": [ { "value": "50% 0%", "label": "Top" }, { "value": "50% 30%", "label": "Upper third" }, { "value": "50% 50%", "label": "Centre" } ], "default": "50% 50%" },
+    { "type": "range", "id": "mobile_height", "label": "Mobile height", "min": 520, "max": 820, "step": 10, "unit": "px", "default": 700 },
+    { "type": "range", "id": "desktop_height", "label": "Desktop max height", "min": 600, "max": 1000, "step": 20, "unit": "px", "default": 860 },
+    { "type": "range", "id": "veil", "label": "Bottom veil strength", "min": 60, "max": 98, "step": 2, "unit": "%", "default": 86 },
+    { "type": "checkbox", "id": "kenburns", "label": "Slow push-in on load", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Chapter One · Look after the art" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "info": "Italicise one word to set it in gold.", "default": "Earned. Not <em>given</em>." },
+    { "type": "text", "id": "button_text", "label": "Button", "default": "Shop the Ritual" },
+    { "type": "url", "id": "button_url", "label": "Button link" }
+  ],
+  "presets": [ { "name": "TEL · Hero scene", "category": "TEL" } ]
+}
+{% endschema %}

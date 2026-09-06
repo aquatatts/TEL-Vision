@@ -1,0 +1,73 @@
+{%- comment -%} TEL v6 · Chapter meter: the run as a numeral, sets remaining wired to live inventory. {%- endcomment -%}
+{%- liquid
+  assign product = section.settings.product
+  assign variant = product.selected_or_first_available_variant
+  assign run = section.settings.run_size | default: 500
+  assign remaining = variant.inventory_quantity | default: 0
+  if remaining < 0
+    assign remaining = 0
+  endif
+  if remaining > run
+    assign remaining = run
+  endif
+  assign pct = remaining | times: 100.0 | divided_by: run | round
+  assign closed = false
+  if product != blank and variant.available == false and remaining == 0
+    assign closed = true
+  endif
+-%}
+<style>
+  #shopify-section-{{ section.id }} .tel-chapter{text-align:center}
+  #shopify-section-{{ section.id }} .tel-chapter__big{font-family:var(--tel-serif);font-size:150px;font-weight:400;line-height:.85;color:var(--tel-gold);font-variant-numeric:tabular-nums;letter-spacing:-.02em;margin:0 0 6px}
+  #shopify-section-{{ section.id }} .tel-chapter .tel-h2{margin-bottom:16px}
+  #shopify-section-{{ section.id }} .tel-chapter .tel-p{max-width:30ch;margin-left:auto;margin-right:auto}
+  #shopify-section-{{ section.id }} .tel-meter{margin:34px auto 0;max-width:300px}
+  #shopify-section-{{ section.id }} .tel-meter__bar{height:2px;background:var(--tel-rule2);position:relative}
+  #shopify-section-{{ section.id }} .tel-meter__bar i{position:absolute;left:0;top:0;bottom:0;width:{{ pct }}%;background:var(--tel-gold)}
+  #shopify-section-{{ section.id }} .tel-meter__lab{display:flex;justify-content:space-between;font-family:var(--tel-mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--tel-mute);margin-top:10px}
+  #shopify-section-{{ section.id }} .tel-meter__lab b{color:var(--tel-gold);font-weight:500}
+  @media(min-width:900px){
+    #shopify-section-{{ section.id }} .tel-chapter__big{font-size:240px}
+    #shopify-section-{{ section.id }} .tel-meter{max-width:420px}
+  }
+</style>
+<section class="tel-band tel-band--alt">
+  <div class="tel-wrap tel-chapter">
+    {%- if section.settings.eyebrow != blank -%}<p class="tel-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    {%- if section.settings.numeral != blank -%}<div class="tel-chapter__big" aria-hidden="true">{{ section.settings.numeral | escape }}</div>{%- endif -%}
+    {%- if closed -%}
+      <h2 class="tel-h tel-h2">{{ section.settings.closed_heading | default: 'Chapter One is <em>closed</em>.' }}</h2>
+      <div class="tel-p">{{ section.settings.closed_body | default: '<p>Five hundred sets, gone. Chapter Two gets named when it is earned.</p>' }}</div>
+    {%- else -%}
+    {%- if section.settings.heading != blank -%}<h2 class="tel-h tel-h2">{{ section.settings.heading }}</h2>{%- endif -%}
+    {%- if section.settings.body != blank -%}<div class="tel-p">{{ section.settings.body }}</div>{%- endif -%}
+    {%- endif -%}
+    {%- if section.settings.show_meter and product != blank and closed == false -%}
+      <div class="tel-meter" role="img" aria-label="{{ remaining }} of {{ run }} sets remaining">
+        <div class="tel-meter__bar"><i></i></div>
+        <div class="tel-meter__lab"><span>{{ section.settings.meter_label | default: 'Sets remaining' | escape }}</span><b>{{ remaining }} of {{ run }}</b></div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "TEL · Chapter meter",
+  "tag": "div",
+  "class": "shopify-section--tel-chapter",
+  "disabled_on": { "groups": ["header", "footer", "custom.overlay"] },
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Chapter One" },
+    { "type": "text", "id": "numeral", "label": "Numeral", "default": "500" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Five hundred <em>sets</em>." },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Chapter One is open. Five hundred sets, sealed, never sold apart. When they're gone, it closes.</p>" },
+    { "type": "inline_richtext", "id": "closed_heading", "label": "Heading when sold out", "default": "Chapter One is <em>closed</em>." },
+    { "type": "richtext", "id": "closed_body", "label": "Body when sold out", "default": "<p>Five hundred sets, gone. Chapter Two gets named when it is earned.</p>" },
+    { "type": "product", "id": "product", "label": "Product (for live stock)" },
+    { "type": "number", "id": "run_size", "label": "Run size", "default": 500 },
+    { "type": "checkbox", "id": "show_meter", "label": "Show sets-remaining meter", "default": true },
+    { "type": "text", "id": "meter_label", "label": "Meter label", "default": "Sets remaining" }
+  ],
+  "presets": [ { "name": "TEL · Chapter meter", "category": "TEL" } ]
+}
+{% endschema %}

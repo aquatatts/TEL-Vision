@@ -1,0 +1,430 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_tag": "h1"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_taxes_notice": false
+          }
+        },
+        "separator": {
+          "type": "separator",
+          "settings": {}
+        },
+        "lead": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Sealed, because the routine is the product.</strong></p><p>Restore Balm seals. Recovery Cream conditions. They don’t come apart — not as a discount, as a discipline.</p>"
+          }
+        },
+        "spec": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "<p class=\"tel-mono\" style=\"color:#C9A24B;line-height:1.9;margin:0 0 1.25rem\">60 ml × 2 · Sealed as a set · First run of five hundred<br>Free shipping Australia-wide · Ships in 1–2 business days from Surfers Paradise</p>"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": false,
+            "atc_button_background": "#C9A24B",
+            "atc_button_text_color": "#080808",
+            "payment_button_background": "",
+            "payment_button_text_color": ""
+          }
+        },
+        "acc-ritual": {
+          "type": "accordion",
+          "settings": {
+            "show_below_gallery": true,
+            "icon": "none",
+            "custom_icon": "",
+            "title": "The Ritual",
+            "content": "<p><strong>Restore Balm + Recovery Cream · 60 ml each · one sealed set.</strong></p><p>The Ritual Duo doesn’t come apart. Not as a bundle deal, not as a starter pack — as one sealed system, formulated as a pair and sold as a pair.</p><p><strong>Step one — Restore Balm.</strong> <em>Richer · Sealing · Protective.</em> For fresh ink. Thin layer, clean dry skin, morning and night.</p><p><strong>Step two — Recovery Cream.</strong> <em>Calm · Condition · Refresh.</em> For the second stage. A lighter daily cream that sinks in fast to hydrate and soothe while the work settles — the months most people skip.</p>",
+            "liquid": "",
+            "page": ""
+          }
+        },
+        "acc-routine": {
+          "type": "accordion",
+          "settings": {
+            "show_below_gallery": true,
+            "icon": "none",
+            "custom_icon": "",
+            "title": "How to use: the night, the morning, the second stage",
+            "content": "<p><strong>The night.</strong> A few hours after the session: wrap off, a gentle wash, and nothing on it. Let the skin breathe overnight.</p><p><strong>The morning after.</strong> Restore Balm, thin. Keep it thin, keep it regular, through the first days.</p><p><strong>The second stage.</strong> Recovery Cream, morning and night, through the months it takes to settle. Most people stop at week two. Don’t.</p><p><em>Always follow the aftercare your artist gives you — they know what they put in your skin.</em></p>",
+            "liquid": "",
+            "page": ""
+          }
+        },
+        "acc-heavy": {
+          "type": "accordion",
+          "settings": {
+            "show_below_gallery": true,
+            "icon": "none",
+            "custom_icon": "",
+            "title": "Heavy work and full-day sessions — the layered protocol",
+            "content": "<p>Big work is not a big version of small work. A full day in the chair, a multi-session rework over old ink, a full back, a solid black fill — the ink is driven in harder and the skin is worked for hours at a stretch, and it takes far more punishment than a short sitting ever delivers. The aftercare card you get handed is written for a small tattoo. Heavy work needs its own protocol.</p><p><strong>Critical stage — both, layered.</strong> Recovery Cream first, Restore Balm straight over the top.</p><p><strong>Closing stage — Restore Balm alone.</strong> Thin layer, morning and night.</p><p><strong>Second stage — Recovery Cream alone.</strong> Weeks out, step down. Daily cream, until it’s settled.</p>",
+            "liquid": "",
+            "page": ""
+          }
+        },
+        "acc-standard": {
+          "type": "accordion",
+          "settings": {
+            "show_below_gallery": true,
+            "icon": "none",
+            "custom_icon": "",
+            "title": "Built to a standard",
+            "content": "<p><strong>Formulated in Australia. Proven in a working studio. Manufactured to our specification by our production partner.</strong></p><p>Every batch is tested, not claimed: heavy metals not detected · no pathogenic microorganisms · pH 6.7 measured on batch · three-year shelf life · ISO 22716 and FDA GMP held at the manufacturing site.</p><p>Both ingredient lists are published in full, on the jar and on this page. Nothing hidden behind “and other ingredients”.</p><p><em>One product. One price. No sales, no starter sizes, no half measures.</em></p>",
+            "liquid": "",
+            "page": ""
+          }
+        },
+        "acc-founder": {
+          "type": "accordion",
+          "settings": {
+            "show_below_gallery": true,
+            "icon": "none",
+            "custom_icon": "",
+            "title": "From the founder",
+            "content": "<p><em>“I’ve looked after work with everything the market sells, and most of it made promises my skin never kept. So I built the thing I could never buy.”</em></p><p>— Benny Aquilina · <strong>seventeen years under the needle, still to this day</strong> · owner, Squires Ink, Surfers Paradise</p><p>Aftercare is usually made at a distance from the chair. This was made at the counter of a working studio, by the person who owns it — and it goes on his own skin before it goes on anyone else's.</p><p><a href=\"/pages/founder\"><strong>Read the full story →</strong></a></p>",
+            "liquid": "",
+            "page": ""
+          }
+        },
+        "acc-shipping": {
+          "type": "accordion",
+          "settings": {
+            "show_below_gallery": true,
+            "icon": "none",
+            "custom_icon": "",
+            "title": "Shipping and returns",
+            "content": "",
+            "liquid": "",
+            "page": "shipping-and-returns"
+          }
+        },
+        "guide": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "<p style=\"font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#9A9285;line-height:1.9;margin:16px 0 0\">Day-by-day routine · <a href=\"/pages/healing-guide\" style=\"color:#C9A24B;text-decoration:none;border-bottom:1px solid rgba(201,162,75,.45)\">The Healing Guide →</a></p>"
+          }
+        },
+        "acc-ingredients": {
+          "type": "accordion",
+          "settings": {
+            "show_below_gallery": true,
+            "icon": "none",
+            "custom_icon": "",
+            "title": "What's in it",
+            "content": "<p>Both lists in full, exactly as they read on the jars.</p><p><strong>Restore Balm</strong><br>Petrolatum, Vitis Vinifera (Grape) Seed Oil, Paraffinum Liquidum (Mineral Oil), Cera Alba (Beeswax), Microcrystalline Wax, Chamomilla Recutita (Matricaria) Flower Oil, Lavandula Angustifolia (Lavender) Oil, Curcuma Longa Root Oil, Vanilla Planifolia Fruit Extract.</p><p><strong>Recovery Cream</strong><br>Aqua (Water), Glycerin, Propylene Glycol, Paraffinum Liquidum (Mineral Oil), Caprylic/Capric Triglyceride, Butyrospermum Parkii (Shea) Butter, Cera Alba (Beeswax), Cetearyl Alcohol, Dimethicone, Glyceryl Stearate, PEG-100 Stearate, PEG-20 Stearate, Panthenol, Phenoxyethanol, Methylparaben, Tocopherol, Sodium Hyaluronate, Xanthan Gum, Portulaca Oleracea Extract, Aloe Barbadensis Leaf Extract, Chrysanthellum Indicum Extract, Houttuynia Cordata Extract, Paeonia Suffruticosa Root Bark Extract, Opuntia Streptacantha Stem Extract, Scutellaria Baicalensis Root Extract, Butylene Glycol, 1,2-Hexanediol, Hydroxyacetophenone, Vanilla Planifolia Fruit Extract, CI 19140.</p><p><strong>The balm is built on petrolatum, and that is deliberate.</strong> Nothing holds moisture in better while fresh work closes over. What ruins tattoos is a thick layer, a bare tub and never stepping down — not the petrolatum itself. The full reasoning is in <a href=\"/pages/healing-guide\">The Healing Guide</a>.</p><p>The cream carries the conditioning half: glycerin and sodium hyaluronate to hold water, shea butter and panthenol to soften and comfort, tocopherol, and a botanical set led by purslane, aloe, houttuynia and baicalensis.</p>",
+            "liquid": "",
+            "page": ""
+          }
+        },
+        "remaining": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "{%- assign v = product.selected_or_first_available_variant -%}{%- assign r = v.inventory_quantity -%}{%- if v.inventory_management != blank and r > 0 and r <= 500 -%}<p class=\"tel-mono\" style=\"color:#C9A24B;margin:0 0 6px\">Chapter One · {{ r }} of 500 sets remaining</p>{%- endif -%}"
+          }
+        },
+        "assurance": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "<p class=\"tel-mono\" style=\"margin:14px 0 0;line-height:1.9\">Sealed set · 30-day returns on unopened sets · Secure checkout</p>"
+          }
+        },
+        "credential": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "<p style=\"display:inline-block;font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#C9A24B;border:1px solid #C9A24B;padding:10px 15px;margin:0 0 1.25rem;line-height:1.25\">Seventeen years under the needle · Still to this day</p>"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "separator",
+        "lead",
+        "spec",
+        "credential",
+        "remaining",
+        "buy_buttons",
+        "assurance",
+        "guide",
+        "acc-ritual",
+        "acc-routine",
+        "acc-ingredients",
+        "acc-heavy",
+        "acc-standard",
+        "acc-founder",
+        "acc-shipping"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "allow_transparent_header": false,
+        "transparent_header_use_primary_colors": false,
+        "container_size": "lg",
+        "product_info_size": 42,
+        "show_sticky_add_to_cart": true,
+        "center_basic_info": false,
+        "desktop_media_layout": "carousel_thumbnails_bottom",
+        "desktop_media_grid_gap": 30,
+        "mobile_controls": "dots",
+        "enable_media_autoplay": false,
+        "enable_video_looping": true,
+        "enable_image_zoom": true,
+        "max_image_zoom_level": 3
+      }
+    },
+    "tel_steps_pdp": {
+      "type": "tel-steps",
+      "blocks": {
+        "one": {
+          "type": "step",
+          "settings": {
+            "label": "Step one · Days 1–14",
+            "name": "Restore Balm",
+            "descriptor": "Richer · Sealing · Protective",
+            "body": "<p>A concentrated balm that lays down a protective layer and holds moisture in while the work closes over. Thin layer, clean dry skin, morning and night.</p>"
+          }
+        },
+        "two": {
+          "type": "step",
+          "settings": {
+            "label": "Step two · The months after",
+            "name": "Recovery Cream",
+            "descriptor": "Calm · Condition · Refresh",
+            "body": "<p>A lighter daily cream that sinks in fast to hydrate and soothe while the work settles. The stage most people skip. Don't.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "one",
+        "two"
+      ],
+      "settings": {
+        "alt": true,
+        "eyebrow": "Why two",
+        "heading": "Two stages. Two <em>formulas</em>.",
+        "intro": "<p>Fresh work needs sealing. Settling work needs conditioning. The balm is too heavy for the second stage; the cream too light for the first.</p>",
+        "image": "shopify://shop_images/tel-ritual-duo-05-both-open-top-down-r2.jpg",
+        "focal": "50% 50%",
+        "caption": "Two textures. Two jobs.",
+        "outro": "<p>Heavy, detailed work uses both, layered. Seventeen years in the chair says one product can't do it. That is why they're sealed together.</p>",
+        "button_text": "The Healing Guide",
+        "button_url": "shopify://pages/healing-guide"
+      }
+    },
+    "tel_proof_pdp": {
+      "type": "tel-proof",
+      "blocks": {
+        "p1": {
+          "type": "item",
+          "settings": {
+            "icon": "shield",
+            "title": "Heavy metals",
+            "text": "Not detected. Lead, arsenic, mercury, cadmium, bismuth."
+          }
+        },
+        "p2": {
+          "type": "item",
+          "settings": {
+            "icon": "check",
+            "title": "Microbiology",
+            "text": "No pathogenic micro-organisms."
+          }
+        },
+        "p3": {
+          "type": "item",
+          "settings": {
+            "icon": "drop",
+            "title": "pH 6.7",
+            "text": "Measured on batch."
+          }
+        },
+        "p4": {
+          "type": "item",
+          "settings": {
+            "icon": "clock",
+            "title": "Three years",
+            "text": "Shelf life."
+          }
+        },
+        "p5": {
+          "type": "item",
+          "settings": {
+            "icon": "document",
+            "title": "ISO 22716 · FDA GMP",
+            "text": "Held at the manufacturing site."
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5"
+      ],
+      "settings": {
+        "eyebrow": "The chemistry",
+        "heading": "We live and breathe tattoos — we know <em>chemistry</em>.",
+        "sub": "Both ingredient lists published in full, in order, exactly as they read on the jar. Every batch tested, not claimed. Nothing in there we can't explain.",
+        "aria": "Batch testing"
+      }
+    },
+    "tel_reviews_pdp": {
+      "type": "tel-reviews",
+      "blocks": {
+        "q1": {
+          "type": "quote",
+          "settings": {
+            "quote": "Can’t be happier with how my tattoo healed after using the duo. Highly recommended",
+            "name": "Santi",
+            "role": "Review · 8 August 2026",
+            "stars": 5
+          }
+        },
+        "q2": {
+          "type": "quote",
+          "settings": {
+            "quote": "Works great keeps my tattoo looking and feeling fresh",
+            "name": "Brock Appleby",
+            "role": "Verified buyer · 19 August 2026",
+            "stars": 5
+          }
+        },
+        "q3": {
+          "type": "quote",
+          "settings": {
+            "quote": "If you’re getting a tattoo the only two things you need are the best tattoo artist and the best aftercare in the game! This is the best aftercare, buy some then go find your artist!",
+            "name": "James H",
+            "role": "Review · 28 August 2026",
+            "stars": 5
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3"
+      ],
+      "settings": {
+        "alt": true,
+        "eyebrow": "From the first five hundred",
+        "heading": "Every review so far. <em>Five stars.</em>",
+        "sub": "Collected by Judge.me after purchase. Published as written.",
+        "more_text": "",
+        "more_url": "",
+        "show_all": true,
+        "list_note": "Newest first. Nothing edited.",
+        "schema": true
+      }
+    },
+    "tel_chair_pdp": {
+      "type": "tel-band",
+      "settings": {
+        "alt": false,
+        "image": "shopify://shop_images/a1300997-6f66-402e-84ba-c57d630d24ca.jpg",
+        "image_position": "end",
+        "aspect": "4/5",
+        "focal": "50% 15%",
+        "eyebrow": "From the chair",
+        "heading": "The artists it was built <em>alongside</em>.",
+        "quote": "What I recommend to my clients is formulas that work in hydrating the skin and look after my work long after it leaves the studio. Because this is my passion.",
+        "attr_name": "Valerio Ciciarelli",
+        "attr_role": "Large-scale realism · Squires Ink, Surfers Paradise",
+        "body": "<p>Calabria to the Gold Coast. Best Realism Piece, Caserta 2019. The artist currently working the founder's chest, session after session, with the Ritual on the counter beside him.</p><p>No payment. No free product. No arrangement. His words are his own.</p>",
+        "ornament": false,
+        "mono_line": "",
+        "button_text": "Trusted by",
+        "button_url": "shopify://pages/trusted-by",
+        "button_solid": false
+      }
+    },
+    "faq_pdp": {
+      "type": "faq",
+      "blocks": {
+        "q-new": {
+          "type": "question",
+          "settings": {
+            "question": "Can I use it on a brand-new tattoo?",
+            "answer": "<p>That's exactly what it's built for. Restore Balm goes on from day zero: the thinnest possible layer on clean, dry skin, matte not shiny. Always follow the aftercare instructions your artist gives you first; the full day-by-day routine is in <a href=\"/pages/healing-guide\">The Healing Guide</a>.</p>"
+          }
+        },
+        "q-switch": {
+          "type": "question",
+          "settings": {
+            "question": "When do I switch from the balm to the cream?",
+            "answer": "<p>Restore Balm carries roughly the first two weeks while the skin closes. Once flaking is finished and there are no open patches, step down to Recovery Cream daily. That's the jar that carries the piece through the months it takes to settle, and for as long as you want it looking sharp.</p>"
+          }
+        },
+        "q-sealed": {
+          "type": "question",
+          "settings": {
+            "question": "Why is it sealed as a set?",
+            "answer": "<p>Because the routine is the product. The first two weeks decide how the piece settles; the years after decide how it looks in a decade. Selling the balm on its own would sell you half a job, so it's one set, one price, never sold apart.</p>"
+          }
+        },
+        "q-sensitive": {
+          "type": "question",
+          "settings": {
+            "question": "I have sensitive skin. Anything I should know?",
+            "answer": "<p>Patch test first: a small amount on the inside of your forearm, wait 24 hours.</p><p>Worth knowing before you start. <strong>Restore Balm contains lavender, chamomile and turmeric oils.</strong> <strong>Recovery Cream is preserved with phenoxyethanol and methylparaben.</strong> If you have a known fragrance or essential-oil allergy, that is the part to check.</p><p>If you have a skin condition or a known allergy, check with your doctor or pharmacist before use — and always follow your artist's instructions on fresh work.</p>"
+          }
+        },
+        "q-ship": {
+          "type": "question",
+          "settings": {
+            "question": "How fast is shipping, and what if I need to return it?",
+            "answer": "<p>Free standard shipping Australia-wide, dispatched from Surfers Paradise within 1–2 business days, tracking emailed. Express Post is $15 at checkout. Unopened, sealed sets can come back within 30 days; opened products can't, for hygiene reasons. Full detail in <a href=\"/pages/shipping-and-returns\">Shipping &amp; Returns</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q-new",
+        "q-switch",
+        "q-sealed",
+        "q-sensitive",
+        "q-ship"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "show_categories": false,
+        "subheading": "Questions",
+        "title": "Answered <em>straight</em>.",
+        "heading_style": "h2",
+        "content": "<p>If it isn't covered here, email info@telcollection.com.au. The founder reads them.</p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "tel_steps_pdp",
+    "tel_proof_pdp",
+    "tel_reviews_pdp",
+    "tel_chair_pdp",
+    "faq_pdp"
+  ]
+}
