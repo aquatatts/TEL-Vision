@@ -11,6 +11,9 @@
   #shopify-section-{{ section.id }} .tel-quote{font-family:var(--tel-serif);font-size:31px;font-weight:400;font-style:italic;line-height:1.18;color:var(--tel-ink);margin:26px 0 22px;text-wrap:balance}
   #shopify-section-{{ section.id }} .tel-attr{font-family:var(--tel-mono);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--tel-gold);margin:0 0 28px}
   #shopify-section-{{ section.id }} .tel-attr span{display:block;color:var(--tel-mute);margin-top:6px;letter-spacing:.14em}
+  #shopify-section-{{ section.id }} .tel-attr--cred{margin-bottom:14px}
+  #shopify-section-{{ section.id }} .tel-cred{display:inline-block;font-family:var(--tel-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--tel-gold);border:1px solid var(--tel-gold);padding:10px 15px;margin:0 0 28px;line-height:1.25}
+  @media(max-width:520px){#shopify-section-{{ section.id }} .tel-cred{font-size:10px;letter-spacing:.18em;padding:9px 12px}}
   #shopify-section-{{ section.id }} .tel-orn{display:flex;align-items:center;gap:14px;color:var(--tel-gold);margin:34px 0 0}
   #shopify-section-{{ section.id }} .tel-orn i{flex:1;height:1px;background:var(--tel-rule2)}
   #shopify-section-{{ section.id }} .tel-orn b{font-weight:400;font-size:14px;line-height:1}
@@ -36,7 +39,8 @@
       {%- if section.settings.eyebrow != blank -%}<p class="tel-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
       {%- if section.settings.heading != blank -%}<h2 class="tel-h tel-h2">{{ section.settings.heading }}</h2>{%- endif -%}
       {%- if section.settings.quote != blank -%}<p class="tel-quote">“{{ section.settings.quote | escape }}”</p>{%- endif -%}
-      {%- if section.settings.attr_name != blank -%}<p class="tel-attr">{{ section.settings.attr_name | escape }}{% if section.settings.attr_role != blank %}<span>{{ section.settings.attr_role | escape }}</span>{% endif %}</p>{%- endif -%}
+      {%- if section.settings.attr_name != blank -%}<p class="tel-attr{% if section.settings.attr_credential != blank %} tel-attr--cred{% endif %}">{{ section.settings.attr_name | escape }}{% if section.settings.attr_role != blank %}<span>{{ section.settings.attr_role | escape }}</span>{% endif %}</p>{%- endif -%}
+      {%- if section.settings.attr_credential != blank -%}<p class="tel-cred">{{ section.settings.attr_credential | escape }}</p>{%- endif -%}
       {%- if section.settings.body != blank -%}<div class="tel-p"{% if section.settings.quote == blank %} style="margin-top:18px"{% endif %}>{{ section.settings.body }}</div>{%- endif -%}
       {%- if section.settings.ornament -%}<div class="tel-orn" aria-hidden="true"><i></i><b>✦</b><i></i></div>{%- endif -%}
       {%- if section.settings.mono_line != blank -%}<p class="tel-mono tel-story__mono">{{ section.settings.mono_line | escape }}</p>{%- endif -%}
@@ -61,6 +65,7 @@
     { "type": "textarea", "id": "quote", "label": "Pull quote (optional)" },
     { "type": "text", "id": "attr_name", "label": "Quote attribution" },
     { "type": "text", "id": "attr_role", "label": "Attribution role" },
+    { "type": "text", "id": "attr_credential", "label": "Credential line", "info": "Sits under the attribution in a gold hairline box. Leave empty to hide." },
     { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Every piece that leaves this counter comes back through it. We see what holds, what fades, and what it was looked after with. Hundreds of times a year.</p><p>So we built the thing that couldn't be bought.</p>" },
     { "type": "checkbox", "id": "ornament", "label": "Ornament rule", "default": false },
     { "type": "text", "id": "mono_line", "label": "Mono line" },
