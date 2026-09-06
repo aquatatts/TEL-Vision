@@ -15,10 +15,10 @@
       {%- endif %}
     </title>
 
-    {%- comment -%}TEL: homepage fallbacks. Anything set in Online Store → Preferences (meta description, social sharing image) wins; these only fill the gap while those are empty.{%- endcomment -%}
+    {%- comment -%}TEL: the homepage meta description is owned HERE, not in Online Store → Preferences. The saved Preferences sentence said "the years after", which contradicts the product ladder (Recovery Cream is the months after; "for as long as you own the piece" belongs to the daily moisturiser). Editing it in Preferences will have no effect on the homepage - change the string below instead. Every other page still uses its own SEO description. The social sharing image is still a fallback: anything set in Preferences wins.{%- endcomment -%}
     {%- liquid
       assign tel_desc = page_description
-      if tel_desc == blank and request.page_type == 'index'
+      if request.page_type == 'index'
         assign tel_desc = 'Sealed two-step tattoo aftercare from a Surfers Paradise studio. Restore Balm for fresh ink, Recovery Cream for the months after. Free shipping Australia-wide.'
       endif
       assign tel_share = blank
