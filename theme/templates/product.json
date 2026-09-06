@@ -189,6 +189,45 @@
         "max_image_zoom_level": 3
       }
     },
+    "tel_steps_pdp": {
+      "type": "tel-steps",
+      "blocks": {
+        "one": {
+          "type": "step",
+          "settings": {
+            "label": "Step one · Days 1–14",
+            "name": "Restore Balm",
+            "descriptor": "Richer · Sealing · Protective",
+            "body": "<p>A concentrated balm that lays down a protective layer and holds moisture in while the work closes over. Thin layer, clean dry skin, morning and night.</p>"
+          }
+        },
+        "two": {
+          "type": "step",
+          "settings": {
+            "label": "Step two · The months after",
+            "name": "Recovery Cream",
+            "descriptor": "Calm · Condition · Refresh",
+            "body": "<p>A lighter daily cream that sinks in fast to hydrate and soothe while the work settles. The stage most people skip. Don't.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "one",
+        "two"
+      ],
+      "settings": {
+        "alt": true,
+        "eyebrow": "Why two",
+        "heading": "Two stages. Two <em>formulas</em>.",
+        "intro": "<p>Fresh work needs sealing. Settling work needs conditioning. The balm is too heavy for the second stage; the cream too light for the first.</p>",
+        "image": "shopify://shop_images/tel-ritual-duo-05-both-open-top-down-r1.jpg",
+        "focal": "50% 50%",
+        "caption": "Two textures. Two jobs.",
+        "outro": "<p>Heavy, detailed work uses both, layered. Seventeen years in the chair says one product can't do it. That is why they're sealed together.</p>",
+        "button_text": "The Healing Guide",
+        "button_url": "shopify://pages/healing-guide"
+      }
+    },
     "tel_proof_pdp": {
       "type": "tel-proof",
       "blocks": {
@@ -247,43 +286,52 @@
         "aria": "Batch testing"
       }
     },
-    "tel_steps_pdp": {
-      "type": "tel-steps",
+    "tel_reviews_pdp": {
+      "type": "tel-reviews",
       "blocks": {
-        "one": {
-          "type": "step",
+        "q1": {
+          "type": "quote",
           "settings": {
-            "label": "Step one · Days 1–14",
-            "name": "Restore Balm",
-            "descriptor": "Richer · Sealing · Protective",
-            "body": "<p>A concentrated balm that lays down a protective layer and holds moisture in while the work closes over. Thin layer, clean dry skin, morning and night.</p>"
+            "quote": "Can’t be happier with how my tattoo healed after using the duo. Highly recommended",
+            "name": "Santi",
+            "role": "Review · 8 August 2026",
+            "stars": 5
           }
         },
-        "two": {
-          "type": "step",
+        "q2": {
+          "type": "quote",
           "settings": {
-            "label": "Step two · The months after",
-            "name": "Recovery Cream",
-            "descriptor": "Calm · Condition · Refresh",
-            "body": "<p>A lighter daily cream that sinks in fast to hydrate and soothe while the work settles. The stage most people skip. Don't.</p>"
+            "quote": "Works great keeps my tattoo looking and feeling fresh",
+            "name": "Brock Appleby",
+            "role": "Verified buyer · 19 August 2026",
+            "stars": 5
+          }
+        },
+        "q3": {
+          "type": "quote",
+          "settings": {
+            "quote": "If you’re getting a tattoo the only two things you need are the best tattoo artist and the best aftercare in the game! This is the best aftercare, buy some then go find your artist!",
+            "name": "James H",
+            "role": "Review · 28 August 2026",
+            "stars": 5
           }
         }
       },
       "block_order": [
-        "one",
-        "two"
+        "q1",
+        "q2",
+        "q3"
       ],
       "settings": {
         "alt": true,
-        "eyebrow": "Why two",
-        "heading": "Two stages. Two <em>formulas</em>.",
-        "intro": "<p>Fresh work needs sealing. Settling work needs conditioning. The balm is too heavy for the second stage; the cream too light for the first.</p>",
-        "image": "shopify://shop_images/tel-ritual-duo-05-both-open-top-down-r1.jpg",
-        "focal": "50% 50%",
-        "caption": "Two textures. Two jobs.",
-        "outro": "<p>Heavy, detailed work uses both, layered. Seventeen years in the chair says one product can't do it. That is why they're sealed together.</p>",
-        "button_text": "The Healing Guide",
-        "button_url": "shopify://pages/healing-guide"
+        "eyebrow": "From the first five hundred",
+        "heading": "Every review so far. <em>Five stars.</em>",
+        "sub": "Collected by Judge.me after purchase. Published as written.",
+        "more_text": "",
+        "more_url": "",
+        "show_all": true,
+        "list_note": "Newest first. Nothing edited.",
+        "schema": true
       }
     },
     "tel_chair_pdp": {
@@ -368,6 +416,7 @@
     "main",
     "tel_steps_pdp",
     "tel_proof_pdp",
+    "tel_reviews_pdp",
     "tel_chair_pdp",
     "faq_pdp"
   ]

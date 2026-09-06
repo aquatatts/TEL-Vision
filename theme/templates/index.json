@@ -177,6 +177,55 @@
         "aria": "Batch testing"
       }
     },
+    "tel_reviews": {
+      "type": "tel-reviews",
+      "blocks": {
+        "q1": {
+          "type": "quote",
+          "settings": {
+            "quote": "Can’t be happier with how my tattoo healed after using the duo. Highly recommended",
+            "name": "Santi",
+            "role": "Review · 8 August 2026",
+            "stars": 5
+          }
+        },
+        "q2": {
+          "type": "quote",
+          "settings": {
+            "quote": "Works great keeps my tattoo looking and feeling fresh",
+            "name": "Brock Appleby",
+            "role": "Verified buyer · 19 August 2026",
+            "stars": 5
+          }
+        },
+        "q3": {
+          "type": "quote",
+          "settings": {
+            "quote": "If you’re getting a tattoo the only two things you need are the best tattoo artist and the best aftercare in the game! This is the best aftercare, buy some then go find your artist!",
+            "name": "James H",
+            "role": "Review · 28 August 2026",
+            "stars": 5
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3"
+      ],
+      "settings": {
+        "alt": true,
+        "eyebrow": "From the first five hundred",
+        "heading": "Every review so far. <em>Five stars.</em>",
+        "sub": "Collected by Judge.me after purchase. Published as written.",
+        "more_text": "Read every review",
+        "more_url": "shopify://products/tattoo-aftercare-kit#reviews",
+        "show_all": false,
+        "list_note": "Newest first. Nothing edited.",
+        "schema": true,
+        "product": "tattoo-aftercare-kit"
+      }
+    },
     "tel_chair": {
       "type": "tel-band",
       "settings": {
@@ -252,6 +301,7 @@
     "tel_product",
     "tel_steps",
     "tel_proof",
+    "tel_reviews",
     "tel_chair",
     "tel_founder",
     "tel_chapter",
