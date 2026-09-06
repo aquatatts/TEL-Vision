@@ -312,6 +312,68 @@ def back(src="DSC00760(1).jpeg", out="tel-founder-back-studio-r2.jpg"):
     return graded
 
 
+
+# ------------------------------------------------------- colour matching ---
+
+def _levels(img, tag=""):
+    """Per-channel black point off the seamless ground, and the white point."""
+    g = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    dark = g < 60
+    if dark.sum() < 20000:
+        dark = g <= np.percentile(g, 20)
+    blk = np.array([np.percentile(img[..., c][dark], 15) for c in range(3)], np.float32)
+    wht = np.array([np.percentile(img[..., c], 99.6) for c in range(3)], np.float32)
+    if tag:
+        print(f"    {tag:10s} black B,G,R = {blk[0]:5.1f},{blk[1]:5.1f},{blk[2]:5.1f}"
+              f"   white = {wht[0]:5.1f},{wht[1]:5.1f},{wht[2]:5.1f}")
+    return blk, wht
+
+
+def match_to(src, ref, out, name=""):
+    """Put one frame's black point back where the rest of the set has it.
+
+    Some frames came back from the shoot with a lifted, milky black - the ground
+    sits at 25 rather than 3, which on a black box reads as haze. The seamless
+    ground is the same in every frame, so its level is a measurable reference and
+    restoring it is the correction a colourist makes to cut a set together.
+
+    Only the black point moves, per channel, plus one scalar gain so the overall
+    level lands where the reference sits. Hue and saturation are left alone: the
+    gold foil is the brand colour and a per-channel white-point match would drag
+    it to silver, because in this frame the print IS the brightest thing.
+    """
+    a = cv2.imread(os.path.join(REPO, src)); assert a is not None, src
+    b = cv2.imread(os.path.join(REPO, ref)); assert b is not None, ref
+    print(f"match  {name or src}")
+    ab, aw = _levels(a, "source")
+    bb, bw = _levels(b, "reference")
+
+    f = a.astype(np.float32)
+    for c in range(3):
+        f[..., c] = f[..., c] - (ab[c] - bb[c])          # black point, per channel
+    ga, gb = cv2.cvtColor(a, cv2.COLOR_BGR2GRAY), cv2.cvtColor(b, cv2.COLOR_BGR2GRAY)
+    lit_a = np.percentile(ga[ga > 60], 80) - ab.mean()
+    lit_b = np.percentile(gb[gb > 60], 80) - bb.mean()
+    k = float(np.clip(lit_b / max(lit_a, 1e-3), 0.75, 1.35))
+    f = (f - bb.mean()) * k + bb.mean()
+    res = np.clip(f, 0, 255).astype(np.uint8)
+    print(f"    lit level {lit_a:.1f} -> {lit_b:.1f} (gain x{k:.3f}); hue and saturation untouched")
+    _levels(res, "result")
+
+    sc = 620 / a.shape[1]
+    pair = np.hstack([cv2.resize(a, None, fx=sc, fy=sc, interpolation=cv2.INTER_AREA),
+                      cv2.resize(res, None, fx=sc, fy=sc, interpolation=cv2.INTER_AREA)])
+    cv2.imwrite(os.path.join(AUDIT, f"match_{os.path.splitext(out)[0]}.jpg"), pair,
+                [cv2.IMWRITE_JPEG_QUALITY, 93])
+    save(res, out)
+    return res
+
+
+def mobile_hero():
+    return match_to("DSC02858(2).jpg", "DSC02917(2).jpg",
+                    "tel-ritual-duo-09-sealed-box-r2.jpg",
+                    "09 sealed box (mobile hero) -> 11 plate")
+
 if __name__ == "__main__":
     jobs = sys.argv[1:] or ["jars05", "back"]
     for j in jobs:
