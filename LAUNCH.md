@@ -28,6 +28,7 @@ Homepage
 - Product plate: real photo (jars beside the box), price ledger, gold button, "Chapter One · 450 of 500 sets remaining" under it.
 - Two stages: the two open jars sit under the intro; the second step keeps its bottom hairline; button goes to the Healing Guide.
 - Proof strip scrolls sideways on a phone, five columns on desktop.
+- Reviews: "Every review so far. Five stars.", the 5.0 · 6 reviews ledger line, three quotes side by side on desktop, stacked on a phone, and a "Read every review" button to the product page.
 - From the chair: Valerio portrait, quote, disclosure line, button to Trusted By.
 - Founder: settled-ink chest photo, landscape, quote and ornament rule, button to the founder page.
 - Chapter: big 500, "Chapter One is open…", meter reading 450 of 500.
@@ -37,7 +38,7 @@ Product page (most ad traffic lands here)
 - Title in sentence case, price, lead, gold spec line, "Chapter One · N of 500 sets remaining", gold Add to cart, express payment button, assurance line, Healing Guide link.
 - Accordions: The Ritual · How to use · What's in it · Heavy work · Built to a standard · From the founder · Shipping and returns.
 - Gallery on desktop is a carousel with thumbnails below; the two portrait shots are last so the mobile carousel does not jump.
-- Below: Two stages (with image), Proof strip, From the chair, Questions. No empty review box.
+- Below: Two stages (with image), Proof strip, **Reviews** (gold ledger line reading the live Judge.me count and rating, three pull quotes, then every review in the house style, newest first, with a "Verified buyer" mark where Judge.me has one), From the chair, Questions.
 - Sticky add-to-cart bar appears on mobile once you scroll past the button.
 
 Other pages
@@ -62,10 +63,11 @@ Other pages
 - **Checkout branding.** Settings → Checkout → Customize: square TEL mark as logo, gold `#C9A24B` accent, dark background if the plan allows.
 - ~~**Full ingredient lists (INCI).**~~ Done. Both lists are now published verbatim from the jars on the product page ("What's in it"), the FAQs page and the Shopify product description. The Healing Guide carries a "Why the balm is petrolatum" section explaining the first ingredient.
 - **"FDA GMP" claim.** The proof strip says "ISO 22716 · GMP"; the accordion says "ISO 22716 and FDA GMP". Confirm the manufacturer's certificate wording before launch; if it is only ISO 22716, drop "FDA" from the accordion.
+- **Publishing v6 closes the API door.** Theme-file writes through the API are only allowed on unpublished themes, so once v6 is the live theme nothing further can be pushed to it from here; any later fix goes into a duplicate (Themes → v6 card → ⋯ → Duplicate) and is published again with one click. That is fine for launch week, but it is the reason not to publish before the Wednesday dry run.
 - **Password page on the live v3 theme.** It still shows "5.0 · 10 verified reviews", which cannot be backed up yet. In v6 that line reads "Built in a working studio · Surfers Paradise". If the gate stays up past Sunday, change the line in the v3 editor too (Theme editor → password page → Proof line).
 - **Two leftover files** in v6 that the API is not allowed to delete: `sections/tel-spec-strip-probe.liquid` (now emptied, no preset) and `templates/product.pre-order.json`. Both are harmless; delete them in Edit code if you want a clean list.
 - **Klaviyo.** Both signup forms tag the Shopify customer `newsletter`. Check Klaviyo's Shopify integration is syncing subscribers and that a welcome email exists; the on-site success copy no longer promises one.
-- **Judge.me.** The app embed is still installed but the badge and widget are removed from the product page and Trusted By. Re-add them once the first five or so reviews are in.
+- **Judge.me.** Six published five-star reviews as of 6 Sep, all collected by Judge.me's own post-purchase invitation (so the automatic review request *is* firing on every Shopify order, POS included). v6 now shows them through the `tel-reviews` section, which reads the `reviews.rating` / `reviews.rating_count` metafields and Judge.me's server-rendered list, so new reviews appear on the site as Judge.me publishes them; the Judge.me widget itself stays off. The review JSON-LD is emitted on the product page for rich results. Two of the six talk about the studio experience rather than the jars (Chriso, Eli); they stay in the full list and out of the three pull quotes.
 
 ## Brand architecture — keeping the fragrance pivot cheap
 
