@@ -49,7 +49,7 @@ Other pages
 ## Open before Thursday
 
 1. **Re-paste the meta description** (see below). The saved one still says "the years after".
-2. **New back-tattoo studio image.** Upload it to Content → Files at 4000 px on the long edge (Shopify rejects anything over 25 MP, and the camera originals are 42 MP). Tell me the filename and I'll place it — the natural home is the "From the chair" band or the Trusted By page, and it can go into the product gallery if it reads as product context rather than portfolio.
+2. ~~**New back-tattoo studio image.**~~ Done (Sun 6 Sep). `tel-founder-back-studio-r1.jpg` — straight-on, room in frame, acne lifted with the ink hard-masked, graded to the site — sits in the homepage founder band at 4:5 under "Built at the counter of a working studio". The settled-ink chest shot it displaced moved to the Founder page ("This is the standard"). Callum's warm angled edit is held for social. Also this session: Ritual collection image swapped to the r1; gallery slot 6 (an un-retouched twin of the collection frame) replaced with the r1; the open-jars frame rim-cleaned and swapped into gallery slot 4 and both two-stage sections.
 3. **Release video, Sunday.** Not on the site yet. Decide whether it lands as the hero, a band below the two-stage section, or Instagram-only for launch week.
 
 ## Things only you can do in admin

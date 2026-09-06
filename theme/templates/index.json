@@ -202,10 +202,10 @@
       "type": "tel-band",
       "settings": {
         "alt": true,
-        "image": "shopify://shop_images/tel-ritual-duo-10-settled-ink-clean.jpg",
+        "image": "shopify://shop_images/tel-founder-back-studio-r1.jpg",
         "image_position": "end",
-        "aspect": "3/2",
-        "focal": "50% 50%",
+        "aspect": "4/5",
+        "focal": "50% 38%",
         "eyebrow": "The founder · The studio",
         "heading": "Built at the counter of a working <em>studio</em>.",
         "quote": "Nothing goes on a client's skin that has not been proven on my own first.",
