@@ -13,7 +13,7 @@
       "type": "tel-hero",
       "settings": {
         "image": "shopify://shop_images/tel-ritual-duo-01-sealed-set-hero-r1.jpg",
-        "mobile_image": "shopify://shop_images/tel-ritual-duo-09-sealed-box-r1.jpg",
+        "mobile_image": "shopify://shop_images/tel-ritual-duo-09-sealed-box-r2.jpg",
         "focal": "50% 50%",
         "mobile_height": 700,
         "desktop_height": 860,
@@ -111,7 +111,7 @@
         "eyebrow": "Why two",
         "heading": "Two stages. Two <em>formulas</em>.",
         "intro": "<p>Fresh work needs sealing. Settling work needs conditioning. The balm is too heavy for the second stage; the cream too light for the first.</p>",
-        "image": "shopify://shop_images/tel-ritual-duo-05-both-open-top-down-r1.jpg",
+        "image": "shopify://shop_images/tel-ritual-duo-05-both-open-top-down-r2.jpg",
         "focal": "50% 50%",
         "caption": "Two textures. Two jobs.",
         "outro": "<p>Heavy, detailed work uses both, layered. Seventeen years in the chair says one product can't do it. That is why they're sealed together.</p>",
