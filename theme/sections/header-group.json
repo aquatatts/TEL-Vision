@@ -17,12 +17,19 @@
         "message_jh9dqU": {
           "type": "message",
           "settings": {
-            "text": "CHAPTER ONE · NOW OPEN · FIVE HUNDRED SETS · FREE SHIPPING AUSTRALIA-WIDE"
+            "text": "CHAPTER ONE · NOW OPEN · FIVE HUNDRED SETS"
+          }
+        },
+        "message_ship": {
+          "type": "message",
+          "settings": {
+            "text": "FREE SHIPPING AUSTRALIA-WIDE · SHIPS FROM SURFERS PARADISE"
           }
         }
       },
       "block_order": [
-        "message_jh9dqU"
+        "message_jh9dqU",
+        "message_ship"
       ],
       "name": "t:sections.announcement_bar.name",
       "settings": {

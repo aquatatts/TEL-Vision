@@ -1,8 +1,9 @@
-{%- comment -%} TEL v6 · Hero: full-bleed scene, slow push-in, gradient veil, type low and left. {%- endcomment -%}
+{%- comment -%} TEL v6.1 · Hero: full-bleed scene, slow push-in, gradient veil, type low and left. Adds a desktop focal control (v6 hard-coded 50% 40%). {%- endcomment -%}
 {%- liquid
   assign img = section.settings.image
   assign mimg = section.settings.mobile_image
   assign focal = section.settings.focal | default: '50% 50%'
+  assign dfocal = section.settings.desktop_focal | default: '50% 40%'
   assign img_alt = img.alt | default: section.settings.heading | strip_html
 -%}
 <style>
@@ -19,7 +20,7 @@
   }
   @media(min-width:900px){
     #shopify-section-{{ section.id }} .tel-hero{height:min(84vh,{{ section.settings.desktop_height }}px)}
-    #shopify-section-{{ section.id }} .tel-hero__media img{object-position:50% 40%}
+    #shopify-section-{{ section.id }} .tel-hero__media img{object-position:{{ dfocal }}}
     #shopify-section-{{ section.id }} .tel-hero__veil{background:linear-gradient(180deg,rgba(5,5,5,.1) 0%,rgba(5,5,5,0) 40%,rgba(5,5,5,.55) 75%,rgba(5,5,5,.96) 100%),linear-gradient(90deg,rgba(5,5,5,.55) 0%,rgba(5,5,5,0) 55%)}
     #shopify-section-{{ section.id }} .tel-hero__content{bottom:72px;max-width:560px}
     #shopify-section-{{ section.id }} .tel-hero__content .tel-eyebrow{letter-spacing:.34em}
@@ -59,6 +60,7 @@
     { "type": "image_picker", "id": "image", "label": "Image", "info": "Leave empty to use the built-in Chapter One scene (assets/tel-scene-hero.jpg). Replace with the CGI turntable still when it lands." },
     { "type": "image_picker", "id": "mobile_image", "label": "Mobile image (optional)" },
     { "type": "select", "id": "focal", "label": "Mobile focal point", "options": [ { "value": "50% 0%", "label": "Top" }, { "value": "50% 30%", "label": "Upper third" }, { "value": "50% 50%", "label": "Centre" } ], "default": "50% 50%" },
+    { "type": "select", "id": "desktop_focal", "label": "Desktop focal point", "options": [ { "value": "50% 30%", "label": "Upper third" }, { "value": "50% 40%", "label": "Upper-centre" }, { "value": "50% 50%", "label": "Centre" }, { "value": "50% 60%", "label": "Lower-centre" } ], "default": "50% 40%" },
     { "type": "range", "id": "mobile_height", "label": "Mobile height", "min": 520, "max": 820, "step": 10, "unit": "px", "default": 700 },
     { "type": "range", "id": "desktop_height", "label": "Desktop max height", "min": 600, "max": 1000, "step": 20, "unit": "px", "default": 860 },
     { "type": "range", "id": "veil", "label": "Bottom veil strength", "min": 60, "max": 98, "step": 2, "unit": "%", "default": 86 },
