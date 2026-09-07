@@ -63,10 +63,8 @@
       <link rel="preload" href="{{ settings.text_font | font_url }}" as="font" type="font/woff2" crossorigin>
     {%- endunless -%}
 
-    {%- render 'social-meta-tags' -%}
-    {%- if page_description == blank and tel_desc != blank -%}
-      <meta property="og:description" content="{{ tel_desc | escape }}">
-    {%- endif -%}
+    {%- comment -%}TEL: tel_desc is passed in because {% render %} does not inherit layout variables. The snippet falls back to page_description on every other page.{%- endcomment -%}
+    {%- render 'social-meta-tags', tel_desc: tel_desc -%}
     {%- if tel_share != blank -%}
       <meta property="og:image" content="{{ tel_share }}">
       <meta property="og:image:secure_url" content="{{ tel_share }}">
