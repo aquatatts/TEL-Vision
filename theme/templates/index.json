@@ -183,9 +183,9 @@
         "q1": {
           "type": "quote",
           "settings": {
-            "quote": "Can’t be happier with how my tattoo healed after using the duo. Highly recommended",
-            "name": "Santi",
-            "role": "Review · 8 August 2026",
+            "quote": "Honestly one of the best products I’ve used for tattoos.",
+            "name": "Jessica Holland",
+            "role": "Google review · 1 September 2026",
             "stars": 5
           }
         },
@@ -217,7 +217,7 @@
         "alt": true,
         "eyebrow": "From the first five hundred",
         "heading": "Every review so far. <em>Five stars.</em>",
-        "sub": "Collected by Judge.me after purchase. Published as written.",
+        "sub": "Collected by Judge.me after purchase and from our Google Business Profile. Published as written.",
         "more_text": "Read every review",
         "more_url": "shopify://products/tattoo-aftercare-kit#reviews",
         "show_all": false,
