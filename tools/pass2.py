@@ -466,3 +466,45 @@ if __name__ == "__main__":
     jobs = sys.argv[1:] or ["jars05", "back"]
     for j in jobs:
         globals()[j]()
+
+
+# ------------------------------------------------------------- uncrushing ---
+
+def uncrush(src, out, target=26.0, name=""):
+    """Lift a crushed black point back to where the rest of the set sits.
+
+    Four gallery frames came off the shoot with their shadows pulled to near
+    zero while the others sit at 25-28. On the page the difference reads as two
+    different shoots: the correct frames keep the soft light sweep across the
+    seamless, the crushed ones stamp it flat.
+
+    Only the black point moves, per channel, with the white point pinned so the
+    gold foil is not dragged anywhere. What cannot be undone is clipping: pixels
+    already at zero carry no gradient to restore, and lifting turns them into a
+    flat plate rather than a sweep. So the clipped fraction is measured and
+    printed - it is the honest limit of this repair, not a number to hide.
+    """
+    bgr = cv2.imread(os.path.join(REPO, src) if os.path.exists(os.path.join(REPO, src))
+                     else os.path.join(OUT, src))
+    assert bgr is not None, src
+    g = cv2.cvtColor(bgr, cv2.COLOR_BGR2GRAY)
+    clipped = float((g == 0).mean() * 100)
+    near = float((g <= 6).mean() * 100)
+    print(f"uncrush  {name or src}")
+    print(f"  {clipped:.2f}% of the frame is pure black, {near:.2f}% is at or below 6")
+
+    blk, wht = _levels(bgr, "before")
+    f = bgr.astype(np.float32)
+    for c in range(3):
+        lo, hi = blk[c], wht[c]
+        # map lo -> target, hi -> hi: the highlight end does not move at all
+        k = (hi - target) / max(hi - lo, 1e-3)
+        f[..., c] = (f[..., c] - lo) * k + target
+    res = np.clip(f, 0, 255).astype(np.uint8)
+    _levels(res, "after")
+
+    flat = float((cv2.cvtColor(res, cv2.COLOR_BGR2GRAY) == int(round(target))).mean() * 100)
+    print(f"  {flat:.2f}% of the result is a flat plate at {target:.0f} "
+          f"(was clipped, no gradient to bring back)")
+    save(res, out)
+    return res
