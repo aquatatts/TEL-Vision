@@ -212,21 +212,10 @@ def _wb_gains(bgr):
     return np.clip(g, 0.86, 1.16).astype(np.float32)
 
 
-def back(src="DSC00760(1).jpeg", out="tel-founder-back-studio-r2.jpg"):
-    bgr = cv2.imread(os.path.join(REPO, src))
-    assert bgr is not None, src
+def _heal_acne(bgr, ink, skin, A, tag="back"):
+    """Compact points redder than their own surroundings, healed through skin only."""
     h, w = bgr.shape[:2]
-    print(f"back  source {w}x{h}")
     orig = bgr.copy()
-    ink, skin, A = _masks(bgr)
-    print(f"  skin {skin.mean()*100:.1f}% of frame, ink mask {ink.mean()*100:.1f}%")
-
-    ov = bgr.copy()
-    ov[skin > 0] = (0.45 * ov[skin > 0] + 0.55 * np.array([0, 255, 0])).astype(np.uint8)
-    cv2.imwrite(os.path.join(AUDIT, "back_skinmask.jpg"),
-                cv2.resize(ov, None, fx=0.28, fy=0.28), [cv2.IMWRITE_JPEG_QUALITY, 90])
-
-    # --- acne: compact points that are redder than their own surroundings ---
     Amed = cv2.medianBlur(cv2.cvtColor(bgr, cv2.COLOR_BGR2LAB)[..., 1], 31)
     red = (A - Amed.astype(np.int16))
     spots = ((red >= 4) & (skin > 0)).astype(np.uint8)
@@ -250,7 +239,7 @@ def back(src="DSC00760(1).jpeg", out="tel-founder-back-studio-r2.jpg"):
 
     ov = bgr.copy()
     ov[cv2.dilate(keep, np.ones((15, 15), np.uint8)) > 0] = (0, 0, 255)
-    cv2.imwrite(os.path.join(AUDIT, "back_acne_mask.jpg"),
+    cv2.imwrite(os.path.join(AUDIT, f"{tag}_acne_mask.jpg"),
                 cv2.resize(ov, None, fx=0.28, fy=0.28), [cv2.IMWRITE_JPEG_QUALITY, 90])
 
     if hit:
@@ -263,6 +252,24 @@ def back(src="DSC00760(1).jpeg", out="tel-founder-back-studio-r2.jpg"):
         print(f"  acne pass changed {int((d > 0).sum()):,} px")
         assert d[ink > 0].max() == 0, "acne pass touched inked pixels"
         assert d[skin == 0].max() == 0, "acne pass left the skin mask"
+    return bgr
+
+
+def back(src="DSC00760(1).jpeg", out="tel-founder-back-studio-r2.jpg"):
+    bgr = cv2.imread(os.path.join(REPO, src))
+    assert bgr is not None, src
+    h, w = bgr.shape[:2]
+    print(f"back  source {w}x{h}")
+    orig = bgr.copy()
+    ink, skin, A = _masks(bgr)
+    print(f"  skin {skin.mean()*100:.1f}% of frame, ink mask {ink.mean()*100:.1f}%")
+
+    ov = bgr.copy()
+    ov[skin > 0] = (0.45 * ov[skin > 0] + 0.55 * np.array([0, 255, 0])).astype(np.uint8)
+    cv2.imwrite(os.path.join(AUDIT, "back_skinmask.jpg"),
+                cv2.resize(ov, None, fx=0.28, fy=0.28), [cv2.IMWRITE_JPEG_QUALITY, 90])
+
+    bgr = _heal_acne(bgr, ink, skin, A, "back")
 
     # --- grade ---
     g = _wb_gains(bgr)
@@ -367,6 +374,87 @@ def match_to(src, ref, out, name=""):
                 [cv2.IMWRITE_JPEG_QUALITY, 93])
     save(res, out)
     return res
+
+
+def _skin_stats(bgr, skin):
+    px = bgr[skin > 0].reshape(-1, 3).astype(np.float32)
+    return px.mean(axis=0), px.std(axis=0)
+
+
+def side(src="DSC00753.jpeg", ref="tel-founder-side-studio-ref",
+         out="tel-founder-side-studio-r1.jpg"):
+    """The three-quarter frame, graded to sit beside the straight-on back shot.
+
+    `back()` finds its neutral on the floor tile in the bottom strip. This frame
+    is cropped tighter and has no floor in it, so that reference does not exist
+    and the same code balances the wrong way - it read a 1.080 gain on red and
+    left the skin at 50 red-minus-blue against the back shot's 28. The two would
+    not have cut together.
+
+    Same subject, same lights, same session, so the skin itself is the reference
+    instead: a per-channel linear map putting this frame's skin mean and spread
+    onto the approved frame's. The acne pass is unchanged and still runs first,
+    on the ungraded file, so it is measuring real redness rather than a cast.
+    """
+    ref_path = os.path.join(OUT, "tel-founder-back-studio-r2.jpg")
+    reference = cv2.imread(ref_path)
+    assert reference is not None, ref_path
+    bgr = cv2.imread(os.path.join(REPO, src))
+    assert bgr is not None, src
+    h, w = bgr.shape[:2]
+    print(f"side  source {w}x{h}  reference {os.path.basename(ref_path)}")
+    orig = bgr.copy()
+
+    ink, skin, A = _masks(bgr)
+    print(f"  skin {skin.mean()*100:.1f}% of frame, ink mask {ink.mean()*100:.1f}%")
+    bgr = _heal_acne(bgr, ink, skin, A, "side")
+
+    _, rskin, _ = _masks(reference)
+    sm, _ = _skin_stats(bgr, skin)
+    rm, _ = _skin_stats(reference, rskin)
+    sb, _ = _levels(bgr, "source")
+    rb, _ = _levels(reference, "reference")
+    print(f"  skin mean B,G,R  {sm[0]:.1f},{sm[1]:.1f},{sm[2]:.1f}"
+          f"  ->  {rm[0]:.1f},{rm[1]:.1f},{rm[2]:.1f}")
+
+    # Two anchors per channel, not one. Matching skin alone sets the mid-tone
+    # right and lets the shadows go wherever the gain drags them - it turned the
+    # room teal on the first pass. Pinning the black point as well fixes both
+    # ends of the channel, so the studio behind him stays the same neutral dark
+    # as the reference while the skin lands on the reference's skin.
+    # The bound has to be wide enough to let the fit land. This frame is the
+    # darker of the two (black at 22 against 11), so blue and green both need
+    # about 1.5x. Clamped tighter, they hit the ceiling while red did not and the
+    # match ran backwards - red-minus-blue went up to 64.8 against a target of
+    # 42.7. Highlights are protected by the roll-off below instead of by a clamp.
+    f = bgr.astype(np.float32)
+    gains = []
+    for c in range(3):
+        span = max(sm[c] - sb[c], 1e-3)
+        k = float(np.clip((rm[c] - rb[c]) / span, 0.60, 2.00))
+        gains.append(k)
+        f[..., c] = (f[..., c] - sb[c]) * k + rb[c]
+    print(f"  gains B,G,R = {gains[0]:.3f}, {gains[1]:.3f}, {gains[2]:.3f}")
+
+    x = np.clip(f / 255.0, 0, 1)
+    hot = np.clip((x - 0.90) / 0.10, 0, 1)
+    x = x - hot * hot * 0.05                 # holds the ceiling lamps together
+    graded = np.clip(x * 255.0, 0, 255).astype(np.uint8)
+
+    def warmth(img, m):
+        return img[..., 2][m > 0].mean() - img[..., 0][m > 0].mean()
+    print(f"  skin red-minus-blue  {warmth(orig, skin):.1f} -> {warmth(graded, skin):.1f}"
+          f"   (reference {warmth(reference, rskin):.1f})")
+    print(f"  skin mean L  {cv2.cvtColor(graded, cv2.COLOR_BGR2LAB)[..., 0][skin > 0].mean():.0f}"
+          f"   (reference {cv2.cvtColor(reference, cv2.COLOR_BGR2LAB)[..., 0][rskin > 0].mean():.0f})")
+
+    sc = 620 / w
+    cv2.imwrite(os.path.join(AUDIT, "side_ba.jpg"),
+                np.hstack([cv2.resize(orig, None, fx=sc, fy=sc, interpolation=cv2.INTER_AREA),
+                           cv2.resize(graded, None, fx=sc, fy=sc, interpolation=cv2.INTER_AREA)]),
+                [cv2.IMWRITE_JPEG_QUALITY, 93])
+    save(graded, out)
+    return graded
 
 
 def mobile_hero():
