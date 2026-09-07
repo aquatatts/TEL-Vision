@@ -12,9 +12,9 @@
     "tel_hero": {
       "type": "tel-hero",
       "settings": {
-        "image": "shopify://shop_images/tel-ritual-duo-01-sealed-set-hero-r1.jpg",
-        "mobile_image": "shopify://shop_images/tel-ritual-duo-09-sealed-box-r2.jpg",
-        "focal": "50% 50%",
+        "image": "shopify://shop_images/tel-chapter-one-scene-hero.jpg",
+        "focal": "50% 0%",
+        "desktop_focal": "50% 50%",
         "mobile_height": 700,
         "desktop_height": 860,
         "veil": 86,
@@ -294,6 +294,27 @@
         "button_text": "Join",
         "micro": "One email when Chapter Two opens. Nothing else."
       }
+    },
+    "tel_aim": {
+      "type": "tel-band",
+      "settings": {
+        "alt": false,
+        "image_position": "start",
+        "aspect": "4/5",
+        "focal": "50% 30%",
+        "eyebrow": "Our aim",
+        "heading": "Built on discipline. Driven by <em>purpose</em>.",
+        "quote": "TEL isn't a brand you buy once. It's a standard you choose.",
+        "attr_name": "",
+        "attr_role": "",
+        "attr_credential": "",
+        "body": "<p>Most things are made to be good enough. TEL started on the opposite belief: that good enough is a decision, and so is everything better.</p><p>It starts with aftercare, because looking after the work is the work. It grows the way it began — chapter by chapter, each one earned before it's named.</p>",
+        "ornament": false,
+        "mono_line": "",
+        "button_text": "Our aim",
+        "button_url": "shopify://pages/about",
+        "button_solid": false
+      }
     }
   },
   "order": [
@@ -305,6 +326,7 @@
     "tel_reviews",
     "tel_chair",
     "tel_founder",
+    "tel_aim",
     "tel_chapter",
     "tel_newsletter"
   ]
