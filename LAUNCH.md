@@ -1,8 +1,12 @@
 # TEL Collection — launch runbook (Thursday 10 September 2026)
 
-Theme to publish: **TEL v6 — LAUNCH CANDIDATE (Thu 10 Sep)**
-Admin → Online Store → Themes → the v6 card → Publish.
-Preview before publishing: the **Preview** button on the same card (or `https://iw0xvm-v5.myshopify.com/?preview_theme_id=142936834111` while logged into admin).
+Theme to publish: **TEL v6.1 — v5 hero + premium tune-up** (theme id `142983823423`)
+Admin → Online Store → Themes → the v6.1 card → Publish.
+Preview before publishing: the **Preview** button on the same card (or `https://iw0xvm-v5.myshopify.com/?preview_theme_id=142983823423` while logged into admin).
+
+**v6.1, not v6** (decided Mon 7 Sep). v6.1 was branched off v6 during the day and gained three things of its own: the Chapter One scene hero, a desktop focal control on `tel-hero.liquid`, an announcement bar that rotates two messages, and the "Our aim" band. v6 meanwhile gained Jessica's review, the four-item spec strip, the r2 back shot and the reviews band. Only four files differed, so v6's homepage and product templates were merged into v6.1 rather than the reverse — and `tel_aim` was carried across by hand, because it has never existed in v6 and a straight copy would have deleted it.
+
+**v6 is now behind v6.1 and should not be published.** Keep it as the rollback one step further back; `TEL v3 — LIVE (2 Sep)` is still the true one-click rollback.
 
 v6 is already written in the *open* state: no "doors open Thursday" copy anywhere. The password page is the only place that still speaks pre-launch, and it disappears when the password comes off.
 
@@ -60,6 +64,25 @@ Other pages
 2. ~~**New back-tattoo studio image.**~~ Done (Sun 6 Sep). `tel-founder-back-studio-r1.jpg` — straight-on, room in frame, acne lifted with the ink hard-masked, graded to the site — sits in the homepage founder band at 4:5 under "Built at the counter of a working studio". The settled-ink chest shot it displaced moved to the Founder page ("This is the standard"). Callum's warm angled edit is held for social. Retouch pass two (Sun 6 Sep, evening) then corrected two more frames Ben spotted by eye: the phone hero `tel-ritual-duo-09-sealed-box-r2.jpg` came back from the shoot with a lifted, milky black (ground at 25 against the rest of the set's 3) and a red-skewed white point — black point restored per channel, hue and saturation deliberately untouched so the gold foil keeps its colour; and `tel-ritual-duo-05-both-open-top-down-r2.jpg` had the dust healed **on** the product surfaces, which the rim-only first pass had hard-masked out by design. Both approved and placed. Also this session: Ritual collection image swapped to the r1; gallery slot 6 (an un-retouched twin of the collection frame) replaced with the r1; the open-jars frame rim-cleaned and swapped into gallery slot 4 and both two-stage sections.
 3. **The back shot is still the orange one.** `tel-founder-back-studio-r1.jpg` sits in the homepage founder band and Ben has already called it too red. A corrected version, `tel-founder-back-studio-r2.jpg`, exists in `images/web/` — LED cast neutralised off the floor tile, skin red-minus-blue down from 68 to 42, a wider acne pass, ink untouched and asserted — but it is **not approved and not placed**. Decide on a proper screen before Thursday: swap it in, or change the band. Do not let it ship by accident.
 4. **Release video, Sunday.** Not on the site yet. Decide whether it lands as the hero, a band below the two-stage section, or Instagram-only for launch week.
+
+## The product gallery, and a colour split worth knowing about
+
+The Ritual Duo gallery is now **eight frames**. The settled-ink chest shot, the Chapter One card and the hand-in-cream macro were taken out on 7 Sep — they were lifestyle and card shots sitting in a product gallery. They were **detached, not deleted** (`fileUpdate` with `referencesToRemove`, not `productDeleteMedia`, which is irreversible): the founder page links straight to the settled-ink file, so deleting it would have broken that page.
+
+Measuring the eight against each other found two groups. Four sit at a black point of 25–28 and keep the soft light sweep across the seamless. Four came off the shoot with that sweep crushed to near black. It is baked into the camera exports — seven of the eighteen originals are crushed, up to 36% of the frame at pure black — so it is not something the retouch introduced.
+
+| frame | state |
+|---|---|
+| 1 sealed set hero | **fixed** — lifted to 26, only 7% of it was clipped |
+| 11 sealed box | **fixed** — was never crushed at source; it was crushed here by mistake, reverted |
+| 3 texture macro | **left alone** — 25% of the frame has no shadow data |
+| 4 both open top-down | **left alone** — 34% has none |
+
+For 3 and 4 a lift produces a flat grey plate, not a sweep, because the pixels are already at zero. They are top-down shots where a dark ground reads as deliberate, so leaving them is the cheaper mistake. **A re-shoot of those two is the only real fix.**
+
+`tools/pass2.py uncrush()` does the lift and prints the clipped fraction every time, which is the number that decides whether it is worth doing.
+
+One naming wart: the file still called `tel-ritual-duo-09-sealed-box-r2.jpg` now holds r1's pixels, and `...-01-sealed-set-hero-r1.jpg` holds r2's. The content was replaced in place so the URLs stayed stable and nothing else had to change. Trust the pixels, not the filename.
 
 ## Launch graphics
 
