@@ -127,10 +127,14 @@ Chapter Two is a premium everyday moisturiser for tattooed skin. To leave it roo
 | | Job | Horizon |
 |---|---|---|
 | Restore Balm | Seals the fresh wound | Days 1–14 |
-| Recovery Cream | Carries the piece through settling | The months after, and as long as you want it looking sharp |
-| **Chapter Two — the moisturiser** | Maintenance, daily, on healed work | **For as long as you own the piece** |
+| Recovery Cream | Carries the piece through settling; freshens healed work and helps colour read fuller | The months after, and back to it whenever older work needs freshening |
+| **Chapter Two — the moisturiser** | Revives tattoos. Keeps ink and line work looking sharp | **Every day, every piece, for as long as you own it** |
 
-Recovery vs maintenance is a real distinction, not a marketing split — the name *Recovery* Cream already argues it. Do not let "for as long as you own the tattoo", "for life" or "forever" reattach to Recovery Cream anywhere; that phrase is reserved.
+Recovery vs maintenance is a real distinction, not a marketing split — the name *Recovery* Cream already argues it.
+
+**Reserved for Chapter Two, and not to reattach to Recovery Cream anywhere: "looking sharp", "line work sharp", "revive", "for as long as you own", "for life", "forever", "on every piece you own".** Eight lines were quietly using them on the wrong jar until 7 Sep; the table above used to as well, which is how it drifted.
+
+What Recovery Cream *does* keep is the answer that converts — yes, it works on old healed work. Stripping that to protect a product that has not launched would cost real money now for a benefit later. The line is: Recovery Cream freshens, Chapter Two revives and maintains.
 
 The Healing Guide's ∞ panel now belongs to **the daily habit**, not to the jar, so it still answers the "lost in year three" argument without over-claiming.
 
