@@ -14,11 +14,18 @@ The `theme/` folder in this repo is a byte-for-byte snapshot of every file chang
 2. Walk the site on a phone and a laptop with the password. Checklist below.
 3. If anything is wrong, v3 ("TEL v3 — LIVE (2 Sep)") is untouched: Publish it again to roll back in one click.
 
-## Thursday morning
+## Thursday — doors open 7:00pm
 
-1. Online Store → Preferences → Password protection → untick, Save. That is the launch.
-2. Check the homepage loads without the gate on a phone in a private window.
-3. Inventory: decided. The site reads live stock, so launch morning shows **450 of 500** and counts down with every order. Leave the variant quantity at 450. Sets sold over the counter at Squires Ink do not touch Shopify stock, so knock those off the variant quantity by hand (Products → The Ritual Duo → Quantity) to keep the count honest. When it reaches zero the homepage flips to "Chapter One is closed" and the product page button changes on its own.
+The hour moved from 9am to **7:00pm Brisbane**, so Thursday splits in two: the checks happen in the day, the password comes off in the evening. Do not untick it early — the Klaviyo "Doors Open" email is scheduled for 7:00pm and the announcement should not arrive after the site is already open.
+
+During the day
+1. Check the homepage loads correctly with the password still on, on a phone and a laptop.
+2. Inventory: decided. The site reads live stock, so doors open at **450 of 500** and counts down with every order. Leave the variant quantity at 450. Sets sold over the counter at Squires Ink do not touch Shopify stock, so knock those off the variant quantity by hand (Products → The Ritual Duo → Quantity) to keep the count honest. When it reaches zero the homepage flips to "Chapter One is closed" and the product page button changes on its own.
+
+At 7:00pm
+3. Online Store → Preferences → Password protection → untick, Save. **That is the launch.**
+4. Check the homepage loads without the gate on a phone in a private window.
+5. Post the story graphic (`images/social/tel-launch-story-9x16.png`) with the countdown sticker already expired, or swap to the "doors are open" story — the countdown itself goes up the night before, ending 7:00pm Thursday.
 
 ## Walk-through checklist (what to look at, in order)
 
@@ -53,6 +60,14 @@ Other pages
 2. ~~**New back-tattoo studio image.**~~ Done (Sun 6 Sep). `tel-founder-back-studio-r1.jpg` — straight-on, room in frame, acne lifted with the ink hard-masked, graded to the site — sits in the homepage founder band at 4:5 under "Built at the counter of a working studio". The settled-ink chest shot it displaced moved to the Founder page ("This is the standard"). Callum's warm angled edit is held for social. Retouch pass two (Sun 6 Sep, evening) then corrected two more frames Ben spotted by eye: the phone hero `tel-ritual-duo-09-sealed-box-r2.jpg` came back from the shoot with a lifted, milky black (ground at 25 against the rest of the set's 3) and a red-skewed white point — black point restored per channel, hue and saturation deliberately untouched so the gold foil keeps its colour; and `tel-ritual-duo-05-both-open-top-down-r2.jpg` had the dust healed **on** the product surfaces, which the rim-only first pass had hard-masked out by design. Both approved and placed. Also this session: Ritual collection image swapped to the r1; gallery slot 6 (an un-retouched twin of the collection frame) replaced with the r1; the open-jars frame rim-cleaned and swapped into gallery slot 4 and both two-stage sections.
 3. **The back shot is still the orange one.** `tel-founder-back-studio-r1.jpg` sits in the homepage founder band and Ben has already called it too red. A corrected version, `tel-founder-back-studio-r2.jpg`, exists in `images/web/` — LED cast neutralised off the floor tile, skin red-minus-blue down from 68 to 42, a wider acne pass, ink untouched and asserted — but it is **not approved and not placed**. Decide on a proper screen before Thursday: swap it in, or change the band. Do not let it ship by accident.
 4. **Release video, Sunday.** Not on the site yet. Decide whether it lands as the hero, a band below the two-stage section, or Instagram-only for launch week.
+
+## Launch graphics
+
+`images/social/` holds the two posts — `tel-launch-post-4x5.png` for the feed, `tel-launch-story-9x16.png` for the story. Both now read **7PM AEST**; both said 9AM before the hour moved.
+
+**The script that drew them was never saved.** So the time was changed in the pixels, by `tools/post.py`: the footer line is monospaced, which makes it a grid of fixed-width cells, and only the two cells holding the hour were rebuilt. The `P` is not a new glyph at all — it is the `P` from `APART` in the same line, moved ten cells across, so it carries the original rendering exactly. Only the `7` had to be drawn, and `tools/retime_launch.py` refuses to place it unless it matches the real `9` it replaces at least as closely as the line's own repeated letters match each other (they vary, because each lands on a different sub-pixel position). It then proves every other glyph is byte-identical.
+
+Practical consequence: **a further copy change to these graphics is not a small job.** Anything beyond swapping characters inside that footer line — a new number in "450 REMAINING", different headline type — means designing the asset again rather than editing it. Budget for that if Chapter One needs a "sets remaining" or "last call" cut.
 
 ## Things only you can do in admin
 
