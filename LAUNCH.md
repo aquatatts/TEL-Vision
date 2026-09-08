@@ -34,14 +34,14 @@ At 7:00pm
 ## Walk-through checklist (what to look at, in order)
 
 Homepage
-- Hero: sealed set with the monogram card on desktop, sealed box on mobile, "Earned. Not given." and the gold button above the fold on a phone.
+- Hero: the 4000px sealed set with the monogram card on desktop; the Chapter One scene on phones (1200px, sharp at that size, Ben has signed it off). "Earned. Not given." and the gold button above the fold on a phone.
 - Spec strip: 60 ml × 2 · Sealed as a set · First run of five hundred · Free shipping Australia-wide.
 - Product plate: real photo (jars beside the box), price ledger, gold button, "Chapter One · 450 of 500 sets remaining" under it.
 - Two stages: the two open jars sit under the intro; the second step keeps its bottom hairline; button goes to the Healing Guide.
 - Proof strip scrolls sideways on a phone, five columns on desktop.
 - Reviews: "Every review so far. Five stars.", the 5.0 · 6 reviews ledger line, three quotes side by side on desktop, stacked on a phone, and a "Read every review" button to the product page.
 - From the chair: Valerio portrait, quote, disclosure line, button to Trusted By.
-- Founder: settled-ink chest photo, landscape, quote and ornament rule, button to the founder page.
+- Founder: the three-quarter studio back shot at 4:5, quote and ornament rule, button to the founder page. The straight-on back shot (r3, Ben's own retouch with the approved grade put back on it) sits on the Founder page beside the paragraph about that back. No photo appears twice.
 - Chapter: big 500, "Chapter One is open…", meter reading 450 of 500.
 - First access: Chapter One card beside the form. Submit a test email; the success message should appear in place.
 
@@ -67,7 +67,7 @@ Other pages
 
 ## The product gallery, and a colour split worth knowing about
 
-The Ritual Duo gallery is now **eight frames**. The settled-ink chest shot, the Chapter One card and the hand-in-cream macro were taken out on 7 Sep — they were lifestyle and card shots sitting in a product gallery. They were **detached, not deleted** (`fileUpdate` with `referencesToRemove`, not `productDeleteMedia`, which is irreversible): the founder page links straight to the settled-ink file, so deleting it would have broken that page.
+The Ritual Duo gallery is now **seven frames** (8 Sep: the open-jars top-down came out too - it was also the two-stage section's image directly below the gallery on the same page, and it was the 34%-clipped frame). The settled-ink chest shot, the Chapter One card and the hand-in-cream macro were taken out on 7 Sep — they were lifestyle and card shots sitting in a product gallery. They were **detached, not deleted** (`fileUpdate` with `referencesToRemove`, not `productDeleteMedia`, which is irreversible): the founder page links straight to the settled-ink file, so deleting it would have broken that page.
 
 Measuring the eight against each other found two groups. Four sit at a black point of 25–28 and keep the soft light sweep across the seamless. Four came off the shoot with that sweep crushed to near black. It is baked into the camera exports — seven of the eighteen originals are crushed, up to 36% of the frame at pure black — so it is not something the retouch introduced.
 
@@ -83,6 +83,10 @@ For 3 and 4 a lift produces a flat grey plate, not a sweep, because the pixels a
 `tools/pass2.py uncrush()` does the lift and prints the clipped fraction every time, which is the number that decides whether it is worth doing.
 
 One naming wart: the file still called `tel-ritual-duo-09-sealed-box-r2.jpg` now holds r1's pixels, and `...-01-sealed-set-hero-r1.jpg` holds r2's. The content was replaced in place so the URLs stayed stable and nothing else had to change. Trust the pixels, not the filename.
+
+## Where Ben's uploads actually go
+
+GitHub's web uploader commits to the **default branch (`main`)**, not to the working branch. Ben's Monday-night uploads - the back shot, the video-frame screenshots, two 1536px product renders - all landed on `main` and were invisible from `claude/premium-website-launch-design-ipzsn8` until 8 Sep. Check `origin/main` for stray "Add files via upload" commits before concluding something has not arrived. Nothing else on `main` is needed on the working branch.
 
 ## Launch graphics
 
