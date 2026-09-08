@@ -8,13 +8,13 @@ Preview before publishing: the **Preview** button on the same card (or `https://
 
 **v6 is now behind v6.1 and should not be published.** Keep it as the rollback one step further back; `TEL v3 — LIVE (2 Sep)` is still the true one-click rollback.
 
-v6 is already written in the *open* state: no "doors open Thursday" copy anywhere. The password page is the only place that still speaks pre-launch, and it disappears when the password comes off.
+v6.1 is already written in the *open* state: no "doors open Thursday" copy anywhere. The password page is the only place that still speaks pre-launch, and it disappears when the password comes off.
 
-The `theme/` folder in this repo is a byte-for-byte snapshot of every file changed in v6, plus `theme/pages/` for the page bodies that were rewritten in admin.
+The `theme/` folder in this repo is a byte-for-byte snapshot of every file changed in v6.1, plus `theme/pages/` for the page bodies that were rewritten in admin.
 
 ## Wednesday evening (dry run, still gated)
 
-1. Publish v6 while the storefront password is still on. Nobody outside sees anything; you get a real render instead of the editor preview.
+1. Publish **v6.1** (the card named "TEL v6.1 — v5 hero + premium tune-up") while the storefront password is still on. Nobody outside sees anything; you get a real render instead of the editor preview.
 2. Walk the site on a phone and a laptop with the password. Checklist below.
 3. If anything is wrong, v3 ("TEL v3 — LIVE (2 Sep)") is untouched: Publish it again to roll back in one click.
 
