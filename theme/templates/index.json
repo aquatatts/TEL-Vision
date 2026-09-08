@@ -12,7 +12,8 @@
     "tel_hero": {
       "type": "tel-hero",
       "settings": {
-        "image": "shopify://shop_images/tel-chapter-one-scene-hero.jpg",
+        "image": "shopify://shop_images/tel-ritual-duo-01-sealed-set-hero-r1.jpg",
+        "mobile_image": "shopify://shop_images/tel-chapter-one-scene-hero.jpg",
         "focal": "50% 0%",
         "desktop_focal": "50% 50%",
         "mobile_height": 700,
@@ -251,7 +252,7 @@
       "type": "tel-band",
       "settings": {
         "alt": true,
-        "image": "shopify://shop_images/tel-founder-back-studio-r2.jpg",
+        "image": "shopify://shop_images/tel-founder-back-studio-r3.jpg",
         "image_position": "end",
         "aspect": "4/5",
         "focal": "50% 38%",
