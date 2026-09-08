@@ -508,3 +508,34 @@ def uncrush(src, out, target=26.0, name=""):
           f"(was clipped, no gradient to bring back)")
     save(res, out)
     return res
+
+
+def match_skin(src, ref, out, name=""):
+    """Two-anchor skin match between two finished frames, at their saved size.
+
+    side() and the r3 grade each matched to r2 at camera resolution and both
+    reported 42.7 - yet side-by-side at 4000px the side shot reads warmer, and
+    measured at 4000px with the same mask it is 55 against r3's 46. The skin
+    mask's density window is a fixed 201px, so at 6600px tall it selects a
+    different patch of skin than at 4000px, and each frame was fitted to its
+    own patch. Matching the saved files to each other, at the one resolution
+    they are actually compared at, removes that variable.
+    """
+    a = cv2.imread(os.path.join(OUT, src)); b = cv2.imread(os.path.join(OUT, ref))
+    assert a is not None and b is not None, (src, ref)
+    print(f"match_skin  {name or src}  ->  {ref}")
+    _, sa, _ = _masks(a); _, sb_, _ = _masks(b)
+    sm, _ = _skin_stats(a, sa); rm, _ = _skin_stats(b, sb_)
+    ab, _ = _levels(a, "source"); rb, _ = _levels(b, "reference")
+    f = a.astype(np.float32); gains = []
+    for c in range(3):
+        k = float(np.clip((rm[c] - rb[c]) / max(sm[c] - ab[c], 1e-3), 0.60, 2.00))
+        gains.append(k); f[..., c] = (f[..., c] - ab[c]) * k + rb[c]
+    x = np.clip(f / 255.0, 0, 1); hot = np.clip((x - 0.90) / 0.10, 0, 1)
+    res = np.clip((x - hot * hot * 0.05) * 255.0, 0, 255).astype(np.uint8)
+    def w(img, m): return img[..., 2][m > 0].mean() - img[..., 0][m > 0].mean()
+    _, sr, _ = _masks(res)
+    print(f"  gains B,G,R = {gains[0]:.3f}, {gains[1]:.3f}, {gains[2]:.3f}")
+    print(f"  skin red-minus-blue  {w(a, sa):.1f} -> {w(res, sr):.1f}   (reference {w(b, sb_):.1f})")
+    save(res, out)
+    return res
