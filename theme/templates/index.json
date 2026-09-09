@@ -252,10 +252,10 @@
       "type": "tel-band",
       "settings": {
         "alt": true,
-        "image": "shopify://shop_images/tel-founder-side-studio-r1.jpg",
+        "image": "shopify://shop_images/tel-founder-benny-aquilina.jpg",
         "image_position": "end",
         "aspect": "4/5",
-        "focal": "50% 38%",
+        "focal": "50% 30%",
         "eyebrow": "The founder · The studio",
         "heading": "Built at the counter of a working <em>studio</em>.",
         "quote": "Nothing goes on a client's skin that has not been proven on my own first.",
