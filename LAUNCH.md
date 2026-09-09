@@ -150,3 +150,32 @@ Homepage: hero now uses the shoot (was a portrait placeholder); real photo on th
 Product page: story sections and a five-question FAQ added below the gallery; "What's in it" accordion; sets-remaining and assurance lines; Healing Guide link; Judge.me removed; payment-terms block (renders nothing in AU) removed; carousel gallery with portraits last.
 Theme-wide: gold `#C9A24B` everywhere (pages were still copper); favicon set; theme fonts on every page (the pages named a font family that was never loaded, so headings fell back to Georgia); mono micro-type raised to 10.5–11 px; placeholder and mute contrast raised; Google font no longer render-blocking; empty alt text fixed; proof strip made a real list; search icon off; popup off; footer studio details.
 Store data: five 4000 px frames added to Files; two added to the product gallery and the gallery reordered; Healing Guide in the main menu; Terms of Service in the footer; Ritual collection given an image and description.
+
+## Shopify config that lives outside this repo
+
+Two settings that are not theme files, so nothing here or in git tracks them. Both were
+found during the live checkout test on launch morning, Thu 10 Sep.
+
+**Free shipping had a minimum-order condition, and it broke the founding price.**
+`Free shipping` (method definition `697814646847`, Domestic zone, delivery profile
+`92491874367`) carried `TOTAL_PRICE >= $59.00 AUD`. The founding price is $49.99, which
+falls under it, so Shopify filtered free shipping out and offered only Express $15.00 —
+making the discounted total $64.99 against $59.95 at full price. Every recipient of the
+Doors Open email would have paid **$5.04 more than someone who ignored the offer**, on a
+store that promises free shipping in the spec strip, the product page, the FAQs and the
+email itself. Fixed by setting the condition to `>= $0.00` via `deliveryProfileUpdate` —
+note `DeliveryMethodDefinitionInput` has no `conditionsToDelete` in this API version, only
+`conditionsToUpdate`, so the threshold is zeroed rather than removed. Verified end to end by
+order #1044: $49.99 subtotal, $9.96 discount, $0.00 shipping, PAID.
+
+**Lesson worth keeping:** any shipping threshold set at or near full price silently breaks
+the moment a discount code lands. If a founding price, sale or bundle is ever run again,
+re-check this condition first.
+
+**`HEALED15` is still live and has no end date.** "Healing Guide Welcome — 15% off next
+kit", active since 4 Aug, 0 uses. Harmless during launch week — it cannot stack with
+`TELTAKEOVER` and 15% off ($50.96) is worse than the founding price ($49.99), so nobody
+rational uses it. It matters from **Monday 15 September**, when the closing email says
+"$59.95 after Monday — and it never comes down again": `HEALED15` quietly makes that untrue
+for anyone holding the code, indefinitely. Decide after launch — either give it an end date
+or consciously keep it as a loyalty code that sits outside the "no sales" promise.
