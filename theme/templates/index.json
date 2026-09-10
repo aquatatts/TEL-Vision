@@ -283,6 +283,17 @@
         "meter_label": "Sets remaining"
       }
     },
+    "tel_newsletter_mid": {
+      "type": "tel-newsletter",
+      "settings": {
+        "eyebrow": "First access",
+        "heading": "Hear it <em>first</em>.",
+        "body": "<p>One list. Told before anyone else \u2014 when a chapter opens, and when it closes.</p>",
+        "placeholder": "Your email address",
+        "button_text": "Join",
+        "micro": "One email when it matters. Nothing else."
+      }
+    },
     "tel_newsletter": {
       "type": "tel-newsletter",
       "settings": {
@@ -325,6 +336,7 @@
     "tel_steps",
     "tel_proof",
     "tel_reviews",
+    "tel_newsletter_mid",
     "tel_chair",
     "tel_founder",
     "tel_aim",
