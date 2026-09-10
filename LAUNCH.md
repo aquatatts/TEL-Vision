@@ -266,3 +266,43 @@ this repo. Nothing in git will ever tell you whether tracking is on.
 `product.onlineStoreUrl` reads `null`, no visitor reaches the storefront, and no pixel fires.
 Tracking starts when the password comes off, not when the theme is published — so a pixel
 must be connected *before* the gate drops or that traffic is unrecoverable.
+
+## Chapter One went live — Thursday 10 September 2026, 18:39:37 Brisbane
+
+The password came off eleven minutes early. `product.onlineStoreUrl` flipped from `null` to
+`https://telcollection.com.au/products/tattoo-aftercare-kit` between two API reads sixty
+seconds apart, which is the moment the store became public.
+
+Going early was deliberate. Mailchimp was scheduled 18:55 — **five minutes ahead of
+Klaviyo** — so the true last-safe-moment to fix or roll back was 18:54, not 19:00. Dropping
+the gate at 18:39 turned a four-minute reaction window into fifteen.
+
+**The full public path, verified by hand on mobile data in a private window:**
+
+| Link | Result |
+|---|---|
+| Store reachable, no gate | ✓ |
+| v6.1 renders — black ground, gold, hero, gallery | ✓ "looks unreal" |
+| `/discount/TELTAKEOVER?redirect=…` arms silently | ✓ lands on the product page with no banner, which is correct |
+| Product page price | $59.95 ✓ (discount lands in the cart by design) |
+| Cart honours the founding price | **$49.99** ✓ |
+| Free shipping, both price points | ✓ |
+| Payment capture | ✓ order #1044 |
+| Oversell guard | `inventoryPolicy: DENY` — stops dead at 0 ✓ |
+
+The cart test mattered because it was the one thing never proven on a clean public session:
+Ben's own customer record had already spent its single `appliesOncePerCustomer` use on the
+morning test, so only a fresh anonymous session could show whether the link still discounts.
+It does.
+
+**State at doors:** v6.1 MAIN · 448 in stock · TELTAKEOVER active to Mon 14 Sep 23:59 ·
+Meta connected · no stray orders.
+
+### One thing to have an answer ready for
+
+**Australia only.** The General profile carries a single zone — Domestic (AU) — with Free
+shipping $0.00 and Express $15.00. There is no international zone, so an overseas visitor
+hits *"we don't ship to your address"* at checkout. Correct scope for a 500-set first run,
+but the audience is not domestic-only: Valerio is international and the collab post reaches
+four followings. The right reply turns the no into a signup — Australia only for Chapter One,
+join the list and hear first when that changes.
