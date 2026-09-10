@@ -179,3 +179,69 @@ rational uses it. It matters from **Monday 15 September**, when the closing emai
 "$59.95 after Monday — and it never comes down again": `HEALED15` quietly makes that untrue
 for anyone holding the code, indefinitely. Decide after launch — either give it an end date
 or consciously keep it as a loyalty code that sits outside the "no sales" promise.
+
+## The pool — what catches a visitor who doesn't buy
+
+Checked live on launch afternoon, Thu 10 Sep, because the whole point of a one-night traffic
+spike is what survives it. Units are recoverable; an uncaptured visitor is not.
+
+### Klaviyo flows: four are named "(DRAFT)" but are actually LIVE
+
+This is a trap. The suffix is in the flow **name**; the API `status` says otherwise. Anyone
+reading the Klaviyo sidebar would conclude these are switched off. They are not.
+
+| Flow | ID | Trigger | Real status |
+|---|---|---|---|
+| TEL — Welcome: The standard *(DRAFT)* | `TEZ6PM` | Added to List | **live** |
+| TEL — Abandoned checkout: Still sealed *(DRAFT)* | `Vg9tuX` | Metric | **live** |
+| TEL — Browse abandonment: You looked *(DRAFT)* | `YgAs6b` | Metric | **live** |
+| TEL — Post-purchase: The Healing Guide | `WnAETh` | Metric | live |
+| TEL — Post-purchase (ONLINE): The Healing Guide | `TPwqqq` | Metric | live |
+| TEL — Post-purchase: The Long Stage (reorder) | `UpBgzj` | Metric | live |
+| TEL — Back in stock: Doors open again *(DRAFT)* | `SuavPL` | Metric | **genuinely draft** |
+
+Rename the four live ones to drop "(DRAFT)". Until then, trust the API status, not the label.
+
+Note that browse abandonment only fires for **known** profiles — someone who has already
+clicked an email or submitted a form. It does almost nothing on a launch night full of
+strangers, and a great deal once the list is real. Abandoned checkout is the opposite: it
+fires for anyone who enters an email at checkout, so it is the one that earns its keep on
+night one.
+
+### Capture points: one live, two switched off
+
+| Where | File / ID | State |
+|---|---|---|
+| Homepage "First access" band | `theme/sections/tel-newsletter.liquid` | **live** — but it is the *last* entry in `templates/index.json`'s section order, so most visitors never reach it |
+| Theme newsletter popup | `theme/sections/overlay-group.json` | `"disabled": true` |
+| Klaviyo popup "TEL · First access popup" | `WirxQ2` | **draft**, `form_type: popup` |
+
+The Klaviyo popup's `updated_at` is identical to its `created_at` (4 Sep 14:46:47) — it was
+created and never edited, so it is an untouched shell rather than a finished form. That is
+why it was left off on launch night: an off-brand popup costs more on a store selling "no
+half measures" than the addresses it would collect.
+
+The band posts through Shopify's `{% form 'customer' %}` with `contact[tags] = newsletter`,
+so joins arrive as Shopify customers and reach Klaviyo through the store integration — not
+as a direct Klaviyo list add. Worth confirming that path actually triggers the live Welcome
+flow (`TEZ6PM`) before relying on it.
+
+### The pixel could not be verified from the API, and the reason matters
+
+Both read paths are gated behind scopes this integration does not hold:
+
+```
+webPixel         → Access denied. Required access: `read_pixels` access scope
+appInstallations → access denied
+```
+
+So pixel presence has to be checked by hand: **Settings → Customer events** in the Shopify
+admin lists every installed pixel, Klaviyo's onsite tracking included. Both ride the same
+`{{ content_for_header }}` injection in `theme/layout/theme.liquid`, which means an
+app-installed pixel survives a theme swap — and equally, that neither is visible anywhere in
+this repo. Nothing in git will ever tell you whether tracking is on.
+
+**Publishing a theme does not make the store public.** While the password gate is up,
+`product.onlineStoreUrl` reads `null`, no visitor reaches the storefront, and no pixel fires.
+Tracking starts when the password comes off, not when the theme is published — so a pixel
+must be connected *before* the gate drops or that traffic is unrecoverable.
