@@ -226,7 +226,28 @@ so joins arrive as Shopify customers and reach Klaviyo through the store integra
 as a direct Klaviyo list add. Worth confirming that path actually triggers the live Welcome
 flow (`TEZ6PM`) before relying on it.
 
-### The pixel could not be verified from the API, and the reason matters
+### The pixel: resolved by hand, 5:20pm launch day
+
+**Confirmed connected.** Ben checked Settings > Customer events and reported the pixel rows
+reading **Connected**, with data access granted. That closes the storefront question: Meta
+receives events from the live store, not only from the password gate.
+
+Two things carried into v6.1 and are worth knowing:
+
+- **Domain verification survived the theme swap.** `layout/theme.liquid` line 7 carries
+  `<meta name="facebook-domain-verification" content="c0hf8rfbls1qzmzth1yy0etwchwo1j">`.
+  With the domain verified, Aggregated Event Measurement can be configured.
+- **The hardcoded pixel is gate-only and is now dead.** `theme/sections/main-password.liquid`
+  contains Meta pixel `1917775705566990` inline, firing PageView and a Lead event on gate
+  signup. Its own comment says it exists because Shopify's app pixel does not run on password
+  pages. `theme.liquid` renders that section only when `request.page_type == 'password'`, so
+  dropping the password removed it entirely. Anything that relied on it stopped at 6:50pm.
+
+**One thing still worth a look:** the gate pixel is `1917775705566990`. If the Facebook &
+Instagram channel is wired to a *different* pixel ID, the audience is split across two and
+neither gets the full picture. Check the ID in Events Manager and consolidate if they differ.
+
+### Why the API could not answer it, for next time
 
 Both read paths are gated behind scopes this integration does not hold:
 
