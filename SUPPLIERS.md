@@ -142,3 +142,42 @@ serious stockist asks for is the certificate.
 Find a broker who handles **cosmetics specifically**. Brief them: aftercare product applied to
 freshly tattooed skin, manufactured by a third party overseas to TEL's specification, imported
 by TEL, sold direct and intended for wholesale.
+
+## JAJI reply — drafted, ready to send
+
+Fill in the days and send. Answers their question, keeps every card, and moves the admin off
+the coffee so the meeting is about the fragrance.
+
+> **Subject:** Re: Touching Base: TEL Collection — fragrance development enquiry (JAJI Editions)
+>
+> Hi Jason, Jim,
+>
+> Apologies for the slow reply — we opened TEL's first chapter on Thursday night and the week
+> disappeared into it.
+>
+> **Option 2.** We're interested, and I'd like to take you up on the coffee in Brisbane.
+>
+> Your answer on formula IP was straight and I appreciate that. I understand it's how the
+> industry works and it doesn't put me off — it just means the relationship needs to be built
+> to last. So there are a few things I'd like on the table before we sit down, so we can spend
+> the meeting on the fragrance itself rather than admin:
+>
+> 1. **Costs** — consultation, cost per development round, how many rounds are typically
+>    included, regulatory assessment, and price per litre of bulk oil.
+> 2. **Whether the 5L minimum applies to reorders**, or only the first run.
+> 3. **Continuity** — if JAJI ever ceased trading or couldn't supply, what happens to our
+>    formula. Not a concern about you; it's the question any brand has to ask when its
+>    signature scent sits with one house.
+> 4. **Exclusivity** — you mentioned the approved formula would never go to another client.
+>    I'd like to understand how that's worded in the contract.
+>
+> On our side: TEL Collection is a sealed two-step tattoo aftercare system, sold through our
+> studio in Surfers Paradise and online. The fragrance is the next chapter, built for the same
+> customer — people who've already spent thousands on work they'll wear for life and take how
+> they present seriously.
+>
+> I'm free [DAYS] — happy to come to Hamilton.
+>
+> Benny Aquilina
+> TEL Collection · Aqua747 Pty Ltd
+> 0407 772 614
