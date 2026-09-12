@@ -31,7 +31,7 @@ the product page. Fixing the leak is worth more than any budget decision here.
 | Warm Stack | **Dead.** Reach 9 on $1.33. Audiences built against the gated store |
 | Form `WirxQ2` | `status: live` but `query_form_values` → `results: []`. **Still not rendering** |
 | Emailable segment | 20 → **23** (+3) |
-| New profiles since 11 Sep | 9, of which **8 are `NEVER_SUBSCRIBED`** |
+| New profiles since 11 Sep | 9, of which 8 read `NEVER_SUBSCRIBED` in Klaviyo — but **subscribed in Shopify**. Sync fault, see 1c |
 | CAPI | Already Maximum on the Shopify F&I channel |
 | Checkout / shipping / channels / pixel | All healthy, confirmed by live read |
 
@@ -60,10 +60,23 @@ what has already failed twice on mobile, so do not go back through it. Then also
 `color: rgb(0, 0, 0)` that overrides the corrected global gold — black on the `#080808` panel,
 so that line is invisible. Confirm the fix with `query_form_values` returning non-empty.
 
-**1c. Counter capture at POS.** 8 of 9 profiles created since 11 Sep are `NEVER_SUBSCRIBED` —
-customers who bought today, whose email is in Klaviyo, and who cannot legally be emailed. POS
-is where 100% of real revenue happens. A deliberate opt-in ask at the counter is worth more
-than the entire paid budget: every Squires client is a proven TEL buyer.
+**1c. The POS consent sync is broken — and this is now the top item.** An earlier version of
+this plan said POS customers were not consenting. Wrong: only Klaviyo had been checked.
+Shopify's `email_marketing_state:subscribed` returns the same customers Klaviyo reports as
+`NEVER_SUBSCRIBED`, matched on creation timestamp to within three seconds. **They consented.
+Shopify recorded it. Klaviyo is not receiving it.**
+
+Shopify returned **50 subscribed customers and hit the API page limit** (so 50 is a floor)
+against Klaviyo's emailable segment of **23**. At least 27 consented subscribers cannot be
+reached from the sending tool.
+
+Fix: Klaviyo → Integrations → Shopify → the subscriber/consent sync setting and its target
+list. Profiles sync within seconds of each order, so the connection is healthy — it is the
+marketing-consent field that is unmapped. Laptop job.
+
+This ranks above the popup: the popup earns future subscribers, this releases customers who
+have already bought and already said yes. The counter ask is still worth building as a habit,
+but it is evidently already happening — the consent just has nowhere to land.
 
 ---
 
@@ -151,7 +164,8 @@ conversion rate is the unknown, and it is unknown because nothing has converted 
    submits. This is the one that matters most.
 2. Instagram bio link resolves to `/products/tattoo-aftercare-kit`; `website_clicks` starts
    returning a number.
-3. New POS customers appear with `consent: SUBSCRIBED` rather than `NEVER_SUBSCRIBED`.
+3. Klaviyo's emailable segment count converges on Shopify's subscribed-customer count, and
+   new POS customers land in Klaviyo as `SUBSCRIBED` rather than `NEVER_SUBSCRIBED`.
 4. A real order carrying `utm_campaign=ritual_drop_sep26` proves ads→checkout attribution.
 5. Rebuilt custom audiences report a workable size and Warm Stack's replacement actually
    delivers (reach >> 9).
