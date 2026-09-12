@@ -5,7 +5,30 @@
 
 # PART 1 — THE FOUR FIXES
 
-## A. META PIXEL — status: **UNVERIFIED, and I cannot verify it**
+## A. META PIXEL — status: ✅ **FIXED, Saturday 12 September**
+
+**Resolved.** The Facebook & Instagram channel was installed 28 July and **never configured** —
+Shopify was sending nothing to Meta. Confirmed by four independent signals: hollow status badge
+in Customer events, "—" in the Data column, an empty Datasets list in Events Manager, and a
+greyed-out Test button.
+
+**The empty Datasets list had a different cause than expected.** Ben was viewing Events Manager
+through `act=3364467513587954` — his *personal* ad account. Dataset `1917775705566990` existed
+the whole time, already bound to the **TEL Collection Ads** account (`2121305908740756`). Meta's
+side was correct; the Shopify→Meta pipe was the missing piece.
+
+Fixed by completing the channel setup: existing `telcollection` portfolio, existing page and
+Instagram profile, **Data sharing = Maximum** (Meta Pixel + advanced matching + Conversions API),
+bound to the existing dataset rather than a new one. Result: **"Run ads on Facebook and
+Instagram — Active."**
+
+Shop commerce review (up to 4 weeks) and catalog sync (48h) are pending and block nothing.
+
+**Note for next time:** two ad accounts exist. Decide which one TEL actually spends from —
+`2121305908740756` (TEL Collection Ads) keeps business spend off personal billing and is easier
+to hand over.
+
+### The original diagnosis, kept for the record
 
 **What I know for certain:**
 
