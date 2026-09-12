@@ -131,6 +131,40 @@ itself is healthy; it is specifically the marketing-consent field that is not be
 This now ranks **above** the popup fix. The popup earns future subscribers; this releases
 customers who have already bought and already opted in.
 
+### Second gate behind the sync: the target list is double opt-in
+
+The subscriber sync was enabled on 13 Sep and correctly targets list `V9Rbbr` ("Email List").
+But that list reads:
+
+```
+opt_in_process: "double_opt_in"
+```
+
+Every profile Shopify pushes into it therefore receives a confirmation email and is **not**
+`SUBSCRIBED` until it is clicked. A customer who ticked a box at the counter and left will
+almost never click an unexpected confirmation, so the sync hands people over and the list holds
+them pending. The plumbing is fixed and a valve two feet further along is still shut.
+
+Counts consistent with this: list `V9Rbbr` **24**, emailable segment `YgyR87` **23** — one
+member on the list who cannot be emailed.
+
+**Fix: switch `V9Rbbr` to single opt-in.** Double opt-in exists for sources where it is unclear
+whether the address owner asked. Every source feeding this list is an explicit tick — the onsite
+popup and Shopify checkout — and Shopify retains the consent record with timestamps regardless,
+so the confirmation step buys nothing and costs most of the list.
+
+### Backfill is not automatic
+
+Immediately after enabling the sync the segment still read **23** — the existing 50+ Shopify
+subscribers had not moved. Klaviyo's own wording in the setting is forward-looking ("site
+visitors that subscribe ... **will be** subscribed"), so this setting should be assumed to catch
+new subscribers only.
+
+If the count has not moved after propagation time, backfill explicitly: Shopify → Customers →
+filter email subscription = subscribed → export CSV → import to `V9Rbbr` in Klaviyo with
+consent. This relocates consent that Shopify already documents with timestamps; it does not
+manufacture it.
+
 ### Klaviyo-side consent as read (for reference)
 Profiles created since 11 Sep, with `subscriptions.email.marketing.consent`:
 

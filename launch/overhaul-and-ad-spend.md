@@ -91,6 +91,19 @@ This ranks above the popup: the popup earns future subscribers, this releases cu
 have already bought and already said yes. The counter ask is still worth building as a habit,
 but it is evidently already happening — the consent just has nowhere to land.
 
+**1d. The sync's target list is double opt-in — fix this or 1c achieves nothing.** The
+subscriber sync now targets `V9Rbbr` ("Email List"), which reads
+`opt_in_process: "double_opt_in"`. Profiles pushed in receive a confirmation email and are not
+`SUBSCRIBED` until it is clicked, which a counter customer will almost never do. Switch
+`V9Rbbr` to **single opt-in**: every source feeding it is an explicit tick (onsite popup,
+Shopify checkout) and Shopify retains the timestamped consent record either way.
+
+**Backfill is not automatic.** The segment still read 23 immediately after the sync was
+enabled, and Klaviyo's wording is forward-looking. If it has not moved after propagation time,
+backfill explicitly — Shopify → Customers → filter email subscription = subscribed → export
+CSV → import to `V9Rbbr` with consent. That relocates documented consent rather than
+manufacturing it.
+
 ---
 
 ## Priority 2 — put the budget where the audience already is
