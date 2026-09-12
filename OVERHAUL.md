@@ -76,59 +76,156 @@ biggest lift to match quality you can get.**
 
 ---
 
-## B. MAILCHIMP — status: **BROKEN, diagnosed exactly, fix is DNS**
+## B. MAILCHIMP — status: ✅ **ROOT CAUSE FOUND, Saturday 12 September. Fix is one field.**
 
-### The evidence
+### The campaign was sent from `squiresink@gmail.com`
+
+Confirmed on the campaign record itself (Mailchimp campaign id 1377):
+
+```
+Campaign:   The Thing I've Been Building   [sent]
+Delivered:  Thu, Sep 10, 2026 4:45 am      (US Eastern — see below)
+From name:  Squires Ink
+From email: squiresink@gmail.com           ← THE FAULT
+Subject:    The thing I've been building
+Recipients: Sent to audience: Squires Ink  (~7,000)
+```
+
+**Why that destroys a bulk send.** Google publishes a DMARC policy on `gmail.com` instructing
+every receiving mail server to quarantine any message claiming to come from `@gmail.com` that
+was not sent by Google's own servers. Mailchimp's servers are not Google's. All ~7,000 messages
+failed DMARC on arrival and were filed as spam — at Gmail, Yahoo, Outlook and iCloud alike.
+Enforced policy since February 2024, not a reputation score. No content quality, list hygiene
+or warming can beat it.
+
+### The evidence, and how it fits
 
 | Metric | Result | Verdict |
 |---|---|---|
 | Delivered | **~6,990 of 7,000** | The list is excellent |
-| Bounced | **10 — 0.14%** | Outstanding. Acceptable is under 2% |
-| Unsubscribed | **14 — 0.20%** | Normal |
-| **Opened** | **4.2% ≈ 294** | **Catastrophic. Retail averages 20–25%** |
+| Bounced | **10 — 0.14%** | Accepted, then filed. Not rejected |
+| Unsubscribed | **14 — 0.20%** | Nobody annoyed — almost nobody read it |
+| **Opened** | **4.2% ≈ 294** | Only the minority whose provider let it through |
 | Clicked | 1.2% ≈ 84 | |
 | **Click-to-open** | **28.6%** | **Excellent. Industry average is 10–15%** |
-| Shopify sessions attributed to email | **1** | Confirms it |
+| Shopify sessions attributed to email | **1** | Confirms the traffic never arrived |
 
-**Every failure point is eliminated except one.** The list is clean and valid. The content is
-proven — more than one in four people who saw it clicked. The audience is not annoyed. The
-emails arrived at the mail servers and landed in spam or Promotions.
+**Counterfactual at a normal 22% open:** ~1,540 opens → ~440 clicks → roughly **11 orders from
+one send**. The From-address field cost about **5× the entire launch**.
 
-**Cause:** sending from Mailchimp's shared, unauthenticated `mailchimpapp.com`. Seven thousand
-addresses, in one blast, from a domain with nothing in DNS vouching for it. Gmail and Outlook
-treat that as forgery and bin it automatically.
+### The original diagnosis, kept for the record — it was wrong
+
+I called this as *"sending from Mailchimp's shared, unauthenticated `mailchimpapp.com`"* and
+wrote a DNS walkthrough for it. That was wrong, and Ben was right to push back with *"it says
+tel collection is already authenticated in domains."* The domain was authenticated the whole
+time. The campaign simply never used it.
+
+### Everything else was checked and is clean
+
+Verified on screen, one at a time:
+
+| Check | Result |
+|---|---|
+| Mailchimp domain auth (`telcollection.com.au`) | ✅ **Authenticated** |
+| DKIM `k2._domainkey` → `dkim2.mcsv.net` | ✅ present, **DNS only** |
+| DKIM `k3._domainkey` → `dkim3.mcsv.net` | ✅ present, **DNS only** |
+| DMARC `_dmarc` | ✅ `v=DMARC1; p=none; rua=mailto:info@telcollection.com.au` |
+| SPF | ✅ exactly one: `v=spf1 include:_spf.google.com ~all` |
+| Google Workspace DKIM + MX | ✅ `google._domainkey`, `MX → smtp.google.com` |
+| Klaviyo sending subdomain | ✅ `send.` delegated to ns1–4.klaviyo.com |
+| Proxy status, all 14 Cloudflare records | ✅ DNS only — no orange clouds |
+| Google bulk-sender requirements | ✅ **met by the domain** |
+
+Two further corrections to earlier calls of mine: **`_dmarc` was never missing** — it has been
+published all along. And **`k1._domainkey` is not missing** — Mailchimp's current setup issues
+k2 and k3 only; k1 is the legacy record.
+
+DNS lives at **Cloudflare** (zone added 8 July 2026), not Shopify. Shopify's Domains page only
+shows the two records that point the website at Shopify.
+
+### Second finding — the Mailchimp account timezone is US Eastern, not Brisbane
+
+Mailchimp records delivery as **4:45am Thu 10 Sep**. Brisbane 6:45pm = 08:45 UTC = 04:45 EDT.
+The account runs on US Eastern, and the send fired at **6:45pm Brisbane — ten minutes earlier
+than the intended 6:55pm.** Harmless this time. Fix the account timezone before the next
+scheduled send.
 
 ### The fix
 
-1. **Mailchimp → Audience → Settings → Verified domains** → add `telcollection.com.au` →
-   **Authenticate domain**. It returns DKIM (CNAME) and SPF (TXT) records.
-2. **Shopify → Settings → Domains → telcollection.com.au.** That page states whether the
-   domain is *Managed by Shopify* (add records there under DNS settings) or *Third-party*
-   (add them at the registrar).
-3. Paste each record exactly — type, name, value, no edits.
-4. **Verify** in Mailchimp. Minutes to a few hours.
-5. Set the campaign sender to `info@telcollection.com.au`, never the Mailchimp default.
+**1 · Change the From address.** From name and From address are separate fields in Mailchimp.
+The inbox shows the name in bold; the domain sits in small grey text. So the studio
+relationship survives intact while the authenticated domain carries deliverability:
 
-### Then — and only then — the resend
+```
+From name:     Benny — Squires Ink
+From address:  info@telcollection.com.au
+```
 
-**Do not email those 7,000 again before authentication completes.** A second blast from an
-unauthenticated sender deepens the reputation damage.
+`telcollection.com.au` is the only authenticated domain in the account and is fully configured.
+Nothing else needs to change for this to work today.
 
-Once verified:
-- Segment to **non-openers** (~6,700)
-- **New subject line** — the old one is burnt for them, and it isolates the variable
-- **Batch it**: ~1,000/day, most-engaged first. A brand-new authenticated sender blasting
-  7,000 at once still looks like spam.
+**2 · Audit Automations for the same fault.** Any automation in the Squires Ink audience may
+carry `squiresink@gmail.com` as its sender — each one currently sends straight to spam, every
+day, silently.
 
-**What it is worth:** same email, same list, delivered at a normal 22% open →
-~1,540 opens → ~440 clicks → roughly **11 orders from one send**, against the ~84 clicks that
-got through. **Deliverability cost roughly 5× the launch.**
+**3 · Remove `gmail.com` from Public email domains.** Only after 1 and 2, so nothing live
+breaks mid-change. Once removed it cannot be selected again.
+
+**Optional, not a blocker:** if a Squires-owned domain exists with DNS access, authenticating
+it in Mailchimp would be a better long-term brand fit for studio sends.
+
+### Then the resend — three waves, not a blast
+
+`telcollection.com.au` has **no Mailchimp sending history at all** — the 7,000 send never used
+it. So the corrected sender starts from zero reputation, and a 7,000 burst is still wrong even
+with perfect authentication. Every wave also stays under 5,000/day, keeping the domain clear of
+Google's bulk-sender threshold while it builds.
+
+| Wave | Audience | Approx | Content | Gap |
+|---|---|---|---|---|
+| **1** | Opened or clicked the original | **~300** | **New follow-up** — `emails/squires-wave-1-healing-guide.html` | — |
+| **2** | Non-openers with prior Squires engagement | ~500–1,000 | Resend of the original — they never saw it | 2 days |
+| **3** | Remaining non-openers, split across days | ~5,000 | Resend of the original | 2 days |
+
+Check each wave's open rate before firing the next. **Wave 1 should return 25–35%.** Single
+digits means stop and find out why before burning 6,700.
+
+**Wave 1 leads with the Healing Guide, not the product.** They already read the pitch. Its job
+is warming the sender with opens and clicks from the most engaged segment there is, while
+placing the set at the trigger — the counter, and the next booking — rather than pushing a
+second sell at people who just declined the first.
+
+**No discount extension needed.** `TELTAKEOVER` expires Monday, but the Squires email
+deliberately carried no founding price — scarcity and story only. The 7,000 were never offered
+it, so waves 2 and 3 deliver exactly the message written for them.
+
+### Optional DNS hardening — NOT today
+
+`v=spf1 include:_spf.google.com ~all` covers Google but not Mailchimp. **Not the cause and not
+urgent**: Mailchimp uses its own Return-Path, so SPF is evaluated against Mailchimp's own
+record, and DMARC passes on aligned DKIM regardless. Adding `include:servers.mcsv.net` is
+belt-and-braces. **Edit the existing record, never add a second** — two SPF records invalidate
+each other and break all outbound mail. Once the domain is warm, move DMARC from `p=none` to
+`p=quarantine`.
 
 ### Also fix: link tracking
 
-Only **1 session** was attributed to email in Shopify, though ~84 people clicked. Mailchimp's
-UTM tagging is likely off, so email traffic is landing in "direct" and cannot be measured.
-Turn on link tracking in the campaign settings.
+Only **1 session** was attributed to email in Shopify though ~84 people clicked. Mailchimp's
+UTM tagging is likely off, so email traffic lands in "direct" and cannot be measured. Turn on
+link tracking in the campaign settings before wave 1.
+
+### Verification
+
+1. **Before wave 1** — test send to a Gmail address, open it, tap the sender to expand.
+   Confirm `mailed-by` / `signed-by` read `telcollection.com.au` and there is **no "via"**.
+2. **Jess** — she never received it. Have her search **spam** for "The thing I've been
+   building". Finding it there is human confirmation of the whole diagnosis. If it is not
+   there, check whether she is in the audience at all — that changes the 4.2% denominator.
+3. **DMARC reports** — `rua` delivers daily aggregate reports to `info@telcollection.com.au`.
+   After wave 1 they should list Mailchimp IPs with **pass**. Reports covering 10–11 Sep should
+   show no Mailchimp activity, since the campaign never claimed the domain.
+4. **Wave 1 open rate at 24h** — the number that gates waves 2 and 3.
+5. **Shopify sessions by referrer** — email should move off 1 session.
 
 ---
 
@@ -371,7 +468,7 @@ stop spending and fix the popup before continuing. Everything else is downstream
 | # | Action | Who | Time | Blocks |
 |---|---|---|---|---|
 | 1 | Pack **#1045** | Ben | 10 min | A customer is waiting |
-| 2 | **Mailchimp domain authentication** | Ben | 20 min + DNS | The 5× email fix |
+| 2 | **Mailchimp From address** → `info@telcollection.com.au`, then wave 1 | Ben | 10 min | The 5× email fix |
 | 3 | **Pixel audit** — count pixels, confirm Purchase, set AEM | Ben | 15 min | All ad spend |
 | 4 | **Conversions API** on in the FB & IG channel | Ben | 10 min | Match quality |
 | 5 | **Popup live** — I build it, you approve | Claude → Ben | 45 min | All ad spend |
