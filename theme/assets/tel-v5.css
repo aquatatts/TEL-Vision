@@ -1,0 +1,52 @@
+/* TEL v6 — premium layer (launch build). Shared tokens + components for the tel-* sections. */
+:root{
+  --tel-gold:#C9A24B; --tel-gold2:#E3C878; --tel-gold-rgb:201 162 75;
+  --tel-ink:#F5F0E8; --tel-ink2:#C9C1B4; --tel-mute:#9A9285;
+  --tel-rule:#221F1A; --tel-rule2:#2E2A24; --tel-bg:#080808; --tel-bg2:#0E0D0B;
+  --tel-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --tel-serif:var(--heading-font-family, "Cormorant Garamond",Georgia,serif);
+  --tel-body:var(--text-font-family, "EB Garamond",Georgia,serif);
+  --tel-gutter:24px;
+}
+@media(min-width:700px){:root{--tel-gutter:40px}}
+@media(min-width:1000px){:root{--tel-gutter:56px}}
+.tel-band{position:relative;background:var(--tel-bg);color:var(--tel-ink);padding:64px var(--tel-gutter);border-top:1px solid var(--tel-rule)}
+.tel-band--alt{background:var(--tel-bg2)}
+.tel-band--tight{padding-top:48px;padding-bottom:48px}
+@media(min-width:1000px){.tel-band{padding-top:104px;padding-bottom:104px}}
+.tel-wrap{max-width:1180px;margin:0 auto}
+.tel-narrow{max-width:640px}
+.tel-center{text-align:center;margin-left:auto;margin-right:auto}
+.tel-eyebrow{font-family:var(--tel-mono);font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--tel-gold);margin:0 0 14px;font-weight:400}
+.tel-h{font-family:var(--tel-serif);font-weight:400;line-height:1.02;margin:0;color:var(--tel-ink);text-wrap:balance;letter-spacing:0;text-transform:none}
+.tel-h1{font-size:clamp(46px,11.5vw,64px)}
+.tel-h2{font-size:clamp(36px,9vw,46px)}
+@media(min-width:1000px){.tel-h1{font-size:clamp(64px,6.4vw,104px)}.tel-h2{font-size:clamp(48px,4.4vw,64px)}}
+.tel-h em,.tel-h i{font-style:italic;color:var(--tel-gold)}
+.tel-p{font-family:var(--tel-body);font-size:17px;line-height:1.6;color:var(--tel-ink2);margin:0 0 14px;max-width:58ch}
+.tel-p p{margin:0 0 14px}
+.tel-p p:last-child{margin-bottom:0}
+.tel-p strong{color:var(--tel-ink);font-weight:500}
+.tel-p--lead{font-size:18.5px;color:var(--tel-ink)}
+.tel-p--lead p{color:var(--tel-ink)}
+@media(min-width:1000px){.tel-p{font-size:18px}.tel-p--lead{font-size:21px}}
+.tel-mono{font-family:var(--tel-mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--tel-mute);font-weight:400}
+.tel-rule{width:36px;height:1px;background:var(--tel-gold);margin:0 0 22px}
+.tel-btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:56px;padding:0 28px;font-family:var(--tel-mono);font-size:11.5px;letter-spacing:.28em;text-transform:uppercase;border:1px solid var(--tel-gold);color:var(--tel-gold);background:transparent;text-decoration:none;cursor:pointer;border-radius:0;transition:background .25s,color .25s;font-weight:400;line-height:1.2}
+.tel-btn:hover{background:rgba(var(--tel-gold-rgb) / .12);color:var(--tel-gold2)}
+.tel-btn--solid{background:var(--tel-gold);color:#080808}
+.tel-btn--solid:hover{background:var(--tel-gold2);color:#080808}
+.tel-btn:focus-visible{outline:2px solid var(--tel-gold);outline-offset:3px}
+@media(min-width:700px){.tel-btn{display:inline-flex;width:auto;min-width:280px}}
+.tel-stack>*+*{margin-top:18px}
+/* two-column bands on desktop */
+.tel-cols{display:grid;gap:36px}
+@media(min-width:900px){.tel-cols{grid-template-columns:1fr 1fr;gap:72px;align-items:center}.tel-cols--end .tel-cols__media{order:2}}
+.tel-cols__media img{display:block;width:100%;height:auto}
+/* hairline ledger */
+.tel-ledger{border-top:1px solid var(--tel-rule);border-bottom:1px solid var(--tel-rule)}
+/* accessible focus in forms */
+.tel-input{height:56px;background:#101010;border:1px solid var(--tel-rule2);color:var(--tel-ink);font-family:var(--tel-body);font-size:17px;padding:0 18px;border-radius:0;-webkit-appearance:none;appearance:none;width:100%}
+.tel-input::placeholder{color:var(--tel-mute)}
+.tel-input:focus{border-color:var(--tel-gold);outline:none}
+@media(prefers-reduced-motion:reduce){.tel-hero__media--kb{animation:none!important}}

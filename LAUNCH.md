@@ -1,0 +1,308 @@
+# TEL Collection — launch runbook (Thursday 10 September 2026)
+
+Theme to publish: **TEL v6.1 — v5 hero + premium tune-up** (theme id `142983823423`)
+Admin → Online Store → Themes → the v6.1 card → Publish.
+Preview before publishing: the **Preview** button on the same card (or `https://iw0xvm-v5.myshopify.com/?preview_theme_id=142983823423` while logged into admin).
+
+**v6.1, not v6** (decided Mon 7 Sep). v6.1 was branched off v6 during the day and gained three things of its own: the Chapter One scene hero, a desktop focal control on `tel-hero.liquid`, an announcement bar that rotates two messages, and the "Our aim" band. v6 meanwhile gained Jessica's review, the four-item spec strip, the r2 back shot and the reviews band. Only four files differed, so v6's homepage and product templates were merged into v6.1 rather than the reverse — and `tel_aim` was carried across by hand, because it has never existed in v6 and a straight copy would have deleted it.
+
+**v6 is now behind v6.1 and should not be published.** Keep it as the rollback one step further back; `TEL v3 — LIVE (2 Sep)` is still the true one-click rollback.
+
+v6.1 is already written in the *open* state: no "doors open Thursday" copy anywhere. The password page is the only place that still speaks pre-launch, and it disappears when the password comes off.
+
+The `theme/` folder in this repo is a byte-for-byte snapshot of every file changed in v6.1, plus `theme/pages/` for the page bodies that were rewritten in admin.
+
+## Wednesday evening (dry run, still gated)
+
+1. Publish **v6.1** (the card named "TEL v6.1 — v5 hero + premium tune-up") while the storefront password is still on. Nobody outside sees anything; you get a real render instead of the editor preview.
+2. Walk the site on a phone and a laptop with the password. Checklist below.
+3. If anything is wrong, v3 ("TEL v3 — LIVE (2 Sep)") is untouched: Publish it again to roll back in one click.
+
+## Thursday — doors open 7:00pm
+
+The hour moved from 9am to **7:00pm Brisbane**, so Thursday splits in two: the checks happen in the day, the password comes off in the evening. Do not untick it early — the Klaviyo "Doors Open" email is scheduled for 7:00pm and the announcement should not arrive after the site is already open.
+
+During the day
+1. Check the homepage loads correctly with the password still on, on a phone and a laptop.
+2. Inventory: decided. The site reads live stock, so doors open at **450 of 500** and counts down with every order. Leave the variant quantity at 450. Sets sold over the counter at Squires Ink do not touch Shopify stock, so knock those off the variant quantity by hand (Products → The Ritual Duo → Quantity) to keep the count honest. When it reaches zero the homepage flips to "Chapter One is closed" and the product page button changes on its own.
+
+At 7:00pm
+3. Online Store → Preferences → Password protection → untick, Save. **That is the launch.**
+4. Check the homepage loads without the gate on a phone in a private window.
+5. Post the story graphic (`images/social/tel-launch-story-9x16.png`) with the countdown sticker already expired, or swap to the "doors are open" story — the countdown itself goes up the night before, ending 7:00pm Thursday.
+
+## Walk-through checklist (what to look at, in order)
+
+Homepage
+- Hero: the 4000px sealed set with the monogram card on desktop; the Chapter One scene on phones (1200px, sharp at that size, Ben has signed it off). "Earned. Not given." and the gold button above the fold on a phone.
+- Spec strip: 60 ml × 2 · Sealed as a set · First run of five hundred · Free shipping Australia-wide.
+- Product plate: real photo (jars beside the box), price ledger, gold button, "Chapter One · 450 of 500 sets remaining" under it.
+- Two stages: the two open jars sit under the intro; the second step keeps its bottom hairline; button goes to the Healing Guide.
+- Proof strip scrolls sideways on a phone, five columns on desktop.
+- Reviews: "Every review so far. Five stars.", the 5.0 · 6 reviews ledger line, three quotes side by side on desktop, stacked on a phone, and a "Read every review" button to the product page.
+- From the chair: Valerio portrait, quote, disclosure line, button to Trusted By.
+- Founder: Ben at the studio counter holding the Ritual Duo (`tel-founder-benny-aquilina.jpg`) at 4:5, focal upper third, quote and ornament rule, button to the founder page. The straight-on back shot (r3, Ben's own retouch with the approved grade put back on it) appears once, on the Founder page beside the paragraph about that back. The counter shot was taken off the Founder page the same day ("A front-row seat" is now a text block). No photo appears twice.
+- Chapter: big 500, "Chapter One is open…", meter reading 450 of 500.
+- First access: Chapter One card beside the form. Submit a test email; the success message should appear in place.
+
+Product page (most ad traffic lands here)
+- Title in sentence case, price, lead, gold spec line, "Chapter One · N of 500 sets remaining", gold Add to cart, express payment button, assurance line, Healing Guide link.
+- Accordions: The Ritual · How to use · What's in it · Heavy work · Built to a standard · From the founder · Shipping and returns.
+- Gallery on desktop is a carousel with thumbnails below; the two portrait shots are last so the mobile carousel does not jump.
+- Below: Two stages (with image), Proof strip, **Reviews** (gold ledger line reading the live Judge.me count and rating, three pull quotes, then every review in the house style, newest first, with a "Verified buyer" mark where Judge.me has one), From the chair, Questions.
+- Sticky add-to-cart bar appears on mobile once you scroll past the button.
+
+Other pages
+- Contact now shows the email, Instagram, studio address and hours above the form (it was hidden before).
+- Our Aim, The Founder, Trusted By, FAQs and The Healing Guide all use the same gold and the theme's serif; Trusted By leads with Valerio and no longer has an empty reviews block.
+- Header: no search icon; menu has Healing Guide as the fifth item. Footer has studio address and hours, Terms of Service link, truck and lock icons.
+- Newsletter popup is off for launch week.
+
+## Open before Thursday
+
+1. ~~**Re-paste the meta description.**~~ Fixed in the theme (Mon 7 Sep). The saved Preferences sentence still says "the years after" and Shopify does not expose that setting to the API, so `layout/theme.liquid` now sets the homepage description itself. **Consequence: editing the homepage meta description in Preferences no longer does anything** — change the string in `theme.liquid` instead. Every other page still uses its own SEO description.
+2. ~~**New back-tattoo studio image.**~~ Done (Sun 6 Sep). `tel-founder-back-studio-r1.jpg` — straight-on, room in frame, acne lifted with the ink hard-masked, graded to the site — sits in the homepage founder band at 4:5 under "Built at the counter of a working studio". The settled-ink chest shot it displaced moved to the Founder page ("This is the standard"). Callum's warm angled edit is held for social. Retouch pass two (Sun 6 Sep, evening) then corrected two more frames Ben spotted by eye: the phone hero `tel-ritual-duo-09-sealed-box-r2.jpg` came back from the shoot with a lifted, milky black (ground at 25 against the rest of the set's 3) and a red-skewed white point — black point restored per channel, hue and saturation deliberately untouched so the gold foil keeps its colour; and `tel-ritual-duo-05-both-open-top-down-r2.jpg` had the dust healed **on** the product surfaces, which the rim-only first pass had hard-masked out by design. Both approved and placed. Also this session: Ritual collection image swapped to the r1; gallery slot 6 (an un-retouched twin of the collection frame) replaced with the r1; the open-jars frame rim-cleaned and swapped into gallery slot 4 and both two-stage sections.
+3. ~~**The back shot is still the orange one.**~~ Resolved (Wed 9 Sep). The homepage founder band now carries the counter shot — Ben holding the Ritual Duo — and the back shot appears once, as r3 on the Founder page. Note for whoever touches Files next: `tel-founder-side-studio-r1.jpg` holds a straight-on back frame, not a side view (that is why Ben saw the back twice on the dry run). It is unreferenced now; leave it, don't reuse it as a "side" shot.
+4. **Release video, Sunday.** Not on the site yet. Decide whether it lands as the hero, a band below the two-stage section, or Instagram-only for launch week.
+
+## The product gallery, and a colour split worth knowing about
+
+The Ritual Duo gallery is now **seven frames** (8 Sep: the open-jars top-down came out too - it was also the two-stage section's image directly below the gallery on the same page, and it was the 34%-clipped frame). The settled-ink chest shot, the Chapter One card and the hand-in-cream macro were taken out on 7 Sep — they were lifestyle and card shots sitting in a product gallery. They were **detached, not deleted** (`fileUpdate` with `referencesToRemove`, not `productDeleteMedia`, which is irreversible): the founder page links straight to the settled-ink file, so deleting it would have broken that page.
+
+Measuring the eight against each other found two groups. Four sit at a black point of 25–28 and keep the soft light sweep across the seamless. Four came off the shoot with that sweep crushed to near black. It is baked into the camera exports — seven of the eighteen originals are crushed, up to 36% of the frame at pure black — so it is not something the retouch introduced.
+
+| frame | state |
+|---|---|
+| 1 sealed set hero | **fixed** — lifted to 26, only 7% of it was clipped |
+| 11 sealed box | **fixed** — was never crushed at source; it was crushed here by mistake, reverted |
+| 3 texture macro | **left alone** — 25% of the frame has no shadow data |
+| 4 both open top-down | **left alone** — 34% has none |
+
+For 3 and 4 a lift produces a flat grey plate, not a sweep, because the pixels are already at zero. They are top-down shots where a dark ground reads as deliberate, so leaving them is the cheaper mistake. **A re-shoot of those two is the only real fix.**
+
+`tools/pass2.py uncrush()` does the lift and prints the clipped fraction every time, which is the number that decides whether it is worth doing.
+
+One naming wart: the file still called `tel-ritual-duo-09-sealed-box-r2.jpg` now holds r1's pixels, and `...-01-sealed-set-hero-r1.jpg` holds r2's. The content was replaced in place so the URLs stayed stable and nothing else had to change. Trust the pixels, not the filename.
+
+## Where Ben's uploads actually go
+
+GitHub's web uploader commits to the **default branch (`main`)**, not to the working branch. Ben's Monday-night uploads - the back shot, the video-frame screenshots, two 1536px product renders - all landed on `main` and were invisible from `claude/premium-website-launch-design-ipzsn8` until 8 Sep. Check `origin/main` for stray "Add files via upload" commits before concluding something has not arrived. Nothing else on `main` is needed on the working branch.
+
+## Launch graphics
+
+`images/social/` holds the two posts — `tel-launch-post-4x5.png` for the feed, `tel-launch-story-9x16.png` for the story. Both now read **7PM AEST**; both said 9AM before the hour moved.
+
+**The script that drew them was never saved.** So the time was changed in the pixels, by `tools/post.py`: the footer line is monospaced, which makes it a grid of fixed-width cells, and only the two cells holding the hour were rebuilt. The `P` is not a new glyph at all — it is the `P` from `APART` in the same line, moved ten cells across, so it carries the original rendering exactly. Only the `7` had to be drawn, and `tools/retime_launch.py` refuses to place it unless it matches the real `9` it replaces at least as closely as the line's own repeated letters match each other (they vary, because each lands on a different sub-pixel position). It then proves every other glyph is byte-identical.
+
+Practical consequence: **a further copy change to these graphics is not a small job.** Anything beyond swapping characters inside that footer line — a new number in "450 REMAINING", different headline type — means designing the asset again rather than editing it. Budget for that if Chapter One needs a "sets remaining" or "last call" cut.
+
+## Things only you can do in admin
+
+- **Homepage meta description and social sharing image (optional now).** Plain English: the *meta description* is the sentence Google shows under "TEL Collection" in search results; the *social sharing image* is the picture that appears when someone pastes telcollection.com.au into Instagram, WhatsApp, Messenger or Facebook. Both were empty. v6 now ships defaults for the homepage (the sentence below, and the sealed-set hero as the picture), so launch is covered. The meta description is now owned by the theme outright (see below); if you want the social sharing image set officially so every app reads the same thing: Online Store → Preferences → "Social sharing image" (upload the sealed-set frame, DSC02912 or the 4000 px copy from Content → Files). Whatever you set there takes over from the theme defaults automatically.
+  Sentence: "Sealed two-step tattoo aftercare from a Surfers Paradise studio. Restore Balm for fresh ink, Recovery Cream for the months after. Free shipping Australia-wide."
+  **No longer your job.** The sentence saved in Preferences says "the years after", that claim now belongs to the everyday moisturiser (Chapter Two) rather than Recovery Cream, and Shopify does not expose the field to the API — so after four mornings of asking, `layout/theme.liquid` now sets the homepage description itself and ignores Preferences. **The flip side: editing it in Preferences will no longer change anything on the homepage.** To change the sentence, change it in `theme.liquid`. Every other page still reads its own SEO description normally. One line to undo if you would rather own it in admin.
+- ~~**Hide the five empty collections.**~~ Handled in the theme instead. `layout/theme.liquid` emits `<meta name="robots" content="noindex,follow">` on any collection with zero products, and on Shopify's default `frontpage` collection. Movement, Threads, Vision and Collective stay reachable but stay out of Google. It is self-correcting — the noindex lifts the moment a chapter has stock, with no edit needed. If you'd rather they were gone entirely, Products → Collections → open one → **Publishing** card → **Manage** → untick **Online Store** → **Done** → **Save**. Optional.
+- ~~**Social sharing image.**~~ Handled in the theme. The Preferences field only accepts a device upload (you can't pick a file already in Content → Files, and there's no API for it), so `layout/theme.liquid` now serves the retouched sealed-set hero as `og:image` directly from the CDN, with `twitter:card=summary_large_image` so it renders as a wide card. Anything you later set in Preferences still overrides it.
+- **Checkout branding.** Settings → Checkout → Customize: square TEL mark as logo, gold `#C9A24B` accent, dark background if the plan allows.
+- ~~**Full ingredient lists (INCI).**~~ Done. Both lists are now published verbatim from the jars on the product page ("What's in it"), the FAQs page and the Shopify product description. The Healing Guide carries a "Why the balm is petrolatum" section explaining the first ingredient.
+- **"FDA GMP" claim.** The proof strip says "ISO 22716 · GMP"; the accordion says "ISO 22716 and FDA GMP". Confirm the manufacturer's certificate wording before launch; if it is only ISO 22716, drop "FDA" from the accordion.
+- **Publishing v6 closes the API door.** Theme-file writes through the API are only allowed on unpublished themes, so once v6 is the live theme nothing further can be pushed to it from here; any later fix goes into a duplicate (Themes → v6 card → ⋯ → Duplicate) and is published again with one click. That is fine for launch week, but it is the reason not to publish before the Wednesday dry run.
+- **Password page on the live v3 theme.** It still shows "5.0 · 10 verified reviews", which cannot be backed up yet. In v6 that line reads "Built in a working studio · Surfers Paradise". If the gate stays up past Sunday, change the line in the v3 editor too (Theme editor → password page → Proof line).
+- **Two leftover files** in v6 that the API is not allowed to delete: `sections/tel-spec-strip-probe.liquid` (now emptied, no preset) and `templates/product.pre-order.json`. Both are harmless; delete them in Edit code if you want a clean list.
+- **Klaviyo.** Both signup forms tag the Shopify customer `newsletter`. Check Klaviyo's Shopify integration is syncing subscribers and that a welcome email exists; the on-site success copy no longer promises one.
+- **Judge.me.** Six published five-star reviews as of 6 Sep, all collected by Judge.me's own post-purchase invitation (so the automatic review request *is* firing on every Shopify order, POS included). v6 now shows them through the `tel-reviews` section, which reads the `reviews.rating` / `reviews.rating_count` metafields and Judge.me's server-rendered list, so new reviews appear on the site as Judge.me publishes them; the Judge.me widget itself stays off. The review JSON-LD is emitted on the product page for rich results. Two of the six talk about the studio experience rather than the jars (Chriso, Eli); they stay in the full list and out of the three pull quotes.
+
+## Brand architecture — keeping the fragrance pivot cheap
+
+TEL is a lifestyle brand that started in aftercare, not a tattoo-aftercare brand. Chapter Two may be a signature scent. The site is already built so that pivot is a content edit, not a rebuild — keep it that way:
+
+- **The category word never goes in brand-level furniture.** Logo lockup, homepage H1, tagline, email footer, Instagram bio, packaging outer. Right now the homepage H1 is "Earned. Not given." — category-free, and it works for a fragrance unchanged. The word "tattoo" lives only in product-level copy: the product page, the Healing Guide, the Ritual collection. Those are chapters; they are *meant* to be specific.
+- **The organising idea sits one level above tattoos, and it is already written.** "Built on discipline. Driven by purpose. Proven under the gun." · "TEL isn't a brand you buy once. It's a standard you choose." · "People who hold themselves to a higher standard shouldn't have to drop it at the studio door." That last line is the pivot, already on the Our Aim page.
+- **The studio is origin, not category.** Hermès was a saddlery; nobody thinks it is about horses. The studio stays forever as *where the standard was proven*, which is exactly how Our Aim frames it. Never let it become *what the brand is about*.
+- **The bridge to fragrance is permanence.** A tattoo is the most permanent thing you put on your body; a signature scent is the most permanent thing about how you are remembered. Both are marks you choose to wear. "Earned. Not given." carries across unchanged.
+- **Every homepage string is a theme setting.** The `tel-*` sections (hero, spec strip, product, steps, proof, band, chapter, newsletter) are generic. A fragrance homepage is a copy-and-image swap in the theme editor.
+- **The list is the asset that crosses categories.** "One email when Chapter Two opens" is the only thing that carries a Ritual buyer into a fragrance launch.
+- **One thing that will look odd later and should not be changed now:** the product handle `/products/tattoo-aftercare-kit`. It is earning search traffic; leave it. New chapters get category-free handles.
+
+## Product ladder — read this before writing any new copy
+
+Chapter Two is a premium everyday moisturiser for tattooed skin. To leave it room, the site no longer says Recovery Cream is the jar you use forever. The ladder is:
+
+| | Job | Horizon |
+|---|---|---|
+| Restore Balm | Seals the fresh wound | Days 1–14 |
+| Recovery Cream | Carries the piece through settling; freshens healed work and helps colour read fuller | The months after, and back to it whenever older work needs freshening |
+| **Chapter Two — the moisturiser** | Revives tattoos. Keeps ink and line work looking sharp | **Every day, every piece, for as long as you own it** |
+
+Recovery vs maintenance is a real distinction, not a marketing split — the name *Recovery* Cream already argues it.
+
+**Reserved for Chapter Two, and not to reattach to Recovery Cream anywhere: "looking sharp", "line work sharp", "revive", "for as long as you own", "for life", "forever", "on every piece you own".** Eight lines were quietly using them on the wrong jar until 7 Sep; the table above used to as well, which is how it drifted.
+
+What Recovery Cream *does* keep is the answer that converts — yes, it works on old healed work. Stripping that to protect a product that has not launched would cost real money now for a benefit later. The line is: Recovery Cream freshens, Chapter Two revives and maintains.
+
+The Healing Guide's ∞ panel now belongs to **the daily habit**, not to the jar, so it still answers the "lost in year three" argument without over-claiming.
+
+Our Aim → "Where it's heading" now names the moisturiser first in the pipeline. It is not mentioned anywhere in the buying flow (product page, homepage), so nobody holds off buying the Duo waiting for it.
+
+## What changed, in one screen
+
+Homepage: hero now uses the shoot (was a portrait placeholder); real photo on the product plate (was a CGI render); two-stage section gets the texture image and a fixed hairline; studio and founder bands merged around the settled-ink photo; new "From the chair" band; sets-remaining count next to the price; launch-state copy; newsletter copy no longer assumes a purchase.
+Product page: story sections and a five-question FAQ added below the gallery; "What's in it" accordion; sets-remaining and assurance lines; Healing Guide link; Judge.me removed; payment-terms block (renders nothing in AU) removed; carousel gallery with portraits last.
+Theme-wide: gold `#C9A24B` everywhere (pages were still copper); favicon set; theme fonts on every page (the pages named a font family that was never loaded, so headings fell back to Georgia); mono micro-type raised to 10.5–11 px; placeholder and mute contrast raised; Google font no longer render-blocking; empty alt text fixed; proof strip made a real list; search icon off; popup off; footer studio details.
+Store data: five 4000 px frames added to Files; two added to the product gallery and the gallery reordered; Healing Guide in the main menu; Terms of Service in the footer; Ritual collection given an image and description.
+
+## Shopify config that lives outside this repo
+
+Two settings that are not theme files, so nothing here or in git tracks them. Both were
+found during the live checkout test on launch morning, Thu 10 Sep.
+
+**Free shipping had a minimum-order condition, and it broke the founding price.**
+`Free shipping` (method definition `697814646847`, Domestic zone, delivery profile
+`92491874367`) carried `TOTAL_PRICE >= $59.00 AUD`. The founding price is $49.99, which
+falls under it, so Shopify filtered free shipping out and offered only Express $15.00 —
+making the discounted total $64.99 against $59.95 at full price. Every recipient of the
+Doors Open email would have paid **$5.04 more than someone who ignored the offer**, on a
+store that promises free shipping in the spec strip, the product page, the FAQs and the
+email itself. Fixed by setting the condition to `>= $0.00` via `deliveryProfileUpdate` —
+note `DeliveryMethodDefinitionInput` has no `conditionsToDelete` in this API version, only
+`conditionsToUpdate`, so the threshold is zeroed rather than removed. Verified end to end by
+order #1044: $49.99 subtotal, $9.96 discount, $0.00 shipping, PAID.
+
+**Lesson worth keeping:** any shipping threshold set at or near full price silently breaks
+the moment a discount code lands. If a founding price, sale or bundle is ever run again,
+re-check this condition first.
+
+**`HEALED15` is still live and has no end date.** "Healing Guide Welcome — 15% off next
+kit", active since 4 Aug, 0 uses. Harmless during launch week — it cannot stack with
+`TELTAKEOVER` and 15% off ($50.96) is worse than the founding price ($49.99), so nobody
+rational uses it. It matters from **Monday 15 September**, when the closing email says
+"$59.95 after Monday — and it never comes down again": `HEALED15` quietly makes that untrue
+for anyone holding the code, indefinitely. Decide after launch — either give it an end date
+or consciously keep it as a loyalty code that sits outside the "no sales" promise.
+
+## The pool — what catches a visitor who doesn't buy
+
+Checked live on launch afternoon, Thu 10 Sep, because the whole point of a one-night traffic
+spike is what survives it. Units are recoverable; an uncaptured visitor is not.
+
+### Klaviyo flows: four are named "(DRAFT)" but are actually LIVE
+
+This is a trap. The suffix is in the flow **name**; the API `status` says otherwise. Anyone
+reading the Klaviyo sidebar would conclude these are switched off. They are not.
+
+| Flow | ID | Trigger | Real status |
+|---|---|---|---|
+| TEL — Welcome: The standard *(DRAFT)* | `TEZ6PM` | Added to List | **live** |
+| TEL — Abandoned checkout: Still sealed *(DRAFT)* | `Vg9tuX` | Metric | **live** |
+| TEL — Browse abandonment: You looked *(DRAFT)* | `YgAs6b` | Metric | **live** |
+| TEL — Post-purchase: The Healing Guide | `WnAETh` | Metric | live |
+| TEL — Post-purchase (ONLINE): The Healing Guide | `TPwqqq` | Metric | live |
+| TEL — Post-purchase: The Long Stage (reorder) | `UpBgzj` | Metric | live |
+| TEL — Back in stock: Doors open again *(DRAFT)* | `SuavPL` | Metric | **genuinely draft** |
+
+Rename the four live ones to drop "(DRAFT)". Until then, trust the API status, not the label.
+
+Note that browse abandonment only fires for **known** profiles — someone who has already
+clicked an email or submitted a form. It does almost nothing on a launch night full of
+strangers, and a great deal once the list is real. Abandoned checkout is the opposite: it
+fires for anyone who enters an email at checkout, so it is the one that earns its keep on
+night one.
+
+### Capture points: one live, two switched off
+
+| Where | File / ID | State |
+|---|---|---|
+| Homepage "First access" band | `theme/sections/tel-newsletter.liquid` | **live** — but it is the *last* entry in `templates/index.json`'s section order, so most visitors never reach it |
+| Theme newsletter popup | `theme/sections/overlay-group.json` | `"disabled": true` |
+| Klaviyo popup "TEL · First access popup" | `WirxQ2` | **draft**, `form_type: popup` |
+
+The Klaviyo popup's `updated_at` is identical to its `created_at` (4 Sep 14:46:47) — it was
+created and never edited, so it is an untouched shell rather than a finished form. That is
+why it was left off on launch night: an off-brand popup costs more on a store selling "no
+half measures" than the addresses it would collect.
+
+The band posts through Shopify's `{% form 'customer' %}` with `contact[tags] = newsletter`,
+so joins arrive as Shopify customers and reach Klaviyo through the store integration — not
+as a direct Klaviyo list add. Worth confirming that path actually triggers the live Welcome
+flow (`TEZ6PM`) before relying on it.
+
+### The pixel: resolved by hand, 5:20pm launch day
+
+**Confirmed connected.** Ben checked Settings > Customer events and reported the pixel rows
+reading **Connected**, with data access granted. That closes the storefront question: Meta
+receives events from the live store, not only from the password gate.
+
+Two things carried into v6.1 and are worth knowing:
+
+- **Domain verification survived the theme swap.** `layout/theme.liquid` line 7 carries
+  `<meta name="facebook-domain-verification" content="c0hf8rfbls1qzmzth1yy0etwchwo1j">`.
+  With the domain verified, Aggregated Event Measurement can be configured.
+- **The hardcoded pixel is gate-only and is now dead.** `theme/sections/main-password.liquid`
+  contains Meta pixel `1917775705566990` inline, firing PageView and a Lead event on gate
+  signup. Its own comment says it exists because Shopify's app pixel does not run on password
+  pages. `theme.liquid` renders that section only when `request.page_type == 'password'`, so
+  dropping the password removed it entirely. Anything that relied on it stopped at 6:50pm.
+
+**One thing still worth a look:** the gate pixel is `1917775705566990`. If the Facebook &
+Instagram channel is wired to a *different* pixel ID, the audience is split across two and
+neither gets the full picture. Check the ID in Events Manager and consolidate if they differ.
+
+### Why the API could not answer it, for next time
+
+Both read paths are gated behind scopes this integration does not hold:
+
+```
+webPixel         → Access denied. Required access: `read_pixels` access scope
+appInstallations → access denied
+```
+
+So pixel presence has to be checked by hand: **Settings → Customer events** in the Shopify
+admin lists every installed pixel, Klaviyo's onsite tracking included. Both ride the same
+`{{ content_for_header }}` injection in `theme/layout/theme.liquid`, which means an
+app-installed pixel survives a theme swap — and equally, that neither is visible anywhere in
+this repo. Nothing in git will ever tell you whether tracking is on.
+
+**Publishing a theme does not make the store public.** While the password gate is up,
+`product.onlineStoreUrl` reads `null`, no visitor reaches the storefront, and no pixel fires.
+Tracking starts when the password comes off, not when the theme is published — so a pixel
+must be connected *before* the gate drops or that traffic is unrecoverable.
+
+## Chapter One went live — Thursday 10 September 2026, 18:39:37 Brisbane
+
+The password came off eleven minutes early. `product.onlineStoreUrl` flipped from `null` to
+`https://telcollection.com.au/products/tattoo-aftercare-kit` between two API reads sixty
+seconds apart, which is the moment the store became public.
+
+Going early was deliberate. Mailchimp was scheduled 18:55 — **five minutes ahead of
+Klaviyo** — so the true last-safe-moment to fix or roll back was 18:54, not 19:00. Dropping
+the gate at 18:39 turned a four-minute reaction window into fifteen.
+
+**The full public path, verified by hand on mobile data in a private window:**
+
+| Link | Result |
+|---|---|
+| Store reachable, no gate | ✓ |
+| v6.1 renders — black ground, gold, hero, gallery | ✓ "looks unreal" |
+| `/discount/TELTAKEOVER?redirect=…` arms silently | ✓ lands on the product page with no banner, which is correct |
+| Product page price | $59.95 ✓ (discount lands in the cart by design) |
+| Cart honours the founding price | **$49.99** ✓ |
+| Free shipping, both price points | ✓ |
+| Payment capture | ✓ order #1044 |
+| Oversell guard | `inventoryPolicy: DENY` — stops dead at 0 ✓ |
+
+The cart test mattered because it was the one thing never proven on a clean public session:
+Ben's own customer record had already spent its single `appliesOncePerCustomer` use on the
+morning test, so only a fresh anonymous session could show whether the link still discounts.
+It does.
+
+**State at doors:** v6.1 MAIN · 448 in stock · TELTAKEOVER active to Mon 14 Sep 23:59 ·
+Meta connected · no stray orders.
+
+### One thing to have an answer ready for
+
+**Australia only.** The General profile carries a single zone — Domestic (AU) — with Free
+shipping $0.00 and Express $15.00. There is no international zone, so an overseas visitor
+hits *"we don't ship to your address"* at checkout. Correct scope for a 500-set first run,
+but the audience is not domestic-only: Valerio is international and the collab post reaches
+four followings. The right reply turns the no into a signup — Australia only for Chapter One,
+join the list and hear first when that changes.

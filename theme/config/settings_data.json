@@ -1,0 +1,179 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "section_vertical_spacing": "md",
+    "favicon": "shopify://shop_images/TC_Logo.png",
+    "cart_empty_cart_link": "shopify://products/tattoo-aftercare-kit",
+    "default_color_scheme": "scheme-f06723e1-0afe-4477-a959-6e819e5afed1",
+    "modal_color_scheme": "scheme-f06723e1-0afe-4477-a959-6e819e5afed1",
+    "product_rating_color": "#C9A24B",
+    "product_on_sale_accent": "#C9A24B",
+    "product_sold_out_badge_background": "#1c1c1c",
+    "product_custom_badge_background": "#1c1c1c",
+    "success_color": "#307a07",
+    "warning_color": "#ed8a00",
+    "error_color": "#cb2b2b",
+    "heading_font": "cormorant_n4",
+    "heading_letter_spacing": 20,
+    "text_font": "ebgaramond_n4",
+    "text_font_size_mobile": 15,
+    "text_font_size_desktop": 17,
+    "button_letter_spacing": 18,
+    "stagger_blog_posts_apparition": false,
+    "stagger_menu_apparition": false,
+    "content_for_index": [],
+    "blocks": {
+      "14060646107696862457": {
+        "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "disabled": false,
+        "settings": {}
+      }
+    },
+    "color_schemes": {
+      "scheme-1": {
+        "settings": {
+          "background": "#080808",
+          "background_gradient": "",
+          "text_color": "#f5f0e8",
+          "primary_button_background": "#C9A24B",
+          "primary_button_text_color": "#080808",
+          "circle_button_background": "#1c1c1c",
+          "circle_button_icon": "#C9A24B"
+        }
+      },
+      "scheme-2": {
+        "settings": {
+          "background": "#080808",
+          "background_gradient": "",
+          "text_color": "#f5f0e8",
+          "primary_button_background": "#C9A24B",
+          "primary_button_text_color": "#080808",
+          "circle_button_background": "#1c1c1c",
+          "circle_button_icon": "#C9A24B"
+        }
+      },
+      "scheme-3": {
+        "settings": {
+          "background": "#080808",
+          "background_gradient": "",
+          "text_color": "#f5f0e8",
+          "primary_button_background": "#C9A24B",
+          "primary_button_text_color": "#080808",
+          "circle_button_background": "#1c1c1c",
+          "circle_button_icon": "#C9A24B"
+        }
+      },
+      "scheme-4": {
+        "settings": {
+          "background": "rgba(0,0,0,0)",
+          "background_gradient": "",
+          "text_color": "#f5f0e8",
+          "primary_button_background": "#C9A24B",
+          "primary_button_text_color": "#080808",
+          "circle_button_background": "#1c1c1c",
+          "circle_button_icon": "#C9A24B"
+        }
+      },
+      "scheme-5": {
+        "settings": {
+          "background": "rgba(0,0,0,0)",
+          "background_gradient": "",
+          "text_color": "#f5f0e8",
+          "primary_button_background": "#C9A24B",
+          "primary_button_text_color": "#080808",
+          "circle_button_background": "#1c1c1c",
+          "circle_button_icon": "#C9A24B"
+        }
+      },
+      "scheme-f06723e1-0afe-4477-a959-6e819e5afed1": {
+        "settings": {
+          "background": "#080808",
+          "background_gradient": "",
+          "text_color": "#f5f0e8",
+          "primary_button_background": "#C9A24B",
+          "primary_button_text_color": "#080808",
+          "circle_button_background": "#1c1c1c",
+          "circle_button_icon": "#C9A24B"
+        }
+      }
+    }
+  },
+  "installed_preset_name": "Prestige",
+  "presets": {
+    "Prestige": {
+      "section_vertical_spacing": "md",
+      "heading_font": "instrument_sans_n4",
+      "heading_letter_spacing": 18,
+      "text_font": "nunito_n4",
+      "text_font_size_desktop": 14,
+      "button_letter_spacing": 18,
+      "color_schemes": {
+        "scheme-1": {
+          "settings": {
+            "background": "#efefef",
+            "text_color": "#1c1c1c",
+            "primary_button_background": "#1c1c1c",
+            "primary_button_text_color": "#ffffff",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        },
+        "scheme-2": {
+          "settings": {
+            "background": "#ffffff",
+            "text_color": "#1c1c1c",
+            "primary_button_background": "#1c1c1c",
+            "primary_button_text_color": "#ffffff",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        },
+        "scheme-3": {
+          "settings": {
+            "background": "#1c1c1c",
+            "text_color": "#ffffff",
+            "primary_button_background": "#ffffff",
+            "primary_button_text_color": "#1c1c1c",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        },
+        "scheme-4": {
+          "settings": {
+            "background": "rgba(0,0,0,0)",
+            "text_color": "#ffffff",
+            "primary_button_background": "#ffffff",
+            "primary_button_text_color": "#1c1c1c",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        },
+        "scheme-5": {
+          "settings": {
+            "background": "rgba(0,0,0,0)",
+            "text_color": "#ffffff",
+            "primary_button_background": "#ffffff",
+            "primary_button_text_color": "#1c1c1c",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        }
+      },
+      "success_color": "#307a07",
+      "warning_color": "#ed8a00",
+      "error_color": "#cb2b2b",
+      "product_rating_color": "#1c1c1c",
+      "product_on_sale_accent": "#e32c2b",
+      "product_sold_out_badge_background": "#efefef",
+      "product_custom_badge_background": "#1c1c1c"
+    }
+  }
+}

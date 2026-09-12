@@ -1,0 +1,72 @@
+{%- comment -%} TEL v6 · First access: one field, one gold button, one honest micro line. Optional image (the Chapter One card) beside it. {%- endcomment -%}
+{%- liquid
+  assign img = section.settings.image
+  assign focal = section.settings.focal | default: '50% 50%'
+  assign img_alt = img.alt | default: 'TEL Collection Chapter One card'
+-%}
+<style>
+  #shopify-section-{{ section.id }} .tel-nl{display:grid;gap:10px;margin-top:26px}
+  #shopify-section-{{ section.id }} .tel-nl__done{border:1px solid rgba(var(--tel-gold-rgb) / .45);background:#15130c;padding:24px 22px;margin-top:24px}
+  #shopify-section-{{ section.id }} .tel-nl__done b{display:block;font-family:var(--tel-serif);font-size:24px;font-weight:400;color:var(--tel-ink);margin-bottom:8px}
+  #shopify-section-{{ section.id }} .tel-nl__err{border:1px solid #b5544a;background:#1a1210;color:#e08b80;padding:12px 14px;font-family:var(--tel-body);font-size:15px}
+  #shopify-section-{{ section.id }} .tel-micro{font-family:var(--tel-mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--tel-mute);text-align:center;margin-top:14px;line-height:1.9}
+  #shopify-section-{{ section.id }} .tel-nl__grid{display:grid;gap:32px}
+  #shopify-section-{{ section.id }} .tel-nl__media{margin:0 calc(-1 * var(--tel-gutter))}
+  #shopify-section-{{ section.id }} .tel-nl__media img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;object-position:{{ focal }}}
+  @media(min-width:900px){
+    #shopify-section-{{ section.id }} .tel-nl{grid-template-columns:1fr auto;max-width:640px}
+    #shopify-section-{{ section.id }} .tel-nl .tel-btn{min-width:180px}
+    #shopify-section-{{ section.id }} .tel-micro{text-align:left}
+    #shopify-section-{{ section.id }} .tel-nl__grid--img{grid-template-columns:1.1fr 1fr;gap:72px;align-items:center}
+    #shopify-section-{{ section.id }} .tel-nl__media{margin:0;order:2}
+  }
+</style>
+<section class="tel-band" id="tel-newsletter">
+  <div class="tel-wrap">
+    <div class="tel-nl__grid{% if img != blank %} tel-nl__grid--img{% endif %}">
+      {%- if img != blank -%}
+        <div class="tel-nl__media">
+          {{- img | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 900px) 45vw, 100vw', widths: '600,900,1200,1400', alt: img_alt, width: img.width, height: img.height -}}
+        </div>
+      {%- endif -%}
+      <div class="tel-narrow">
+        {%- if section.settings.eyebrow != blank -%}<p class="tel-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+        {%- if section.settings.heading != blank -%}<h2 class="tel-h tel-h2">{{ section.settings.heading }}</h2>{%- endif -%}
+        {%- if section.settings.body != blank -%}<div class="tel-p" style="margin-top:18px">{{ section.settings.body }}</div>{%- endif -%}
+        {%- assign form_id = 'tel-newsletter-' | append: section.id -%}
+        {%- form 'customer', id: form_id -%}
+          {%- if form.posted_successfully? -%}
+            <div class="tel-nl__done"><b>You're on the list.</b><span class="tel-p" style="margin:0">Earned. Not given. That's how everything here works. We'll write once, when it's worth it.</span></div>
+          {%- else -%}
+            {%- if form.errors -%}<div class="tel-nl__err" style="margin-top:20px">{{ form.errors.translated_fields['email'] }} {{ form.errors.messages['email'] }}</div>{%- endif -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="tel-nl">
+              <input class="tel-input" type="email" name="contact[email]" placeholder="{{ section.settings.placeholder | default: 'Your email address' | escape }}" aria-label="Email address" autocomplete="email" autocapitalize="off" autocorrect="off" required>
+              <button class="tel-btn tel-btn--solid" type="submit">{{ section.settings.button_text | default: 'Join' | escape }}</button>
+            </div>
+          {%- endif -%}
+        {%- endform -%}
+        {%- if section.settings.micro != blank -%}<div class="tel-micro">{{ section.settings.micro }}</div>{%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "TEL · First access",
+  "tag": "div",
+  "class": "shopify-section--tel-newsletter",
+  "disabled_on": { "groups": ["header", "footer", "custom.overlay"] },
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image (optional)", "info": "The Chapter One card sits well here." },
+    { "type": "select", "id": "focal", "label": "Image focal point", "options": [ { "value": "50% 30%", "label": "Upper third" }, { "value": "50% 50%", "label": "Centre" }, { "value": "50% 70%", "label": "Lower third" } ], "default": "50% 50%" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "First access" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "You trusted it on your <em>skin</em>." },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Hundreds of fresh pieces through the studio. One standard. Chapter Two gets named when it's ready, and you hear first.</p>" },
+    { "type": "text", "id": "placeholder", "label": "Placeholder", "default": "Your email address" },
+    { "type": "text", "id": "button_text", "label": "Button", "default": "Join" },
+    { "type": "inline_richtext", "id": "micro", "label": "Micro line", "default": "One email when it opens. Nothing else." }
+  ],
+  "presets": [ { "name": "TEL · First access", "category": "TEL" } ]
+}
+{% endschema %}

@@ -1,0 +1,132 @@
+{%- comment -%} TEL v6 · Reviews: live Judge.me count and rating from the product metafields, three pull quotes as blocks, optional full list rendered from Judge.me's server-side HTML (class-prefixed so their CSS never touches it), optional JSON-LD for rich results. {%- endcomment -%}
+{%- liquid
+  assign p = section.settings.product
+  if p == blank
+    assign p = product
+  endif
+  assign count = 0
+  assign rating = blank
+  if p != blank
+    assign count = p.metafields.reviews.rating_count.value | default: 0 | plus: 0
+    assign rating = p.metafields.reviews.rating.value.rating
+  endif
+  assign rating_txt = rating | round: 1
+  assign show_list = false
+  if section.settings.show_all and p != blank and p.metafields.judgeme.review_widget_ssr_html != blank
+    assign show_list = true
+  endif
+-%}
+<style>
+  #shopify-section-{{ section.id }} .tel-reviews__head{max-width:1180px;margin:0 auto;text-align:center}
+  #shopify-section-{{ section.id }} .tel-reviews__eyebrow{font-family:var(--tel-mono);font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--tel-gold);margin:0 0 16px}
+  #shopify-section-{{ section.id }} .tel-reviews__h{font-family:var(--tel-serif);font-weight:400;font-size:clamp(28px,4vw,42px);line-height:1.1;color:var(--tel-ink);margin:0;text-wrap:balance}
+  #shopify-section-{{ section.id }} .tel-reviews__h em{font-style:italic;color:var(--tel-gold)}
+  #shopify-section-{{ section.id }} .tel-reviews__sub{font-family:var(--tel-body);font-size:17px;line-height:1.6;color:var(--tel-mute);max-width:56ch;margin:18px auto 0}
+  #shopify-section-{{ section.id }} .tel-reviews__ledger{display:inline-flex;align-items:center;gap:14px;margin:26px auto 0;padding:10px 18px;border:1px solid var(--tel-rule2);font-family:var(--tel-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--tel-ink2)}
+  #shopify-section-{{ section.id }} .tel-stars{color:var(--tel-gold);letter-spacing:.18em;font-size:13px;line-height:1;white-space:nowrap}
+  #shopify-section-{{ section.id }} .tel-reviews__grid{list-style:none;margin:48px auto 0;padding:0;max-width:1180px;display:grid;gap:0;border-top:1px solid var(--tel-rule)}
+  #shopify-section-{{ section.id }} .tel-reviews__card{padding:32px 0 30px;border-bottom:1px solid var(--tel-rule)}
+  #shopify-section-{{ section.id }} .tel-reviews__q{font-family:var(--tel-serif);font-size:24px;font-style:italic;font-weight:400;line-height:1.28;color:var(--tel-ink);margin:14px 0 18px;text-wrap:pretty}
+  #shopify-section-{{ section.id }} .tel-reviews__who{font-family:var(--tel-mono);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--tel-gold);margin:0}
+  #shopify-section-{{ section.id }} .tel-reviews__who span{display:block;color:var(--tel-mute);margin-top:6px;letter-spacing:.14em}
+  #shopify-section-{{ section.id }} .tel-reviews__more{text-align:center;margin:36px 0 0}
+  @media(min-width:900px){
+    #shopify-section-{{ section.id }} .tel-reviews__grid{grid-template-columns:repeat(3,1fr);border-top:0;border-bottom:0}
+    #shopify-section-{{ section.id }} .tel-reviews__card{padding:8px 32px 8px 0;border-bottom:0;border-right:1px solid var(--tel-rule)}
+    #shopify-section-{{ section.id }} .tel-reviews__card + .tel-reviews__card{padding-left:32px}
+    #shopify-section-{{ section.id }} .tel-reviews__card:last-child{border-right:0;padding-right:0}
+    #shopify-section-{{ section.id }} .tel-reviews__q{font-size:26px}
+  }
+  {%- if show_list -%}
+  #shopify-section-{{ section.id }} .tel-reviews__all{max-width:760px;margin:64px auto 0;padding-top:40px;border-top:1px solid var(--tel-rule2)}
+  #shopify-section-{{ section.id }} .tel-reviews__all-h{font-family:var(--tel-mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--tel-gold);margin:0 0 6px}
+  #shopify-section-{{ section.id }} .tel-reviews__all-s{font-family:var(--tel-body);font-size:15px;color:var(--tel-mute);margin:0 0 8px}
+  #shopify-section-{{ section.id }} .tr-ssr-ai-content,#shopify-section-{{ section.id }} .tr-rev__transparency-badge-wrapper,#shopify-section-{{ section.id }} .tr-rev__actions,#shopify-section-{{ section.id }} .tr-rev__custom-form,#shopify-section-{{ section.id }} .tr-rev__br,#shopify-section-{{ section.id }} .tr-rev__icon,#shopify-section-{{ section.id }} .tr-rev__title:empty,#shopify-section-{{ section.id }} .tr-rev__reply:empty,#shopify-section-{{ section.id }} .tr-rev__vids:empty,#shopify-section-{{ section.id }} .tr-rev__pics:empty{display:none}
+  #shopify-section-{{ section.id }} .tr-rev{padding:26px 0;border-bottom:1px solid var(--tel-rule)}
+  #shopify-section-{{ section.id }} .tr-rev:last-child{border-bottom:0}
+  #shopify-section-{{ section.id }} .tr-rev__header{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;margin-bottom:10px}
+  #shopify-section-{{ section.id }} .tr-rev__rating{color:var(--tel-gold);letter-spacing:.14em;font-size:12px;line-height:1;order:1}
+  #shopify-section-{{ section.id }} .tr-star::before{content:"\2605"}
+  #shopify-section-{{ section.id }} .tr-star:not(.tr--on)::before{opacity:.25}
+  #shopify-section-{{ section.id }} .tr-rev__author-wrapper{order:2;font-family:var(--tel-mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--tel-ink)}
+  #shopify-section-{{ section.id }} .tr-rev__buyer-badge-wrapper{order:3;font-family:var(--tel-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--tel-gold)}
+  #shopify-section-{{ section.id }} .tr-rev__buyer-badge::after{content:"Verified buyer"}
+  #shopify-section-{{ section.id }} .tr-rev__timestamp{order:4;margin-left:auto;font-family:var(--tel-mono);font-size:10px;letter-spacing:.14em;color:var(--tel-mute)}
+  #shopify-section-{{ section.id }} .tr-rev__body{font-family:var(--tel-body);font-size:17px;line-height:1.6;color:var(--tel-ink2)}
+  #shopify-section-{{ section.id }} .tr-rev__body p{margin:0}
+  #shopify-section-{{ section.id }} .tr-rev__pics{display:flex;gap:10px;margin-top:14px}
+  #shopify-section-{{ section.id }} .tr-rev__pic-link{display:block;width:88px;height:88px;border:1px solid var(--tel-rule2)}
+  #shopify-section-{{ section.id }} .tr-rev__pic-img{display:block;width:100%;height:100%;object-fit:cover}
+  {%- endif -%}
+</style>
+<section class="tel-band{% if section.settings.alt %} tel-band--alt{% endif %}" id="reviews" aria-label="Reviews">
+  <div class="tel-wrap">
+    <div class="tel-reviews__head">
+      {%- if section.settings.eyebrow != blank -%}<p class="tel-reviews__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="tel-reviews__h">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.sub != blank -%}<p class="tel-reviews__sub">{{ section.settings.sub | escape }}</p>{%- endif -%}
+      {%- if count > 0 and rating != blank -%}
+      <p class="tel-reviews__ledger"><span class="tel-stars" aria-hidden="true">★★★★★</span><span>{{ rating_txt }} of 5 · {{ count }} review{% if count != 1 %}s{% endif %}</span></p>
+      {%- endif -%}
+    </div>
+    {%- if section.blocks.size > 0 -%}
+    <ul class="tel-reviews__grid" role="list">
+      {%- for block in section.blocks -%}
+      <li class="tel-reviews__card" {{ block.shopify_attributes }}>
+        <span class="tel-stars" aria-label="{{ block.settings.stars }} stars">{%- for i in (1..block.settings.stars) -%}★{%- endfor -%}</span>
+        <blockquote class="tel-reviews__q">{{ block.settings.quote | escape }}</blockquote>
+        <p class="tel-reviews__who">{{ block.settings.name | escape }}{%- if block.settings.role != blank -%}<span>{{ block.settings.role | escape }}</span>{%- endif -%}</p>
+      </li>
+      {%- endfor -%}
+    </ul>
+    {%- endif -%}
+    {%- if section.settings.more_text != blank and section.settings.more_url != blank -%}
+    <p class="tel-reviews__more"><a class="tel-btn" href="{{ section.settings.more_url }}">{{ section.settings.more_text | escape }}</a></p>
+    {%- endif -%}
+    {%- if show_list -%}
+    <div class="tel-reviews__all">
+      <p class="tel-reviews__all-h">Every review</p>
+      {%- if section.settings.list_note != blank -%}<p class="tel-reviews__all-s">{{ section.settings.list_note | escape }}</p>{%- endif -%}
+      {{ p.metafields.judgeme.review_widget_ssr_html | replace: 'jdgm-', 'tr-' | replace: ' tr-spinner', '' }}
+    </div>
+    <script>
+      (function(){
+        var root=document.getElementById('shopify-section-{{ section.id }}');if(!root)return;
+        root.querySelectorAll('.tr-rev__pic-img[data-src]').forEach(function(i){i.src=i.getAttribute('data-src');});
+        root.querySelectorAll('time.tr-rev__timestamp[datetime]').forEach(function(t){var d=new Date(t.getAttribute('datetime'));if(!isNaN(d))t.textContent=d.toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'});});
+      })();
+    </script>
+    {%- endif -%}
+  </div>
+</section>
+{%- if section.settings.schema and request.page_type == 'product' and p != blank and p.metafields.judgeme.review_widget_json_ld != blank -%}
+<script type="application/ld+json">{{ p.metafields.judgeme.review_widget_json_ld }}</script>
+{%- endif -%}
+{% schema %}
+{
+  "name": "TEL · Reviews",
+  "tag": "div",
+  "class": "shopify-section--tel-reviews",
+  "max_blocks": 3,
+  "disabled_on": { "groups": ["header", "footer", "custom.overlay"] },
+  "settings": [
+    { "type": "product", "id": "product", "label": "Product", "info": "Leave empty on the product page; it reads the page's product." },
+    { "type": "checkbox", "id": "alt", "label": "Alternate background", "default": false },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "From the first five hundred" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Every review so far. <em>Five stars.</em>", "info": "Wrap a word in <em></em> for the gold italic." },
+    { "type": "textarea", "id": "sub", "label": "Sub-line", "default": "Collected by Judge.me after purchase. Published as written." },
+    { "type": "text", "id": "more_text", "label": "Button text" },
+    { "type": "url", "id": "more_url", "label": "Button link" },
+    { "type": "checkbox", "id": "show_all", "label": "Show every review below the quotes", "default": false, "info": "Renders Judge.me's list in the house style. Product page only." },
+    { "type": "text", "id": "list_note", "label": "Note above the full list", "default": "Newest first. Nothing edited." },
+    { "type": "checkbox", "id": "schema", "label": "Add review structured data (rich results)", "default": true }
+  ],
+  "blocks": [ { "type": "quote", "name": "Quote", "settings": [
+    { "type": "textarea", "id": "quote", "label": "Quote" },
+    { "type": "text", "id": "name", "label": "Name" },
+    { "type": "text", "id": "role", "label": "Line under the name" },
+    { "type": "range", "id": "stars", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 }
+  ] } ],
+  "presets": [ { "name": "TEL · Reviews", "category": "TEL" } ]
+}
+{% endschema %}

@@ -1,0 +1,44 @@
+.telhg *{box-sizing:border-box;margin:0;padding:0}
+.telhg{--hg-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;--hg-serif:var(--heading-font-family,Georgia,serif);--hg-body:var(--text-font-family,Georgia,serif);background:#080808;color:#C9C1B4;font-family:var(--hg-body);line-height:1.65;padding:56px 22px 72px;-webkit-text-size-adjust:100%}
+.telhg .wrap{max-width:760px;margin:0 auto}
+.telhg header{border-bottom:1px solid #221F1A;padding-bottom:26px;margin-bottom:30px}
+.telhg .brand{font-family:var(--hg-mono);color:#C9A24B;font-size:11px;letter-spacing:.34em;text-transform:uppercase;margin-bottom:16px}
+.telhg h1{font-family:var(--hg-serif);font-size:clamp(38px,6vw,64px);line-height:1.04;font-weight:400;color:#F5F0E8}
+.telhg .sub{color:#C9C1B4;font-size:17px;margin-top:14px;max-width:56ch}
+.telhg h2{font-family:var(--hg-mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#C9A24B;margin:44px 0 16px;border-bottom:1px solid #221F1A;padding-bottom:10px;font-weight:400}
+.telhg h3{font-family:var(--hg-serif);font-size:22px;font-weight:400;color:#F5F0E8;margin-bottom:8px;line-height:1.15}
+.telhg p{margin:0 0 13px;font-size:17px}
+.telhg b,.telhg strong{color:#F5F0E8;font-weight:500}
+.telhg .lede{font-family:var(--hg-serif);font-size:22px;line-height:1.4;color:#ece7dd}
+.telhg .rule{background:#0E0D0B;border-left:1px solid #C9A24B;padding:16px 18px;margin:0 0 20px}
+.telhg .rule p{margin:0;font-size:16.5px;color:#ece7dd}
+.telhg .stage{display:flex;gap:18px;margin-bottom:24px}
+.telhg .when{flex:0 0 104px}
+.telhg .when .day{font-family:var(--hg-serif);color:#C9A24B;font-weight:400;font-size:22px;line-height:1.1}
+.telhg .when .clock{font-family:var(--hg-mono);color:#9A9285;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;margin-top:5px}
+.telhg .body p:last-child{margin-bottom:0}
+.telhg .use{display:inline-block;font-family:var(--hg-mono);background:transparent;border:1px solid rgba(201,162,75,.45);color:#C9A24B;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;margin-bottom:8px;font-weight:400}
+.telhg .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.telhg .card{background:#0E0D0B;border:1px solid #221F1A;padding:18px 20px}
+.telhg .card h3{font-size:20px;margin-bottom:10px}
+.telhg .card p{font-size:15.5px;color:#C9C1B4;margin:0 0 9px}
+.telhg .card p:last-child{margin-bottom:0}
+.telhg .card.gold{border-color:rgba(201,162,75,.45);background:#15130c}
+.telhg .warn{background:#1a1210;border:1px solid #b5544a;padding:18px 20px;margin:20px 0}
+.telhg .warn h3{color:#e08b80;font-size:20px;margin-bottom:10px}
+.telhg ul{margin:0 0 13px 0;padding:0;list-style:none}
+.telhg li{position:relative;padding-left:20px;margin-bottom:9px;font-size:16px}
+.telhg li:before{content:"";position:absolute;left:0;top:10px;width:6px;height:6px;background:#C9A24B;border-radius:50%}
+.telhg li.no:before{content:"";background:none;border-left:2px solid #b5544a;border-top:2px solid #b5544a;transform:rotate(-45deg);width:8px;height:8px;border-radius:0;top:8px}
+.telhg .layer{background:#0E0D0B;border:1px solid #221F1A;padding:18px 20px;margin-bottom:12px}
+.telhg .layer .tag{font-family:var(--hg-serif);color:#C9A24B;font-weight:400;font-size:21px;display:block;margin-bottom:6px}
+.telhg .layer p{margin:0;font-size:16px;color:#C9C1B4}
+.telhg .quote{font-family:var(--hg-serif);border-left:1px solid #C9A24B;padding:4px 0 4px 18px;margin:0 0 16px;color:#F5F0E8;font-size:21px;line-height:1.35;font-style:italic}
+.telhg .quote .who{display:block;margin-top:12px;font-family:var(--hg-mono);color:#9A9285;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-style:normal}
+.telhg .big{font-family:var(--hg-serif);font-size:56px;font-weight:400;color:#C9A24B;line-height:1;display:block;margin-bottom:8px}
+.telhg .cta{background:#15130c;border:1px solid rgba(201,162,75,.45);padding:24px;margin:32px 0 0;text-align:center}
+.telhg .cta h3{font-size:26px;margin-bottom:8px}
+.telhg .cta p{font-size:15.5px;color:#C9C1B4;margin-bottom:0}
+.telhg .foot{margin-top:40px;padding-top:18px;border-top:1px solid #221F1A;color:#9A9285;font-size:13px;line-height:1.65}
+.telhg .foot b{color:#C9A24B!important}
+@media (max-width:560px){.telhg{padding:40px 18px 56px}.telhg .grid{grid-template-columns:1fr}.telhg .stage{flex-direction:column;gap:6px}.telhg .when{flex:none}.telhg .when .clock{display:inline;margin-left:10px}}
