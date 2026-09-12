@@ -164,3 +164,56 @@ Recorded so they are not repeated.
 - **Mailchimp connector** exposes no send or schedule tool. Sends are manual.
 - **Egress** to `telcollection.com.au` is blocked by the proxy; storefront state must be
   verified through the Shopify Admin API.
+
+---
+
+## Creative: the bottleneck is solvable immediately
+
+The ad account contains **one** image asset (`594e7f8e9e2eac3e1bc4340eacade4b6`, the product
+hero). Creative variety is the single biggest performance driver in a Meta account, and every
+ad in TEL has been running the same frame.
+
+The Ritual Duo product already carries **seven public Shopify CDN images**, all with written
+alt text. Meta can ingest any of these by `asset_url` — that is exactly how the existing asset
+was created, so the path is proven. Six are unused:
+
+| # | Shot | Status |
+|---|---|---|
+| 01 | Sealed set hero — both jars, monogram card behind | **in use** |
+| 02 | Both jars front-on | unused |
+| 08 | Restore Balm front, Recovery Cream angled to show ingredient panel | unused |
+| 09 | Sealed retail box, front-on | unused |
+| 12 | Open jar, top-down — cream texture macro | unused |
+| 13 | Restore Balm single jar under studio light | unused |
+| 15 | Both jars on the retail box with the metal card | unused |
+
+Base path: `https://cdn.shopify.com/s/files/1/0669/8870/3807/files/tel-ritual-duo-*`
+
+Recommended pairing, matching each frame to the job it does:
+
+- **Broad AU (cold)** → 09 sealed box and 02 both jars. Cold traffic needs to understand what
+  arrives in the parcel before it needs atmosphere.
+- **Warm/retarget** → 12 texture macro and 08 ingredient panel. A warm viewer already knows the
+  product; these answer "is it any good", which is the objection that actually blocks the sale.
+- **Organic-style** → 13 single jar and 15 jars on box read least like an ad, which matters
+  given that organic Instagram is the channel actually working.
+
+Also available and stronger, but not yet Shopify-hosted: **19 high-res editorial tattoo
+photographs** in the repo root (`DSC*.jpg`), the **CHAPTER 1 — LOOK AFTER THE ART** frame
+(`IMG_9030(1).png`), and the founder portrait. These carry the "look after the art" proof that
+product-only shots cannot. They need uploading to Shopify Files (or any public host) first,
+because Meta pulls by URL and the repo is not publicly served. The two iPhone screen recordings
+carry UI chrome and need recapture before any paid placement.
+
+**Deliberately not built tonight.** Adding ads means writing to campaigns that are now live and
+delivering at $0.115/LPV. A malformed `manage_campaign` payload at midnight risks stopping
+delivery overnight for no gain, since nothing can be judged before morning anyway. The URLs
+above make this a five-minute job in daylight.
+
+---
+
+## Inventory
+
+Ritual Duo variant `43455141969983`: **439 units** (was 445). Six units moved, consistent with
+the five POS orders on 12 Sep plus one earlier. No sellout risk — which is why the launch copy
+deliberately carries no scarcity claim.
