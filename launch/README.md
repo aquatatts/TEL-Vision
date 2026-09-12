@@ -178,3 +178,36 @@ Full numbers, the consent gap, and the corrections log: **`launch-weekend-measur
 | Confirm COGS per Ritual Duo (CPA model assumes ~$15) | Ben |
 | #1046 PayPal `SALE` stuck PENDING, $59.95 | PayPal |
 | Which Klaviyo org the upgrade billed to (possibly the wrong "King…" account) | Klaviyo billing |
+
+---
+
+## Account security — Meta impersonation
+
+
+A phishing DM arrived on Messenger on 25 Aug from a personal profile ("Stefy Colt") posing as
+the "Meta Policy Support Team", claiming the Page had been flagged as non-compliant for
+copyright and misleading product information, and pressing for an "appeal" within an
+unspecified time frame. It is a credential-harvesting scam. Record the rule so it never needs
+re-deciding:
+
+**Meta never sends enforcement notices by direct message.** Real Page violations appear only in
+**Meta Business Suite → Account Quality** (`business.facebook.com/accountquality`) and the
+Page's Support Inbox — inside the platform, behind a login. The delivery method alone
+identifies the scam, before reading a word of it.
+
+Tells in this instance: generic "Dear Page Administrator" with the Page never named; no case ID
+or reference; "within the specified time frame" with no date; three unrelated violation types
+at once; a "Terms & Conditions © 2026 Meta Platforms, Inc." footer on a DM; and the message
+was 18 days old while the account kept delivering.
+
+**Verified against Meta's own systems the same night:** page `1184411344764247` returns as a
+valid promotable page, the campaign and both ad sets read `ENABLED`, and both ads read
+`status: ACTIVE` with `review.status: APPROVED`. A Page actually restricted for
+non-compliance cannot get ads approved and cannot deliver. The message was fiction.
+
+The real exposure is the **admin account**, not the Page — a phished login hands over the Page,
+Business Manager, the pixel and the payment method on file. Standing hygiene: 2FA on the
+personal Facebook account that administers the Page; periodic review of Business Manager →
+Users → People and Partners, Page → Page access, and the ad account's payment methods; and
+brief anyone else at the studio with Page access, since one panicked click by any admin loses
+the account regardless of everyone else's care.

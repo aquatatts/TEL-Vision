@@ -39,6 +39,19 @@ the product page. Fixing the leak is worth more than any budget decision here.
 
 ## Priority 1 — stop the leak (before another ad dollar scales)
 
+### Doable from a phone, at the counter
+
+**Job 1 — publish the form (~30s).** Klaviyo → **Sign-up forms list** → the row
+`TEL · First access popup (DRAFT)` → switch its status to Live **on the row**. Do **not** open
+the form builder: its publish control is the thing that has failed twice, updating the version
+and leaving the form on `draft`. The list is a different control.
+
+**Job 2 — the audience (~90s).** Meta Ads app → Audiences → Create → Custom Audience →
+**Instagram account** → the TEL account → **365 days** → name `TEL — IG engagers 365d`.
+
+Everything else in Priority 1 is a laptop job.
+
+
 **1a. The Instagram → store path.** `website_clicks` returned `null` for all 7 days; I cannot
 distinguish "metric unavailable on IGI" from "genuinely zero". Ben to confirm on his phone that
 the bio link exists and lands on `/products/tattoo-aftercare-kit`. If 5,330 profile views had no
@@ -95,9 +108,57 @@ Facebook.
 
 **Creative is the real constraint.** One image asset exists in the entire ad account
 (`594e7f8e9e2eac3e1bc4340eacade4b6`). The organic content is clearly working — 17× lift proves
-it. Feed the ad account the material that is already performing organically: 14 high-res
-editorial photographs in the repo, the CHAPTER 1 frame, the founder portrait. Target 4 statics
-+ 1 reel per ad set. The two iPhone screen recordings carry UI chrome and need recapture.
+it. Target 4 statics + 1 video per ad set.
+
+### The creative pool, ranked
+
+**1. The scab/dry-skin application reel — build the next ad set around this.**
+Cream applied to dry healing skin, which visibly settles. A *demonstration*, and demonstration
+outperforms product photography in aftercare because it answers the only cold-audience question
+— does this work — in three seconds with no copy. Highest expected performer in the pool.
+
+> **Policy risk, flagged before anyone builds on it.** Meta restricts skin-condition and
+> before/after content in ads (health and beauty policy), and close-up skin detail can also
+> trip the shocking/sensational content rule. Mitigations: frame as product-in-use, never
+> before/after (no split screens, no "day 1 / day 14"); do not lead on the most visceral
+> frame; run it as **one ad among three or four** so a rejection costs an ad and not a
+> campaign; appeal once if rejected, but have the alternative already live. None of this
+> applies to the organic feed — only the paid cut needs the softer edit.
+
+**2. The gate video that went viral organically — re-run it, do not retire it.**
+The "it will look washed" concern is not supported by the delivery data:
+
+| Day | Facebook | Instagram | Frequency |
+|---|---|---|---|
+| 9 Sep | $45.60 · 4,050 impr | **$0.01 · 2 impr** | 1.09 |
+| 10 Sep | $39.35 · 3,528 impr | **$0.00 · 0 impr** | 1.10 |
+| 11 Sep | $11.83 · 1,139 impr | **$0.01 · 3 impr** | 1.05 |
+
+Frequency **1.05–1.10** means the average viewer saw it once; fatigue is a frequency-3+
+problem. And as a *paid* ad it has never meaningfully run on Instagram — 5 impressions in
+three days — so an IG run is a first run, not a repeat. A creative validated by organic virality
+is the most valuable paid asset available: most advertisers pay to discover what works, this one
+is already known. Retire on measured signals (frequency > 2.0 with rising cost per result),
+never on a feeling.
+
+**3. Product stills.** Seven public Shopify CDN images, six unused — see
+`launch-weekend-measurement.md` for the frame-to-ad-set pairing.
+
+**4. Callum's edits, when he returns.** They must land in **Shopify → Content → Files** to get
+public CDN URLs, because Meta ingests creative by URL and the repo is not publicly served.
+Request **4:5 and 9:16** crops: paid Instagram delivery only began 12 Sep and those are its
+placements. The repo's 19 editorial stills (`DSC*.jpg`), the CHAPTER 1 frame and the founder
+portrait need the same treatment. The two iPhone screen recordings carry UI chrome and need
+recapture.
+
+**Parked:** the TEL video drop release. Hold until the funnel captures and there is a warm pool
+to hit twice — a launch asset deserves a working funnel under it.
+
+### The one gate on scaling
+Spend appetite is not the constraint and cost per click is strong. The single trigger is
+**`query_form_values` returning submits**. Until then the funnel does not hold water, and last
+week already demonstrated the cost of that: $96.80 into a page that could not capture an email.
+Once it does, the guardrails below take over (+20% per 48h while CPA ≤ $25).
 
 ### Known platform limit
 Conversion event / pixel / optimisation **cannot be edited on a published ad set** (Meta error
@@ -172,6 +233,14 @@ conversion rate is the unknown, and it is unknown because nothing has converted 
 6. Placement split by `publisher_platform` shows Instagram taking meaningful spend, with
    cost/LPV compared against Facebook's $0.115.
 7. T+48h: `data_query` by ad set for spend, ATCs and purchases.
+
+## Account security
+
+A Meta-impersonation phishing DM arrived on 25 Aug and was verified as a scam the same
+night. The rule and the account-hardening checklist live in `README.md` under
+**Account security — Meta impersonation**.
+
+---
 
 ## Standing rule
 
