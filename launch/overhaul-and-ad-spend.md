@@ -258,6 +258,28 @@ A Meta-impersonation phishing DM arrived on 25 Aug and was verified as a scam th
 night. The rule and the account-hardening checklist live in `README.md` under
 **Account security — Meta impersonation**.
 
+## Morning fire — armed
+
+Routine `trig_01VLuY5aCWg5xHrNfgLRTD5a`, firing **08:54 AEST Sun 13 Sep** into this session.
+Written to **verify rather than assume**, because three separate settings tonight read as saved
+while the API showed them unchanged.
+
+It checks, in order:
+1. Whether last night's saves actually applied — `get_list` on `V9Rbbr` for
+   `opt_in_process: single_opt_in` (reported saved, never re-read), and `get_form` on `WirxQ2`
+   for form-level status.
+2. Whether the consent chain moved — segment `YgyR87` (was 23) and list `V9Rbbr` (was 24)
+   against Shopify's subscribed count (50+, page-limited), plus whether any overnight POS
+   customer landed `SUBSCRIBED`.
+3. `query_form_values` on `WirxQ2` — empty still means not rendering.
+4. Whether `website_clicks` has stopped returning `null` now the bio is updated, and whether
+   the organic profile-view lift is holding or decaying.
+5. Ad delivery split by `publisher_platform` — Instagram cost/LPV against Facebook's $0.115.
+6. Overnight orders: any web order at all, any `ritual_drop_sep26` UTM, any `TELTAKEOVER`
+   redemption. Inventory was 439.
+
+It is instructed to flag any save that did not apply, and it carries the standing rule below.
+
 ---
 
 ## Standing rule
