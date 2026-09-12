@@ -1,178 +1,154 @@
-# TEL Collection — full overhaul + tuned ad spend
+# TEL Collection — post-launch: convert the attention you already have
 
 ## Context
 
-TEL opened Thu 10 Sep 7pm AEST. Two web orders in 48 hours. Ben is on deck and wants the
-whole stack cross-examined, the blockers rectified, and a tuned ad spend ready to run — signed
-off within the hour.
+TEL opened Thu 10 Sep 7pm AEST. The launch looked flat, and the original diagnosis found three
+stacked failures: the capture form never published, the Ritual Drop sales campaign was an empty
+shell, and the Meta ad account's billing failed ~24h after opening and switched the campaigns
+off. **All three are now rectified** — ads built and enabled, billing paid with the card set
+primary, form published, CAPI confirmed already on Maximum.
 
-**The headline from the audit: far less is broken than the flat launch implies.** The
-infrastructure is sound. Three specific failures suppressed the launch, and one of the three
-is already fixed.
+Tonight's measurement changed the strategic picture, and that is why this plan is being
+rewritten rather than continued.
 
----
+**The finding:** Instagram profile views went from a 91–152/day baseline to **2,612 (10 Sep)
+and 2,718 (11 Sep)** — 17× — while paid Instagram delivery on those days was **$0.00 and
+$0.01**. The entire ad budget went to Facebook placement. The launch-weekend attention was
+**100% organic**, and it beat the paid budget by roughly 13× on volume at zero cost.
 
-## Cross-examination: what is actually working
+Those 5,330 profile views produced **2 web orders**. The problem was never attention. It is
+that attention is arriving and leaking — no capture, and an unverified path from Instagram to
+the product page. Fixing the leak is worth more than any budget decision here.
 
-Verified by live read this session — do not re-litigate these.
+### Verified tonight — do not re-litigate
 
-| System | State |
+| Thing | State |
 |---|---|
-| Checkout | **Healthy.** Shopify Payments SUCCESS on every order (auth + capture) |
-| Shipping | **Free domestic shipping live** ($0), Express $15. Not a conversion blocker |
-| Product | Ritual Duo ACTIVE, 445 units, `availableForSale: true`, inventory tracked |
-| Sales channels | Online Store, **Facebook & Instagram**, POS, Google & YouTube — all published |
-| Meta pixel | **Fires.** 1,277 LPVs prove it; LPV optimisation cannot run without it |
-| Meta catalog | Wired via the F&I channel — Advantage+ Shopping is available |
-| Klaviyo ↔ Shopify | Full commerce event set present: Added to Cart, Checkout Started, Placed Order, Ordered Product, Fulfilled, Refunded, Cancelled |
-| Klaviyo flows | 6 live: welcome, 2× post-purchase, reorder, abandoned checkout, browse abandonment |
-| Klaviyo sequence | Fired on time, correct `WjZxaE` exclusions throughout |
-
-Telling detail: the `Added to Cart` metric was **created 9 Sep 21:59:51** — the exact minute of
-the $0 test order. It had never fired before because the store was locked. Tracking works; it
-had nothing to track.
-
-**Supermetrics cannot read the pixel** (`conversion_types` returns empty every call, confirmed
-across sessions). That is a Supermetrics scope limit, **not** a TEL problem. Stop treating it
-as a red flag.
+| Orders 12 Sep | 5 × $59.95 = **$299.75**, all `sourceName: "pos"` (#1048–#1052) |
+| Web orders since launch | **2**. Zero `TELTAKEOVER` redemptions, ever |
+| Ad account | Billing rectified, card primary, all 3 ad sets delivering |
+| Warm Entry v2 | **$0.115/LPV** — beating its historical $0.13 |
+| Warm Stack | **Dead.** Reach 9 on $1.33. Audiences built against the gated store |
+| Form `WirxQ2` | `status: live` but `query_form_values` → `results: []`. **Still not rendering** |
+| Emailable segment | 20 → **23** (+3) |
+| New profiles since 11 Sep | 9, of which **8 are `NEVER_SUBSCRIBED`** |
+| CAPI | Already Maximum on the Shopify F&I channel |
+| Checkout / shipping / channels / pixel | All healthy, confirmed by live read |
 
 ---
 
-## What is actually broken — the rectification list
+## Priority 1 — stop the leak (before another ad dollar scales)
 
-| # | Issue | Owner | Effort |
-|---|---|---|---|
-| 1 | **Capture form never published** (`WirxQ2`, draft since 4 Sep, 0 views ever) | Ben — Klaviyo UI | 5 min |
-| 2 | Ritual Drop had zero ads | **DONE** — both built, paused, in review | — |
-| 3 | Optimisation event not set per ad set | Ben — Ads Manager | 2 min |
-| 4 | **CAPI almost certainly off** — see below | Ben — Shopify F&I channel | 2 min |
-| 5 | Custom audiences report size 20, unverified | Ben — Ads Manager | 1 min |
-| 6 | `TELTAKEOVER` never redeemed — checkout path unproven | Ben — test purchase | 5 min |
-| 7 | #1046 PayPal PENDING, $59.95 unpaid | Ben — PayPal | 2 min |
-| 8 | Squires list never emailed about TEL | Ben — Mailchimp send | 10 min |
-| 9 | No reviews on the PDP | Later | — |
-| 10 | Back-in-stock flow draft; 3 flows mislabelled "(DRAFT)" | Later | 5 min |
+**1a. The Instagram → store path.** `website_clicks` returned `null` for all 7 days; I cannot
+distinguish "metric unavailable on IGI" from "genuinely zero". Ben to confirm on his phone that
+the bio link exists and lands on `/products/tattoo-aftercare-kit`. If 5,330 profile views had no
+clear route to the store, that is the single largest loss in the whole account. **10-second
+check, highest expected value on this page.**
 
-### The real "pixel fix" (#4)
-The pixel fires, so there is nothing to repair there. The upgrade is **Conversions API**: in
-the Shopify **Facebook & Instagram** channel, set data sharing to **Maximum**. That sends
-events server-side alongside the browser pixel and typically recovers **20–30% of conversions**
-lost to iOS and ad blockers. On a pixel with zero purchase history this matters twice over —
-it is also the fastest way out of the learning phase. Two-minute toggle, largest single
-technical lever available today.
+**1b. The form still does not render.** It is `live`, so publication is not the issue — the
+**display rules** are. They were written for the password-gated store (targeting and trigger
+conditions that no longer match). Rewrite trigger/targeting against the open store's URLs and
+confirm with `query_form_values` returning non-empty. Spec: `launch/capture-form-fix.md`.
+Do not skip `record_utm_params_on_submit`.
+
+**1c. Counter capture at POS.** 8 of 9 profiles created since 11 Sep are `NEVER_SUBSCRIBED` —
+customers who bought today, whose email is in Klaviyo, and who cannot legally be emailed. POS
+is where 100% of real revenue happens. A deliberate opt-in ask at the counter is worth more
+than the entire paid budget: every Squires client is a proven TEL buyer.
 
 ---
 
-## The strategic miss nobody has named
+## Priority 2 — put the budget where the audience already is
 
-**Every dollar of real revenue is POS.** Roughly 40 orders at $59.95 through the studio,
-against 2 web orders since launch. The studio is the machine; the website is additive. Yet:
+Paid delivery is on the wrong platform. Organic Instagram is carrying the brand; paid is buying
+Facebook.
 
-- There is no systematic email capture at the studio counter — every Squires client is a
-  proven TEL buyer and almost none are on the TEL list.
-- The Squires Mailchimp list, the only owned audience with real reach, has never been emailed
-  about TEL.
-- The TEL list is **20 people**, so no send can move revenue regardless of how good it is.
+| Action | Detail |
+|---|---|
+| **Reallocate to Instagram placement** | Warm Entry v2 delivered 100% Facebook. Split placement or duplicate to an IG-weighted ad set and compare cost/LPV directly |
+| **Kill Warm Stack** | Reach 9 confirms the audiences are empty. Fold its budget into Broad AU |
+| **Rebuild the custom audiences** | `120247577486770688` / `120247577506740688` were built on gate-era URLs. Rebuild against the open store, plus IG engagers — which, given the organic numbers, is now the richest warm pool available |
+| **Hold total at $60/day** | Do not scale until Priority 1 is closed. Scaling into a leaking funnel is exactly what produced this week |
+| **Leave Broad AU alone for now** | $2.30/LPV looks bad but it is n=2 clicks, conversion-optimised, zero purchase history, in learning. Judge on 7-day |
 
-Fixing capture — at the counter and on the site — is worth more than any budget decision on
-this page. A list of 20 cannot be marketed to. A list of 500 changes the business.
+**Creative is the real constraint.** One image asset exists in the entire ad account
+(`594e7f8e9e2eac3e1bc4340eacade4b6`). The organic content is clearly working — 17× lift proves
+it. Feed the ad account the material that is already performing organically: 14 high-res
+editorial photographs in the repo, the CHAPTER 1 frame, the founder portrait. Target 4 statics
++ 1 reel per ad set. The two iPhone screen recordings carry UI chrome and need recapture.
 
-Also worth noting: **only one SKU**, no bundle, no upsell, no subscription, on a *consumable*
-product. AOV is hard-locked at $59.95. The reorder flow exists but there is nothing to reorder
-into. That is the next structural piece after capture.
+### Known platform limit
+Conversion event / pixel / optimisation **cannot be edited on a published ad set** (Meta error
+100, subcode 3260011). Both Ritual Drop ad sets published 9 Aug, so both are locked. Changing
+the optimisation event requires **creating new ad sets**, not editing these. Supermetrics also
+cannot read per-ad-set conversion events (`conversion_types` returns empty) — this must be read
+in Ads Manager.
 
 ---
 
-## Tuned ad spend
+## Priority 3 — the structural gap
 
-### Unit economics
+**One SKU, no bundle, no upsell, no subscription, on a consumable.** AOV is hard-locked at
+$59.95. The reorder flow exists with nothing to reorder into. After capture is fixed, this is
+the next piece worth real thought — it is the difference between a $60 AOV and a $120 one on
+the same traffic.
+
+---
+
+## Remaining tasks
+
+| # | Task | Owner |
+|---|---|---|
+| 1 | Judge.me — approve pending queue; auto-publish 4–5★, hold 1–3★ | Ben |
+| 2 | Review requests — 40+ POS customers exist, only 14 on `WtAMQQ` | Ben |
+| 3 | Confirm which Klaviyo account the upgrade billed to (possibly the wrong "King…" org) | Ben |
+| 4 | #1046 — PayPal `SALE` stuck PENDING, $59.95. PayPal-side hold, not a gateway fault | Ben |
+| 5 | **Confirm COGS per Ritual Duo** — the whole CPA model assumes ~$15 | Ben |
+| 6 | Rename form (still "(DRAFT)" in title) and 3 mislabelled "(DRAFT)" flows | Either |
+| 7 | Activate back-in-stock flow `SuavPL` | Either |
+
+---
+
+## Unit economics (unchanged, pending COGS confirmation)
 
 | Metric | Value |
 |---|---|
-| AOV | $59.95 (free shipping, so AOV = revenue) |
-| Est. contribution margin | ~$45/set at ~$15 COGS — **Ben to confirm COGS** |
+| AOV | $59.95 (free domestic shipping, so AOV = revenue) |
+| Est. contribution margin | ~$45 at ~$15 COGS — **to confirm** |
 | Break-even CPA | ~$45 |
-| Target CPA to scale | **≤$20** (≈3× MER) |
-| Kill threshold | >$35 CPA sustained over 3 days |
+| Target CPA to scale | ≤$20 |
+| Kill threshold | >$35 CPA sustained 3 days |
+| Break-even conversion rate | ~0.57% |
 
-Measured performance to date: **$0.13 per landing page view, 9.2% CTR, frequency 1.03–1.11.**
-That is exceptional buying — but it was to a *gate*, and click intent to a shop is different.
-Assume LPV cost rises to **$0.20** against a PDP. At a 1% LPV→purchase rate that is a **$20
-CPA**; at 1.5%, **$13**. The economics work with real headroom, and frequency near 1.0 means
-the audience is nowhere near saturated.
+Measured: **$0.115/LPV**, 9.2% CTR, frequency 1.03–1.14. Exceptional buying, nowhere near
+saturation. At 1% LPV→purchase that is a $11.50 CPA; at 0.5%, $23. The economics work — the
+conversion rate is the unknown, and it is unknown because nothing has converted yet.
 
-### Phase 0 — before another dollar (today)
-Nothing below runs until the form is live and CAPI is on. Spending into a site that cannot
-capture an email is exactly what produced this week.
+## Scaling guardrails (when Priority 1 is closed)
 
-### Phase 1 — Days 1–3: buy signal. Hold $60/day
-The pixel has **zero purchase history**, so optimising everything for Purchase stalls in
-learning. Buy cheaper events first.
-
-| Ad set | Budget | Optimise for |
-|---|---|---|
-| Broad AU — contingency | **$30/day** | **ADD_TO_CART** |
-| Warm Stack | **$15/day** | **PURCHASE** |
-| Warm Entry v2 (traffic) | **$15/day** | LPV — now feeding the live form |
-
-If the custom audiences read <1,000, Warm Stack cannot deliver: fold its $15 into Broad AU and
-rebuild the audiences against the open store's URLs.
-
-**Gate to Phase 2:** ≥20 add-to-carts/day at ≤$4 each, and first purchases landing.
-
-### Phase 2 — Days 4–10: switch to purchase. $60 → $100/day
-- Broad AU → **PURCHASE** once ~30–50 ATCs have accumulated
-- Scale **+20% every 48h**, and only while trailing-3-day CPA ≤$25
-- Kill any ad set >$35 CPA over 3 days
-- Run **3–4 creatives per ad set** — creative variety is the single biggest performance driver
-  and there is currently **one image** in the whole ad account
-
-### Phase 3 — Day 10+: Advantage+ Shopping. $100–150/day
-The catalog is already live through the F&I channel. ASC needs roughly **50 purchases in 7
-days** to outperform; for a single-SKU DTC brand it usually then beats manual structures
-comfortably. Do not start it early — under-fed ASC burns budget.
-
-### Guardrails
-- Never move a budget **>20% in 48h** — larger jumps re-enter learning and reset delivery
+- Never move a budget **>20% in 48h** — larger jumps re-enter learning
 - **7-day click** attribution; judge on the 7-day, never a single day
 - Frequency ceiling **2.0** → refresh creative before touching budget
 - Weekly: kill the bottom creative, add one new
-
-### Creative pipeline — the current bottleneck
-One image exists in the ad account (asset `594e7f8e9e2eac3e1bc4340eacade4b6`). The repo holds
-far better material that has never been used: **14 high-res editorial tattoo photographs**
-(the "look after the art" proof), the **CHAPTER 1** story frame, and the founder portrait.
-Target 4 statics + 1 reel per ad set. Note the two iPhone screen recordings carry UI chrome and
-need recapture before any paid placement.
-
----
-
-## Ben's hour, in order
-
-1. **Klaviyo** — rewrite the popup copy (open-store, not "first access") and **publish**. Turn
-   on `record_utm_params_on_submit`. Spec: `launch/capture-form-fix.md`
-2. **Shopify → Facebook & Instagram channel** — data sharing to **Maximum** (CAPI on)
-3. **Ads Manager** — check the two audience sizes; set Warm Stack → Purchase, Broad AU →
-   Add to cart; confirm both new ads passed review
-4. **Mailchimp** — send the Squires email. Copy: `launch/squires-mailchimp-founding-window.md`
-5. **Test purchase** with `TELTAKEOVER`, then refund it — proves the discount path end to end
-6. **PayPal** — chase #1046
-7. **Then, and only then**, enable Ritual Drop at the Phase 1 split
+- Switch Broad AU to PURCHASE only after ~30–50 add-to-carts accumulate
+- Advantage+ Shopping only at ~50 purchases/7 days — under-fed ASC burns budget
 
 ---
 
 ## Verification
 
-1. `query_form_values` over `last_7_days` returns **non-empty** with rising views and submits.
-   Empty = still not live. This is the one that matters.
-2. Meta Events Manager shows Purchase arriving via **both** Browser and Server (CAPI on).
-3. Re-read the campaign at `campaign_detail_level: full` — both ad sets show a non-empty `ads`
-   array and the correct `promoted_object` event before any enable.
-4. A real order carrying `utm_campaign=ritual_drop_sep26` proves ads→checkout attribution;
-   `utm_campaign=squires_chapter_one` proves the Mailchimp send.
-5. T+48h: `data_query` by ad set for spend, ATCs and purchases against the Phase 1 gate.
+1. **`query_form_values` over `last_7_days` returns non-empty**, with rising views and submits.
+   Empty = display rules still wrong. This is the one that matters most.
+2. Instagram bio link resolves to `/products/tattoo-aftercare-kit`; `website_clicks` starts
+   returning a number.
+3. New POS customers appear with `consent: SUBSCRIBED` rather than `NEVER_SUBSCRIBED`.
+4. A real order carrying `utm_campaign=ritual_drop_sep26` proves ads→checkout attribution.
+5. Rebuilt custom audiences report a workable size and Warm Stack's replacement actually
+   delivers (reach >> 9).
+6. Placement split by `publisher_platform` shows Instagram taking meaningful spend, with
+   cost/LPV compared against Facebook's $0.115.
+7. T+48h: `data_query` by ad set for spend, ATCs and purchases.
 
 ## Standing rule
 
-Nothing spends, sends or goes live without Ben's word. Both new ads, both ad sets and the
-campaign are all currently PAUSED.
+Nothing spends, sends or goes live without Ben's word.
