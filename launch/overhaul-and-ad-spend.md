@@ -29,8 +29,13 @@ the product page. Fixing the leak is worth more than any budget decision here.
 | Ad account | Billing rectified, card primary, all 3 ad sets delivering |
 | Warm Entry v2 | **$0.115/LPV** — beating its historical $0.13 |
 | Warm Stack | **Dead.** Reach 9 on $1.33. Audiences built against the gated store |
-| Form `WirxQ2` | `status: live` but `query_form_values` → `results: []`. **Still not rendering** |
-| Emailable segment | 20 → **23** (+3) |
+| Form `WirxQ2` | **still `status: draft`** at form level, `updated_at` 4 Sep. `query_form_values` → `results: []` |
+| Emailable segment | **23**. No backfill after the sync was enabled |
+| Subscriber sync | **Enabled** 13 Sep, targeting `V9Rbbr` |
+| `V9Rbbr` opt-in | double → **single** (reported saved, verify by API) |
+| `V9Rbbr` opt-out | global unsubscribe **ticked** |
+| Instagram bio | **Updated** — `website_clicks` should stop returning `null` |
+| `WjZxaE` Squires exclusion list | **0 members** — the price-split guard was empty. No harm (different platforms), but do not rely on it |
 | New profiles since 11 Sep | 9, of which 8 read `NEVER_SUBSCRIBED` in Klaviyo — but **subscribed in Shopify**. Sync fault, see 1c |
 | CAPI | Already Maximum on the Shopify F&I channel |
 | Checkout / shipping / channels / pixel | All healthy, confirmed by live read |

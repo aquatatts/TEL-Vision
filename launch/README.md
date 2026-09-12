@@ -211,3 +211,59 @@ personal Facebook account that administers the Page; periodic review of Business
 Users → People and Partners, Page → Page access, and the ad account's payment methods; and
 brief anyone else at the studio with Page access, since one panicked click by any admin loses
 the account regardless of everyone else's care.
+
+---
+
+## Build log — Sun 13 Sep 2026, ~00:30 AEST
+
+Second working session, same night. The consent chain was traced end to end and three valves
+were found stacked behind each other. Two are now open.
+
+### Closed this session
+
+| Change | Detail |
+|---|---|
+| **Shopify → Klaviyo subscriber sync** | **Enabled**, targeting list `V9Rbbr` ("Email List") |
+| **`V9Rbbr` opt-in process** | `double_opt_in` → **single opt-in**. Reported saved; **verify by API** — the count and `opt_in_process` were not re-read before the session closed |
+| **`V9Rbbr` opt-out process** | "Unsubscribe from all email marketing" **ticked** |
+| **Instagram bio** | Updated. `website_clicks` should begin returning a number instead of `null` |
+
+**Why the opt-in change mattered more than it looks.** The sync was correctly enabled and
+pointed at the right list, but that list required a confirmation click before marking anyone
+`SUBSCRIBED`. A customer who ticks a box at the counter and walks out will not click an
+unexpected confirmation email, so the sync would have delivered people into a holding pen.
+The plumbing was fixed and a valve two feet further along was still shut.
+
+**Why the opt-out change mattered.** Campaigns have been sending to segment `YgyR87`
+(consent-based), not to the list. With list-only unsubscribe, a customer could hit unsubscribe,
+be removed from `V9Rbbr`, keep profile-level consent, and still receive the next campaign —
+having to unsubscribe twice. That is how spam complaints accumulate, and complaints degrade
+sending reputation for every future email. Unsubscribe now means unsubscribe.
+
+### Still outstanding
+
+| # | Task | State at close |
+|---|---|---|
+| 1 | **Form `WirxQ2` → live at FORM level** | Still `status: draft`, `updated_at` still **4 Sep**. Untouched. Flip on the sign-up forms **list** row, not in the builder |
+| 2 | **Backfill the stranded subscribers** | Segment `YgyR87` still **23** against 50+ subscribed in Shopify. No automatic backfill occurred. Route: Email List → **⋯** → **Import data** |
+| 3 | **End-to-end test** | Own email through the popup, and a real counter tick. A welcome email arriving from both proves the chain for the first time |
+
+### Also noted
+
+- **`WjZxaE` "Squires Ink — Imported Sep 2026 (NO founding price)" holds 0 members.** This list
+  was the exclusion enforcing the $49.99/$59.95 price split in the Klaviyo sends, and it is
+  empty — it excluded nobody. No harm resulted, because Squires was emailed from Mailchimp and
+  TEL from Klaviyo, so the audiences never overlapped. **Do not rely on it as a guard.**
+- `WtAMQQ` "Chapter One - Review Ask" now **16** (was 14).
+- Shopify-derived segments `Churn Risks`, `Win-Back Opportunities`, `Potential Purchasers` and
+  `VIP Customers` all read **0**. Expected: onsite tracking fired no events until the app embed
+  was switched on, so there is no browse or lifecycle history for them to match against yet.
+  They should begin filling now that tracking is live.
+
+### The pattern, for next time
+Three valves in a row on one pipe: form published at version level but not form level; consent
+recorded in Shopify but not synced; consent syncing into a list that would not release it. Each
+looked like the fix and each revealed the next. Every individual setting was defensible — the
+chain had simply never been walked from "customer ticks a box" to "customer receives an email."
+**Walk the chain with a real address after any change to it.** Four minutes would have found
+all three.
