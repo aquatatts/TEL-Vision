@@ -267,3 +267,53 @@ looked like the fix and each revealed the next. Every individual setting was def
 chain had simply never been walked from "customer ticks a box" to "customer receives an email."
 **Walk the chain with a real address after any change to it.** Four minutes would have found
 all three.
+
+---
+
+## Verification standard — binding on every future cross-examination
+
+Written because the pre-launch check reported "ready" on four things whose real state was the
+opposite, in both directions. Every one of them passed a settings inspection. None of them had
+been observed producing an outcome.
+
+| Check made | Setting said | Truth |
+|---|---|---|
+| Form published? | version `live` | form-level `draft` |
+| Onsite tracking live? | metrics exist | 0 events in 5 weeks |
+| POS customers consenting? | Klaviyo `NEVER_SUBSCRIBED` | Shopify `subscribed` |
+| Healing guide firing? | trigger JSON read as impossible | 14 delivered, 50% opens |
+
+**The rules that follow from that:**
+
+1. **An outcome, not a setting.** A claim is verified by a number delivered, an event counted,
+   or a message received — never by a configuration field reading the way it should. "The
+   setting says X" is a hypothesis.
+2. **Three states, never two: working / broken / UNTESTED.** Most faults here were untested
+   things recorded as working. Untested is a legitimate, useful answer and must be said out
+   loud.
+3. **Read both sides of every integration.** The consent fault survived because only Klaviyo
+   was ever checked. Two systems means two reads, always.
+4. **Behaviour comes from reports, not config.** `get_flow_report` overruled the trigger JSON
+   and was right. Where a report exists, the report is the answer.
+5. **One real transaction before any launch.** Real card, real email, real address, through
+   every entry point — popup, checkout, counter. Confirm each resulting message actually
+   arrives. Then refund. Four minutes would have caught all three of this launch's faults.
+6. **A gated store cannot be verified.** While a password is on, every funnel claim is
+   untested by definition — no visitor means no popup, no browse event, no add-to-cart, no
+   consent to sync. Say "unverifiable until open", never "ready".
+
+**Corollary for launch decisions:** because of rule 6, delaying a launch behind a password does
+not surface these faults — it preserves them. The decision to open was not the error; recording
+unverifiable things as ready was.
+
+## Where the durable record lives
+
+**Not this conversation.** Chats have a context limit and get summarised; anything only said
+here can be lost. The record that survives is:
+
+- **`launch/` in this repo** — runbook, full ID inventory, measurements, the corrections log,
+  the creative brief, the Meta impersonation rule. Version-controlled, re-readable, and the
+  thing a future session should be pointed at first.
+- **The `weekly-numbers-review` skill** — account IDs, KPI gates, house voice.
+
+Anything worth keeping gets committed, not just said.

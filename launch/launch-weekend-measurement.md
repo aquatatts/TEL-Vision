@@ -361,3 +361,38 @@ same-field metric-property conditions does not map to AND the way the raw JSON s
 - Once web orders start flowing, check whether `TPwqqq` and `WnAETh` both fire for the same
   online buyer — their source filters are written as mirror images and may overlap. Not a
   present problem at 0 sends.
+
+---
+
+## Reviews — there is no reviews integration at all
+
+Ben believes automated review requests were set up. **They are not running through Klaviyo, and
+this is now settled by a complete metric list**, not an inference.
+
+All 37 metrics in the account come from exactly three integrations:
+
+| Integration | Key | Provides |
+|---|---|---|
+| Shopify | `shopify` | Placed Order, Fulfilled Order, Added to Cart, Checkout Started, Refunded, Cancelled, Ordered Product |
+| Klaviyo | `klaviyo` | email events, form events (the form metrics were provisioned 12 Sep 09:08, when the form version was published) |
+| API | `api` | Viewed Product, Active on Site |
+
+**No Judge.me. No reviews integration of any kind.** No "Review Requested", no "Submitted
+Review", no review metric whatsoever. Combined with seven flows of which none asks for a
+review, the conclusion is firm: nothing in Klaviyo requests reviews.
+
+Judge.me is installed on Shopify but has **no connector in this session**, so whether its own
+review-request email is enabled cannot be read from here. That is a two-minute check in the
+Judge.me app: email settings → is the review request enabled, and what delay.
+
+### Why the delay costs less than it looks
+The Ritual Duo has a four-to-six week usage arc. A request sent three days post-purchase would
+have reached people who had barely opened the jar. Asking the 40+ existing POS customers now
+reaches people who have healed a tattoo with it — through the balm stage and into the cream
+stage. The reviews are un-asked, not lost, and the asking is only now possible because the
+consent sync was fixed.
+
+**Sequence:** check Judge.me first. If its request email is live, fix the delay and let it run —
+do not build a Klaviyo flow that double-asks the same customer. If it is off or absent, a
+Klaviyo flow triggered on Fulfilled Order at ~21 days is the cleaner build, since Klaviyo now
+holds the consent.

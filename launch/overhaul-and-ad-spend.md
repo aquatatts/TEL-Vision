@@ -252,11 +252,37 @@ conversion rate is the unknown, and it is unknown because nothing has converted 
    cost/LPV compared against Facebook's $0.115.
 7. T+48h: `data_query` by ad set for spend, ATCs and purchases.
 
-## Account security
+## Account security note — to be added to `launch/README.md`
 
-A Meta-impersonation phishing DM arrived on 25 Aug and was verified as a scam the same
-night. The rule and the account-hardening checklist live in `README.md` under
-**Account security — Meta impersonation**.
+A phishing DM arrived on Messenger on 25 Aug from a personal profile ("Stefy Colt") posing as
+the "Meta Policy Support Team", claiming the Page had been flagged as non-compliant for
+copyright and misleading product information, and pressing for an "appeal" within an
+unspecified time frame. It is a credential-harvesting scam. Record the rule so it never needs
+re-deciding:
+
+**Meta never sends enforcement notices by direct message.** Real Page violations appear only in
+**Meta Business Suite → Account Quality** (`business.facebook.com/accountquality`) and the
+Page's Support Inbox — inside the platform, behind a login. The delivery method alone
+identifies the scam, before reading a word of it.
+
+Tells in this instance: generic "Dear Page Administrator" with the Page never named; no case ID
+or reference; "within the specified time frame" with no date; three unrelated violation types
+at once; a "Terms & Conditions © 2026 Meta Platforms, Inc." footer on a DM; and the message
+was 18 days old while the account kept delivering.
+
+**Verified against Meta's own systems the same night:** page `1184411344764247` returns as a
+valid promotable page, the campaign and both ad sets read `ENABLED`, and both ads read
+`status: ACTIVE` with `review.status: APPROVED`. A Page actually restricted for
+non-compliance cannot get ads approved and cannot deliver. The message was fiction.
+
+The real exposure is the **admin account**, not the Page — a phished login hands over the Page,
+Business Manager, the pixel and the payment method on file. Standing hygiene: 2FA on the
+personal Facebook account that administers the Page; periodic review of Business Manager →
+Users → People and Partners, Page → Page access, and the ad account's payment methods; and
+brief anyone else at the studio with Page access, since one panicked click by any admin loses
+the account regardless of everyone else's care.
+
+---
 
 ## Morning fire — armed
 
@@ -279,6 +305,91 @@ It checks, in order:
    redemption. Inventory was 439.
 
 It is instructed to flag any save that did not apply, and it carries the standing rule below.
+
+---
+
+## Reviews — there is no reviews integration at all
+
+Ben believes automated review requests were set up. **They are not running through Klaviyo, and
+this is now settled by a complete metric list**, not an inference.
+
+All 37 metrics in the account come from exactly three integrations:
+
+| Integration | Key | Provides |
+|---|---|---|
+| Shopify | `shopify` | Placed Order, Fulfilled Order, Added to Cart, Checkout Started, Refunded, Cancelled, Ordered Product |
+| Klaviyo | `klaviyo` | email events, form events (the form metrics were provisioned 12 Sep 09:08, when the form version was published) |
+| API | `api` | Viewed Product, Active on Site |
+
+**No Judge.me. No reviews integration of any kind.** No "Review Requested", no "Submitted
+Review", no review metric whatsoever. Combined with seven flows of which none asks for a
+review, the conclusion is firm: nothing in Klaviyo requests reviews.
+
+Judge.me is installed on Shopify but has **no connector in this session**, so whether its own
+review-request email is enabled cannot be read from here. That is a two-minute check in the
+Judge.me app: email settings → is the review request enabled, and what delay.
+
+### Why the delay costs less than it looks
+The Ritual Duo has a four-to-six week usage arc. A request sent three days post-purchase would
+have reached people who had barely opened the jar. Asking the 40+ existing POS customers now
+reaches people who have healed a tattoo with it — through the balm stage and into the cream
+stage. The reviews are un-asked, not lost, and the asking is only now possible because the
+consent sync was fixed.
+
+**Sequence:** check Judge.me first. If its request email is live, fix the delay and let it run —
+do not build a Klaviyo flow that double-asks the same customer. If it is off or absent, a
+Klaviyo flow triggered on Fulfilled Order at ~21 days is the cleaner build, since Klaviyo now
+holds the consent.
+
+---
+
+## Verification standard — binding on every future cross-examination
+
+Written because the pre-launch check reported "ready" on four things whose real state was the
+opposite, in both directions. Every one of them passed a settings inspection. None of them had
+been observed producing an outcome.
+
+| Check made | Setting said | Truth |
+|---|---|---|
+| Form published? | version `live` | form-level `draft` |
+| Onsite tracking live? | metrics exist | 0 events in 5 weeks |
+| POS customers consenting? | Klaviyo `NEVER_SUBSCRIBED` | Shopify `subscribed` |
+| Healing guide firing? | trigger JSON read as impossible | 14 delivered, 50% opens |
+
+**The rules that follow from that:**
+
+1. **An outcome, not a setting.** A claim is verified by a number delivered, an event counted,
+   or a message received — never by a configuration field reading the way it should. "The
+   setting says X" is a hypothesis.
+2. **Three states, never two: working / broken / UNTESTED.** Most faults here were untested
+   things recorded as working. Untested is a legitimate, useful answer and must be said out
+   loud.
+3. **Read both sides of every integration.** The consent fault survived because only Klaviyo
+   was ever checked. Two systems means two reads, always.
+4. **Behaviour comes from reports, not config.** `get_flow_report` overruled the trigger JSON
+   and was right. Where a report exists, the report is the answer.
+5. **One real transaction before any launch.** Real card, real email, real address, through
+   every entry point — popup, checkout, counter. Confirm each resulting message actually
+   arrives. Then refund. Four minutes would have caught all three of this launch's faults.
+6. **A gated store cannot be verified.** While a password is on, every funnel claim is
+   untested by definition — no visitor means no popup, no browse event, no add-to-cart, no
+   consent to sync. Say "unverifiable until open", never "ready".
+
+**Corollary for launch decisions:** because of rule 6, delaying a launch behind a password does
+not surface these faults — it preserves them. The decision to open was not the error; recording
+unverifiable things as ready was.
+
+## Where the durable record lives
+
+**Not this conversation.** Chats have a context limit and get summarised; anything only said
+here can be lost. The record that survives is:
+
+- **`launch/` in this repo** — runbook, full ID inventory, measurements, the corrections log,
+  the creative brief, the Meta impersonation rule. Version-controlled, re-readable, and the
+  thing a future session should be pointed at first.
+- **The `weekly-numbers-review` skill** — account IDs, KPI gates, house voice.
+
+Anything worth keeping gets committed, not just said.
 
 ---
 
