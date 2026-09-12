@@ -99,3 +99,37 @@ including image alt text, the split collapses.
 3. Verify custom audiences clear ~1,000 before relying on a warm ad set.
 4. Put UTMs on every link, email and ad, or attribution lands in "direct".
 5. Prove the money path with one real end-to-end purchase using the discount code.
+
+---
+
+## Build log — Sat 12 Sep 2026, ~11:10 AEST
+
+Ads built into `TEL | SLS | Ritual Drop` (`120247236202470688`). `write_status: applied`.
+Campaign, both ad sets and both ads all remain **PAUSED** — nothing is spending.
+
+| Ad | ID | Ad set | Review |
+|---|---|---|---|
+| Ritual Duo — Doors Open (warm) | `120247952594970688` | Warm Stack `120247236203130688` | IN_REVIEW |
+| Ritual Duo — Look After The Art (broad) | `120247952595560688` | Broad AU `120247236203480688` | IN_REVIEW |
+
+Both carry CTA `SHOP_NOW`, land on `/products/tattoo-aftercare-kit`, and are tagged
+`utm_source=meta&utm_medium=paid_social&utm_campaign=ritual_drop_sep26` with
+`utm_content=warm_stack` / `broad_au`. Review started now rather than at enable time, so the
+ads should be approved and ready when the budget decision is made.
+
+Creative: the ad account's asset library returns empty via the API, so the image was supplied
+as a public `asset_url` — the Shopify product hero. Meta downloaded and stored it as
+asset `594e7f8e9e2eac3e1bc4340eacade4b6`, now reusable by ID for future ads.
+
+### Still needs Ads Manager
+
+**The pixel cannot be reached from the API.** `conversion_types` returns
+`{"conversions": [], "pixels": []}` on every call, confirmed across separate connector
+sessions. Setting an ad set's `promoted_object` requires a `pixel_id`, so the per-event
+optimisation split cannot be written from here:
+
+- Warm Stack → **Purchase**
+- Broad AU → **Add to cart** for the first 48–72h, then Purchase at ~30–50 purchases
+
+Both ad sets currently sit at `OFFSITE_CONVERSIONS` with whatever event was already bound.
+Check and set the event in Ads Manager at the same time as the audience-size check.
