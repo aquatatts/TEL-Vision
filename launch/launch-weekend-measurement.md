@@ -319,3 +319,45 @@ above make this a five-minute job in daylight.
 Ritual Duo variant `43455141969983`: **439 units** (was 445). Six units moved, consistent with
 the five POS orders on 12 Sep plus one earlier. No sellout risk — which is why the launch copy
 deliberately carries no scarcity claim.
+
+---
+
+## Automation audit — verified by delivery data, 13 Sep
+
+Seven flows in the account. Status checked at **both** flow and message level, then confirmed
+against `get_flow_report` over 90 days — because a `status: live` flow can still hold draft
+messages, and three settings this night read as done while the API said otherwise.
+
+| Flow | Status | Delivered (90d) | Verdict |
+|---|---|---|---|
+| `WnAETh` Post-purchase: The Healing Guide | live / msg live | **14** · 7 opens (**50%**) · 0 clicks | **Working** |
+| `UpBgzj` Post-purchase: The Long Stage (reorder) | live / msg live | 0 | **Correct** — 50-day delay, first sends due ~8–11 Oct |
+| `TEZ6PM` Welcome: The standard | live | 5 · 3 opens · 2 clicks · **1 conversion $59.95** | Working |
+| `TPwqqq` Post-purchase (ONLINE): The Healing Guide | live / msg live | 0 | **Untested** — triggers on fulfilment; only 2 web orders ever, one a stuck PayPal |
+| `Vg9tuX` Abandoned checkout | live | 0 | Untested — no abandoned carts of consequence yet |
+| `YgAs6b` Browse abandonment | live | 0 | Untested — onsite tracking only just enabled |
+| `SuavPL` Back in stock | **draft** | — | Not activated. 439 units, so no urgency |
+
+### The real gap: there is no review-request flow
+**None of the seven flows asks for a review.** The list `WtAMQQ`
+("Chapter One - Review Ask (Aug backfill)", 16 members) exists with nothing driving it.
+
+Judge.me is installed and may be sending review requests independently of Klaviyo — **check
+Judge.me before building a Klaviyo flow**, or the two will double up on the same customer.
+
+This is the automation worth building next. Reviews on the PDP are what convert the cold
+traffic the ads are buying, and there are 40+ POS customers who have already used the product.
+
+### Correction recorded
+An earlier reading of `WnAETh`'s trigger JSON concluded the two `Source Name` equals conditions
+sat in one AND group and could therefore never both be true, i.e. that the flow could never
+fire. **That was wrong** — delivery data shows 14 recipients. The API's representation of
+same-field metric-property conditions does not map to AND the way the raw JSON suggested.
+**Lesson: read flow behaviour from `get_flow_report`, not from trigger JSON.**
+
+### Worth watching
+- `WnAETh`: **0 clicks on 14 delivered** at a 50% open rate. Read and not clicked, so the guide
+  generates no return traffic and no path to reorder. Consider a single clear link.
+- Once web orders start flowing, check whether `TPwqqq` and `WnAETh` both fire for the same
+  online buyer — their source filters are written as mirror images and may overlap. Not a
+  present problem at 0 sends.
