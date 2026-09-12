@@ -45,11 +45,20 @@ the bio link exists and lands on `/products/tattoo-aftercare-kit`. If 5,330 prof
 clear route to the store, that is the single largest loss in the whole account. **10-second
 check, highest expected value on this page.**
 
-**1b. The form still does not render.** It is `live`, so publication is not the issue — the
-**display rules** are. They were written for the password-gated store (targeting and trigger
-conditions that no longer match). Rewrite trigger/targeting against the open store's URLs and
-confirm with `query_form_values` returning non-empty. Spec: `launch/capture-form-fix.md`.
-Do not skip `record_utm_params_on_submit`.
+**1b. The form still does not render — and the cause is smaller than first diagnosed.**
+`get_form` on `WirxQ2` returns **form-level `status: "draft"`** (unmodified since 4 Sep) while
+version `28374824` reads `live`. The version was published; the form never was. Klaviyo's
+onsite script serves by form-level status, so nothing renders.
+
+Targeting is **not** at fault — an earlier reading in this plan said it was, and that was
+wrong. There are no page or URL conditions at all (`location: null`; triggers are only an
+8s delay, device `both`, and a 14-day re-show).
+
+Fix: flip the status on the sign-up forms **list** view. The builder's own publish control is
+what has already failed twice on mobile, so do not go back through it. Then also:
+`record_utm_params_on_submit` is still `false`, and one text block carries an inline
+`color: rgb(0, 0, 0)` that overrides the corrected global gold — black on the `#080808` panel,
+so that line is invisible. Confirm the fix with `query_form_values` returning non-empty.
 
 **1c. Counter capture at POS.** 8 of 9 profiles created since 11 Sep are `NEVER_SUBSCRIBED` —
 customers who bought today, whose email is in Klaviyo, and who cannot legally be emailed. POS
@@ -67,7 +76,7 @@ Facebook.
 |---|---|
 | **Reallocate to Instagram placement** | Warm Entry v2 delivered 100% Facebook. Split placement or duplicate to an IG-weighted ad set and compare cost/LPV directly |
 | **Kill Warm Stack** | Reach 9 confirms the audiences are empty. Fold its budget into Broad AU |
-| **Rebuild the custom audiences** | `120247577486770688` / `120247577506740688` were built on gate-era URLs. Rebuild against the open store, plus IG engagers — which, given the organic numbers, is now the richest warm pool available |
+| **Build an Instagram engagement audience first** | Not a website rebuild. `120247577486770688` / `120247577506740688` are gate-era and near-empty, but a website audience would only ever capture the site trickle. Organic Instagram put **5,330 profile views** through in two days — that is the real warm pool. An IG-account engagement audience (365 days) needs no URL rules and no pixel history, so it is buildable on a phone in ~90 seconds. Rebuild the website audiences later, on a laptop, as a secondary layer |
 | **Hold total at $60/day** | Do not scale until Priority 1 is closed. Scaling into a leaking funnel is exactly what produced this week |
 | **Leave Broad AU alone for now** | $2.30/LPV looks bad but it is n=2 clicks, conversion-optimised, zero purchase history, in learning. Judge on 7-day |
 
@@ -137,8 +146,9 @@ conversion rate is the unknown, and it is unknown because nothing has converted 
 
 ## Verification
 
-1. **`query_form_values` over `last_7_days` returns non-empty**, with rising views and submits.
-   Empty = display rules still wrong. This is the one that matters most.
+1. **`get_form` on `WirxQ2` returns form-level `status: "live"`**, not just a live version —
+   then **`query_form_values` over `last_7_days` returns non-empty**, with rising views and
+   submits. This is the one that matters most.
 2. Instagram bio link resolves to `/products/tattoo-aftercare-kit`; `website_clicks` starts
    returning a number.
 3. New POS customers appear with `consent: SUBSCRIBED` rather than `NEVER_SUBSCRIBED`.

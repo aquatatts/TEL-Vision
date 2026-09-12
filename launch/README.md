@@ -168,7 +168,9 @@ Full numbers, the consent gap, and the corrections log: **`launch-weekend-measur
 
 | Item | Where |
 |---|---|
-| Form display rules — the top fix | Klaviyo UI · `capture-form-fix.md` |
+| **Flip form `WirxQ2` to live at the FORM level** — the version is live, the form is not | Klaviyo → sign-up forms **list**, not the builder |
+| Turn on `record_utm_params_on_submit` (currently `false`) | Klaviyo form settings |
+| Strip the inline `color: rgb(0,0,0)` making one line invisible on the dark panel | Klaviyo form builder |
 | Verify IG bio link → `/products/tattoo-aftercare-kit` | Instagram app |
 | POS consent capture — 8 of 9 customers `NEVER_SUBSCRIBED` | Studio counter |
 | Rebuild custom audiences against the open store + IG engagers | Ads Manager |

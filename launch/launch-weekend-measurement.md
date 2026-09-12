@@ -54,14 +54,47 @@ Two candidate leaks, in order of expected value:
 
 ---
 
-## Capture is still broken
+## Capture is still broken — root cause found
 
-Form `WirxQ2` reads `status: "live"` — it was published on 12 Sep — but
 `query_form_values` over `last_7_days` returns `results: []`. Zero views, zero submits, ever.
 
-**Publication is therefore not the problem; the display rules are.** They were authored while
-the store was password-gated, so the trigger and targeting conditions no longer match any page
-on the open store. This is the top remaining fix.
+A direct read of `get_form` on `WirxQ2` shows **two statuses that disagree**:
+
+| Object | Status | Last modified |
+|---|---|---|
+| Form `WirxQ2` | **`draft`** | **2026-09-04T14:46:47** |
+| Version `28374824` | `live` | 12 Sep |
+
+**The version is live; the form is not.** The form record has not been modified since 4 Sep,
+which matches the reported symptom exactly — "when I click publish it does nothing". The
+publish action updated the version and never committed at the form level. Klaviyo's onsite
+script serves forms by **form-level** status, so nothing is ever rendered.
+
+### Correction to an earlier reading in this project
+An earlier entry in this file and in the plan stated that the form was live and that the
+**display rules** were at fault, having been written for the password-gated store. **That was
+wrong.** The targeting carries no page or URL conditions at all:
+
+```
+location: null
+triggers: delay 8s · device both · after_close_or_submit_timeout 14 days
+rule_based_trigger_evaluation: any
+```
+
+Targeting is wide open and blocks nothing. The single fault is the form-level status. The fix
+is a status toggle on the sign-up forms **list** view, not an edit inside the form builder —
+and the builder's own publish control is the thing that has already failed twice on mobile.
+
+### Two further faults in the same read
+
+1. **`record_utm_params_on_submit: false`.** Still off. Without it, a subscriber cannot be
+   attributed back to the ad or email that produced them.
+2. **One text line renders invisible.** The global body colour was corrected to `#C9A24B`, but
+   the block retains an inline `color: rgb(0, 0, 0)`, and inline style overrides global. On the
+   `#080808` panel background, "One email a run. Nothing else." is black on black. The same
+   block carries two trailing empty paragraphs.
+3. The form name still contains "(DRAFT)", which is why the list reads as unpublished at a
+   glance even once the status is flipped.
 
 ### The consent gap
 Profiles created since 11 Sep, with `subscriptions.email.marketing.consent`:
