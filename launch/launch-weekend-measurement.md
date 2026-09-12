@@ -96,7 +96,42 @@ and the builder's own publish control is the thing that has already failed twice
 3. The form name still contains "(DRAFT)", which is why the list reads as unpublished at a
    glance even once the status is flipped.
 
-### The consent gap
+### The consent gap is a SYNC FAULT, not a capture fault
+
+**This supersedes the reading below it.** An earlier entry here concluded that POS customers
+were not consenting and therefore could not legally be emailed. That was wrong, and wrong
+because only Klaviyo was checked. Shopify tells a different story.
+
+Filtering Shopify customers on `email_marketing_state:subscribed` returns the same people
+Klaviyo reports as `NEVER_SUBSCRIBED`, matched by creation timestamp to within three seconds:
+
+| Created (UTC) | Shopify consent | Klaviyo consent |
+|---|---|---|
+| 12 Sep 08:55:59 | **subscribed** | `NEVER_SUBSCRIBED` |
+| 12 Sep 09:21:52 | subscribed | `SUBSCRIBED` — the one that synced |
+| 12 Sep 11:31:46 | **subscribed** | `NEVER_SUBSCRIBED` |
+| 12 Sep 12:23:21 | **subscribed** | `NEVER_SUBSCRIBED` |
+| 12 Sep 12:30:59 | **subscribed** | `NEVER_SUBSCRIBED` |
+| 12 Sep 12:51:30 | **subscribed** | `NEVER_SUBSCRIBED` |
+| 12 Sep 13:02:07 | **subscribed** | `NEVER_SUBSCRIBED` |
+
+**The customers consented. Shopify recorded it. Klaviyo did not receive it.** There is no legal
+problem — the consent exists and is documented. The problem is that it is stranded in the
+wrong system.
+
+**Scale of the gap:** `email_marketing_state:subscribed` returned **50 rows and hit the API
+page limit**, so 50 is a floor, not a total. Klaviyo's emailable segment `YgyR87` reads **23**.
+At least 27 consented subscribers are unreachable from the sending tool, likely many more. The
+exact figure is visible in Shopify → Customers filtered on email subscription = subscribed.
+
+**Fix:** Klaviyo → Integrations → Shopify → the subscriber/consent sync setting, and the list
+it syncs into. Profiles are being created within seconds of each order, so the integration
+itself is healthy; it is specifically the marketing-consent field that is not being mapped.
+
+This now ranks **above** the popup fix. The popup earns future subscribers; this releases
+customers who have already bought and already opted in.
+
+### Klaviyo-side consent as read (for reference)
 Profiles created since 11 Sep, with `subscriptions.email.marketing.consent`:
 
 | Created (UTC) | Consent | Method |
