@@ -133,3 +133,46 @@ optimisation split cannot be written from here:
 
 Both ad sets currently sit at `OFFSITE_CONVERSIONS` with whatever event was already bound.
 Check and set the event in Ads Manager at the same time as the audience-size check.
+
+---
+
+## Build log — Sat 12 Sep 2026, ~23:30 AEST
+
+**The ads above are no longer paused.** Both ads passed review (`review.status: APPROVED`) and
+the campaigns were enabled on Ben's word after the ad account's billing was rectified:
+
+| Campaign | ID | Status | Budget |
+|---|---|---|---|
+| TEL \| SLS \| Ritual Drop | `120247236202470688` | **ENABLED** | $40/day CBO |
+| TEL \| TRF \| Warm Entry v2 | `120247501786430688` | **ENABLED** | $20/day CBO |
+
+Three things were fixed between the entry above and this one:
+
+1. **Capture form published.** `WirxQ2` moved draft → `status: "live"`. It still renders
+   nothing (`query_form_values` → `results: []`), so the remaining fault is the **display
+   rules**, authored while the store was password-gated.
+2. **Ad account billing.** The account had entered a grace period and Meta had switched both
+   campaigns **off** — they do not self-resume. Card paid and set primary.
+3. **CAPI.** Already at **Maximum** on the Shopify Facebook & Instagram channel, with advanced
+   matching and Conversions API active. No change needed; the earlier assumption was wrong.
+
+### The measurement that changed the plan
+
+Launch-weekend Instagram attention was **100% organic** — 2,612 and 2,718 profile views on
+10–11 Sep against a 91–152/day baseline, while paid Instagram delivery those days was $0.00
+and $0.01. The whole budget was on Facebook placement.
+
+Full numbers, the consent gap, and the corrections log: **`launch-weekend-measurement.md`**.
+
+### Open at time of writing
+
+| Item | Where |
+|---|---|
+| Form display rules — the top fix | Klaviyo UI · `capture-form-fix.md` |
+| Verify IG bio link → `/products/tattoo-aftercare-kit` | Instagram app |
+| POS consent capture — 8 of 9 customers `NEVER_SUBSCRIBED` | Studio counter |
+| Rebuild custom audiences against the open store + IG engagers | Ads Manager |
+| Per-ad-set conversion event — needs **new** ad sets, cannot be edited | Ads Manager |
+| Confirm COGS per Ritual Duo (CPA model assumes ~$15) | Ben |
+| #1046 PayPal `SALE` stuck PENDING, $59.95 | PayPal |
+| Which Klaviyo org the upgrade billed to (possibly the wrong "King…" account) | Klaviyo billing |
