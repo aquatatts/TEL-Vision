@@ -45,7 +45,7 @@ cannot be known yet — not the same as working).
 | 9 | **Ritual Drop is not delivering** | $40 of the $60/day budget. **$6.43 spent in eight days.** Reads ENABLED with ACTIVE, APPROVED ads — nothing in config explains it. Needs one look at the Delivery column in Ads Manager |
 | 10 | **No web order has ever come from the open store** | Both web orders first landed on `/password` — gate-era traffic. Not "2 web orders since launch"; **zero** |
 | 11 | **Browse abandonment `YgAs6b` can never fire** | Live, triggers on `Viewed Product`, which has never once occurred. Dead until the onsite script runs |
-| 12 | **Abandoned checkout `Vg9tuX` has never sent** | Live. **69 `Checkout Started` events** and not one email. ~5 abandoned checkouts in the last 5 days, unchased |
+| 12 | **Abandoned checkout `Vg9tuX` is skipped, not broken** | Flow, trigger, guard and all 3 emails read correct. **5 `Skipped Send` events** prove it triggers and Klaviyo declines — recipients were not subscribed. Fix is checkout consent capture, not the flow |
 | 13 | **The import sent 39 unauthorised emails** | The 01:59 backfill triggered `Added to List` on the live welcome flow. 33 welcome + 6 healing guide. **Checked: no discount code, no offer — commercial cost nil.** Process rule now recorded: pause Added-to-List flows before any import |
 | 15 | Flow emails carry no UTM tags | The welcome email's button is a bare product URL. Email-driven purchases are unattributable |
 | 14 | Sending domain DNS unverified | All 5 records `verified: false`. **Not currently harmful** — 100% delivery, 1 bounce in 132, 0 spam. Finish it for durability, do not blame it for anything |
@@ -719,3 +719,56 @@ adding a third.
 | `YgAs6b` Browse abandonment | **0** | **FAULT** — triggers on Viewed Product, which has never fired |
 | `Vg9tuX` Abandoned checkout | **0** | **FAULT** — 69 checkout-start events and not one message |
 | `SuavPL` Back in stock | **0** | Expected — still draft, 439 units in stock |
+
+
+---
+
+## FIX PREP — the two open faults, diagnosed to the step. 13 Sep ~14:15 AEST
+
+### Correction — the onsite key is NOT stored in the theme
+An earlier note said to check the app embed's key against `TbNLXf`. **The theme stores no key.**
+Read directly from `settings_data.json` on `TEL v6.2` (role MAIN):
+
+```json
+"855628211100114053": {
+  "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-...",
+  "disabled": false,
+  "settings": {}
+}
+```
+
+`settings` is **empty**. The account the script reports to is decided by **which Klaviyo account
+the Shopify app is connected to**, not by anything in the theme. So the check is the page source
+or the app connection — not the theme editor.
+
+**This session cannot fetch the live site** — the network egress proxy blocks
+`telcollection.com.au`. The page-source read must be done by Ben. Recorded so nobody assumes it
+was checked from here.
+
+### Abandoned checkout `Vg9tuX` — the flow is built correctly. It is being SKIPPED.
+
+Full config read 13 Sep:
+
+| Element | Reading |
+|---|---|
+| Flow status | **live** |
+| Trigger | metric `Tf2hcu` (Checkout Started), **no trigger filter** |
+| Guard | Placed Order count **= 0** since flow start — correct |
+| Sequence | 1h delay → email → 23h delay → email → 2d delay → email |
+| All three emails | `status: live` |
+
+**Nothing is misconfigured.** The build is right.
+
+**`Skipped Send` fired 5 times, 9–11 Sep** — the window with 14 checkout starts. So the flow
+**is** triggering and Klaviyo is **declining to send**. The remaining ~9 never entered at all,
+consistent with checkouts that carry no usable email profile.
+
+**Cause: the recipients were not subscribed to email marketing.** Klaviyo will not send a
+marketing email to an unsubscribed profile. Until 01:59 today **only 23 profiles in the entire
+account were emailable** — the same consent fault that suppressed everything else.
+
+**So this is not a third fault. It is the consent fault wearing a third costume.** The fix is
+not in the flow — it is capturing marketing consent at checkout, where the abandoners are.
+
+**Verification after fixing:** `Skipped Send` should fall and the flow report should show
+`delivered > 0`. Watch both.
