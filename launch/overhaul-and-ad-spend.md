@@ -490,6 +490,81 @@ Same pattern as the email backfill: **the value was already there and simply not
 
 ---
 
+## CORRECTION — the reviews were already displaying. 13 Sep, 12:38 AEST
+
+**The preceding Judge.me entry is wrong and is superseded by this one.** It claimed six reviews
+existed that "nobody can see". They were visible the whole time, through a custom-built
+`TEL - Reviews` section that is better than the Judge.me default widget — a **★★★★★ 5.0 OF 5 ·
+6 REVIEWS** badge, featured reviews with VERIFIED BUYER tags, Google Business reviews merged
+alongside Judge.me ones, and all six listed newest-first with a customer photo of healed work.
+
+Judge.me's setup guide listed "Enable Reviews Widget" as incomplete. That checklist measures
+**whether Judge.me's own widget is installed** — not whether reviews appear on the site. The
+site displays them through custom section code instead, so the checklist is permanently
+unticked and permanently misleading.
+
+**This was the third time in one day a vendor UI reported a state that was not real** (Klaviyo's
+"Enable forms on website", the browser's theme preview, and now this). The difference is that
+the first two were verified before acting and this one was not: **the product page itself was
+never opened before the claim was written down.** Rule 1 of the verification standard exists for
+precisely this and was skipped.
+
+**The one genuine gap, now closed:** no star rating appeared near the price, above the fold.
+Fixed by adding the Judge.me **Star Ratings** block directly beneath `Price` in the
+`Product page` section on `TEL v6.2`. Verified rendering: `The Ritual Duo` → `$59.95` →
+**★★★★★ 6 reviews**.
+
+**Outstanding, cosmetic:** the stars render in Judge.me's default teal against a page built on
+brand gold `#C9A24B`.
+
+**Do NOT add the Judge.me Review Widget** — it would duplicate the custom section and present
+the same six reviews less well.
+
+---
+
+## IG engagement audience built — and it is UNDER 1,000
+
+**13 Sep, ~13:00 AEST.** `TEL — IG engagers 365d` created on `act_2121305908740756` from the
+Instagram profile source, 365-day retention, broadest engagement setting.
+
+**Meta reports the size as "Below 1000".**
+
+### Correction — this was predicted to clear 1,000 comfortably
+It did not. The prediction was flagged as a prediction rather than a fact, which was right, but
+the reasoning behind it was wrong and the error is worth keeping:
+
+**Profile views are not unique people.** 5,330 views across 10–11 Sep represents far fewer
+individuals viewing repeatedly. Meta counts *people*, and only those with engagement actions it
+can attribute. The organic lift is genuine; it simply converts to a much thinner retargetable
+pool than raw view counts suggest. **Do not size a Meta audience from a view metric again.**
+
+### Consequences
+- **Warm Stack stays parked.** Swapping this audience in would hit the same wall as the
+  gate-era audiences (`TEL - gate visitors 30d` now reads **"Size not available"** in Ads
+  Manager — Meta will not even report a size for it).
+- **Do not build a lookalike from it yet.** Meta's floor for a lookalike source is ~100 people,
+  so it would technically be allowed, but the recommended seed is 1,000–50,000. A lookalike off
+  a thin seed generally underperforms broad targeting with good creative — and broad targeting
+  with good creative is already delivering **$0.109–0.115/LPV** on Warm Entry v2. Building it
+  now would feel like progress and probably would not be.
+
+### The honest strategic position
+**There is no warm audience available, and nothing buildable today creates one.** Customer list
+44, gate audiences dead, IG pool under 1,000, site traffic thin. The play for the next stretch
+is **broad prospecting plus better creative** — which is what Warm Entry has quietly been
+winning at the whole time.
+
+### What was actually gained
+The audience now **exists and accumulates daily**. Before today it did not exist at all. With
+organic Instagram running at ~4.5× baseline, it should clear 1,000 within weeks. **Re-check in
+a month**; at that point the lookalike becomes worth building and Warm Stack has something real
+to target.
+
+Its immediate uses, valid at any size: **exclusion** (stop paying to show discovery ads to
+existing engagers) and **accumulation**.
+
+---
+
 ## Standing rule
 
 Nothing spends, sends or goes live without Ben's word.

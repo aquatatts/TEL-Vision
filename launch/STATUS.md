@@ -1,6 +1,9 @@
 # TEL Collection — current state
 
-**Read this file first.** Last verified: **Sun 13 Sep 2026, 08:54 AEST** (morning check).
+**Read this file first.** Last verified: **Sun 13 Sep 2026, 13:00 AEST**.
+
+The dated sections below are appended in order and **later entries supersede earlier ones** — where
+they disagree, the later one was the verified read. The tables immediately below are kept current.
 
 Every line below carries one of three labels, per the verification standard in `README.md`:
 **WORKING** (an outcome was observed), **BROKEN** (a fault was observed), **UNTESTED** (state
@@ -31,9 +34,9 @@ cannot be known yet — not the same as working).
 
 | # | Fault | Detail |
 |---|---|---|
-| 1 | **Form `WirxQ2` does not render** | Form-level `status: draft`, `updated_at` 4 Sep. The *version* is live; the form is not. Zero views, ever. Fix on the sign-up forms **list** row, not in the builder |
-| 2 | **Consent stranded** | Segment `YgyR87` = **23** against Shopify's **50+** subscribed. Sync is on but does not backfill. Needs a CSV import |
-| 3 | **No reviews integration anywhere** | All 37 Klaviyo metrics are Shopify / Klaviyo-internal / onsite-API. No Judge.me, no review metric. None of the 7 flows asks for a review |
+| 1 | **Form `WirxQ2` does not render** | **CONFIRMED, cause unknown.** Every setting reads correct — status Live, app embed on, no targeting, `content_for_header` present — and it still does not appear on the live site on a phone. `query_form_values` → `results: []`. **Recommendation: rebuild from scratch**, sequenced last (see below) |
+| 2 | ~~**Consent stranded**~~ | **FIXED 13 Sep 12:00** by CSV backfill. List `V9Rbbr` 24 → **58**, verified at profile level. *Still open:* the auto-sync has not yet been proven to carry consent on a new sale — see UNTESTED |
+| 3 | **No reviews integration in Klaviyo** | All 37 Klaviyo metrics are Shopify / Klaviyo-internal / onsite-API. No Judge.me connector, no review metric, no flow that asks. **This does not mean no reviews** — Judge.me collects and displays them independently: 6 reviews at 5.0, live on the product page. Correction logged below |
 | 4 | **Warm Stack audiences empty** | Reach **9** on $1.33 across a full evening. Built against gate-era URLs |
 | 5 | `record_utm_params_on_submit: false` | Subscribers cannot be attributed to the ad or email that produced them |
 | 6 | One form text line invisible | Inline `color: rgb(0,0,0)` overrides the corrected global gold, on a `#080808` panel |
@@ -42,11 +45,11 @@ cannot be known yet — not the same as working).
 
 ## UNVERIFIED — reported saved, never re-read
 
-These were changed late and the session closed before confirming. **Treat as unknown.**
-
-- `V9Rbbr` → single opt-in (was `double_opt_in`)
-- `V9Rbbr` → global unsubscribe ticked
-- Instagram bio updated
+- `V9Rbbr` → single opt-in — **CLEARED.** Re-read by API 13 Sep: `opt_in_process: single_opt_in`
+- `V9Rbbr` → global unsubscribe ticked — **CLEARED**, confirmed in the list settings
+- Instagram bio updated — changed, but `website_clicks` returns `null` on every day and that is
+  an **API limitation of the `IGI` source**, not a pending answer. Link clicks must be read in
+  the Instagram app directly
 
 ## UNTESTED — cannot be known yet
 
@@ -60,6 +63,8 @@ These were changed late and the session closed before confirming. **Treat as unk
 | Conversion event per ad set | Unreadable via Supermetrics; uneditable on published ad sets. Ads Manager only |
 | COGS per Ritual Duo | Assumed ~$15. **The entire CPA model rests on this** |
 | Which Klaviyo org the upgrade billed to | Possibly the wrong "King…" account |
+| **Auto consent sync on a new sale** | The backfill used `method: LIST_IMPORT`. On the next POS sale, read the new profile: `method: SHOPIFY` = the sync is fixed; `NEVER_SUBSCRIBED` = still broken and every future counter sale strands again |
+| `TEL — IG engagers 365d` | Built 13 Sep, reads **Below 1000**. Unusable for targeting until it grows. Re-check ~13 Oct |
 
 ---
 
@@ -89,11 +94,13 @@ that moved is a fact.**
 
 ## Next four actions
 
-1. Form `WirxQ2` → flip on the forms **list** row
-2. CSV backfill the stranded subscribers
-3. **Judge.me** → is the review-request email enabled, and what delay. *Check this before
-   building any Klaviyo review flow, or the two will double-ask the same customer*
-4. The end-to-end test above
+1. ~~CSV backfill the stranded subscribers~~ — **DONE 13 Sep.** 24 → 58
+2. ~~Judge.me review display~~ — **DONE.** Star rating now sits under the price; reviews were
+   already on the page via a custom section
+3. **The end-to-end test above** — a real order, real email, through every entry point. The one
+   remaining thing that has never been done, and the one that would catch the next fault
+4. Rebuild form `WirxQ2` from scratch (lowest value of the open items — sequence it last)
+5. Star colour → brand gold `#C9A24B` (cosmetic)
 
 Nothing is currently losing money while these wait. The ads are delivering, the studio is
 selling, and the funnel's remaining faults are settings rather than damage.
@@ -390,3 +397,46 @@ appearance.
 
 ### Do NOT add the Judge.me Review Widget
 It would duplicate the custom section and present the same six reviews less well.
+
+---
+
+## IG engagement audience built — and it is UNDER 1,000
+
+**13 Sep, ~13:00 AEST.** `TEL — IG engagers 365d` created on `act_2121305908740756` from the
+Instagram profile source, 365-day retention, broadest engagement setting.
+
+**Meta reports the size as "Below 1000".**
+
+### Correction — this was predicted to clear 1,000 comfortably
+It did not. The prediction was flagged as a prediction rather than a fact, which was right, but
+the reasoning behind it was wrong and the error is worth keeping:
+
+**Profile views are not unique people.** 5,330 views across 10–11 Sep represents far fewer
+individuals viewing repeatedly. Meta counts *people*, and only those with engagement actions it
+can attribute. The organic lift is genuine; it simply converts to a much thinner retargetable
+pool than raw view counts suggest. **Do not size a Meta audience from a view metric again.**
+
+### Consequences
+- **Warm Stack stays parked.** Swapping this audience in would hit the same wall as the
+  gate-era audiences (`TEL - gate visitors 30d` now reads **"Size not available"** in Ads
+  Manager — Meta will not even report a size for it).
+- **Do not build a lookalike from it yet.** Meta's floor for a lookalike source is ~100 people,
+  so it would technically be allowed, but the recommended seed is 1,000–50,000. A lookalike off
+  a thin seed generally underperforms broad targeting with good creative — and broad targeting
+  with good creative is already delivering **$0.109–0.115/LPV** on Warm Entry v2. Building it
+  now would feel like progress and probably would not be.
+
+### The honest strategic position
+**There is no warm audience available, and nothing buildable today creates one.** Customer list
+44, gate audiences dead, IG pool under 1,000, site traffic thin. The play for the next stretch
+is **broad prospecting plus better creative** — which is what Warm Entry has quietly been
+winning at the whole time.
+
+### What was actually gained
+The audience now **exists and accumulates daily**. Before today it did not exist at all. With
+organic Instagram running at ~4.5× baseline, it should clear 1,000 within weeks. **Re-check in
+a month**; at that point the lookalike becomes worth building and Warm Stack has something real
+to target.
+
+Its immediate uses, valid at any size: **exclusion** (stop paying to show discovery ads to
+existing engagers) and **accumulation**.
