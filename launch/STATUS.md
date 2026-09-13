@@ -298,3 +298,48 @@ truth here.
 A list of 23 cannot move revenue regardless of copy quality — which is exactly why the Doors
 Open campaign reached 20 people and produced $0. **58 paying customers is a list that can be
 sold to**, and every one of them has used the product.
+
+---
+
+## Judge.me — six 5-star reviews exist and none of them display
+
+**13 Sep, ~12:10 AEST. This supersedes the earlier reading that "no reviews have landed".**
+That claim was extrapolated from Klaviyo having no reviews integration — true, but it said
+nothing about Judge.me, and it should never have been stated as fact about reviews generally.
+
+### What the Judge.me dashboard actually shows
+
+| Metric (30d) | Value |
+|---|---|
+| **Reviews** | **6** |
+| **Average rating** | **5.0** |
+| Requests sent | 21 (↑425%) |
+| Revenue attributed | $0 |
+
+**Collection is working.** Review requests are going out and customers are responding, all five
+stars. What has never worked is **display** — the reviews are not on the product page.
+
+### The actual fault
+Judge.me's setup guide lists two incomplete steps: *"Enable Judge.me on your store"* and
+*"Enable Reviews Widget"*. The first is **a false alarm** — `judgeme_core` reads
+`"disabled": false` in `settings_data.json` on the live theme, and the theme editor's App
+embeds toggle is already ON. Another case of a UI claiming a state that is not real.
+
+The real gap is the second one. The core snippet only **loads the script**; it renders nothing.
+The theme editor states this plainly: *"The Judge.me Core Snippet contains code used by
+Judge.me widgets. Enable this before you add more widgets."* **No display widget has ever been
+placed on the product page template.**
+
+### Fix — two widgets on `TEL v6.2` (role MAIN), template "Default product"
+1. **Judge.me Preview Badge** (star rating + review count) — add as a **block inside the main
+   product section**, positioned **directly under the Price**. This is the higher-value of the
+   two: visible without scrolling, and it is what a cold visitor reads in the first second.
+2. **Judge.me Review Widget** (full review list) — add as a **section** below the product
+   description.
+
+### Why this ranks above the Meta audience
+The store converts at **0.04%** on 4,580 sessions. A cold visitor meets a $59.95 product from an
+unknown brand with **no social proof of any kind**. Six reviews at a perfect 5.0 is the
+strongest possible answer to that, it is already earned, and it costs nothing to switch on.
+
+Same pattern as the email backfill: **the value was already there and simply not connected.**
