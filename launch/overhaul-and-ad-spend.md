@@ -393,6 +393,58 @@ Anything worth keeping gets committed, not just said.
 
 ---
 
+## Form `WirxQ2` — fault CONFIRMED, rebuild rather than debug
+
+**13 Sep, ~11:30 AEST.** Exhaustively tested. Every setting reads correct and the form does not
+render on the live site.
+
+### Ruled out by direct verification
+| Checked | Result |
+|---|---|
+| Form status | **Live** — version `28374824`, published 12 Sep. The parent record's `status: "draft"` is misleading metadata; the UI correctly shows Live |
+| Forms-on-website (account switch) | **Enabled** |
+| Klaviyo app embed on the live theme | `"disabled": false` in `config/settings_data.json` on `TEL v6.2` (role MAIN) |
+| `{{ content_for_header }}` | **Present** in `layout/theme.liquid` `<head>` — the hook app embeds inject through |
+| URL / page targeting | None. `location: null` |
+| Triggers | 8s delay, device `both`, 14-day re-show |
+| Conflicting scripts | Mailchimp block correctly `disabled: true` |
+| **Live page, phone, never previewed** | **No popup after 15s** |
+
+### Two invalid tests, recorded so they are not repeated
+Two earlier negative results were **void** and nearly sent the diagnosis the wrong way:
+
+1. **`Active on Site` = 0 events** does *not* prove the script is absent. That metric only fires
+   for **identified** profiles; with 23 subscribers and almost no email clicks, zero is expected
+   either way. This is the second time this metric has misled this project.
+2. **Desktop tests were run inside a Shopify theme preview.** The browser held a preview session
+   pinning `telcollection.com.au` to draft theme `TEL v6.1`, with a clean-looking URL and only a
+   small bar at the bottom of the screen to give it away. **Klaviyo does not inject into theme
+   previews**, so both the popup test and a "0 matches for klaviyo" page-source search were
+   meaningless. Only the phone test was valid.
+
+**Lesson:** verify *which* theme a page is served from before drawing any conclusion from it.
+Nine themes exist and one unpublished theme is named "TEL — Earned. Not given. **(live)**".
+Theme names lie; `role: MAIN` is the truth.
+
+### Recommendation
+**Build a new form from scratch.** The state is unresolvable from the outside, and this form
+carries a messy history — created 4 Sep, two versions, a parent/version status split, "(DRAFT)"
+in its name. A fresh build is ~10 minutes with far better odds than further forensics. Copy is
+ready in `launch/capture-form-fix.md`. Set `record_utm_params_on_submit: true` on the new one.
+
+### But sequence it last
+The popup is the **lowest-value** of the three open items, and the only one fighting back:
+
+| Task | Delivers | When |
+|---|---|---|
+| **CSV backfill** | **27+ subscribers who already bought and already consented** | Today |
+| **Judge.me** | Reviews from 40+ customers who have used the product | Today |
+| Popup rebuild | Future subscribers, from traffic that must be paid for | After |
+
+The first two hand over value already earned. Do those first.
+
+---
+
 ## Standing rule
 
 Nothing spends, sends or goes live without Ben's word.
