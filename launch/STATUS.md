@@ -1,6 +1,6 @@
 # TEL Collection — current state
 
-**Read this file first.** Last verified: **Sun 13 Sep 2026, 13:00 AEST**.
+**Read this file first.** Last verified: **Sun 13 Sep 2026, 13:07 AEST** (full cross-check).
 
 The dated sections below are appended in order and **later entries supersede earlier ones** — where
 they disagree, the later one was the verified read. The tables immediately below are kept current.
@@ -35,13 +35,15 @@ cannot be known yet — not the same as working).
 | # | Fault | Detail |
 |---|---|---|
 | 1 | **Form `WirxQ2` does not render** | **CONFIRMED, cause unknown.** Every setting reads correct — status Live, app embed on, no targeting, `content_for_header` present — and it still does not appear on the live site on a phone. `query_form_values` → `results: []`. **Recommendation: rebuild from scratch**, sequenced last (see below) |
-| 2 | ~~**Consent stranded**~~ | **FIXED 13 Sep 12:00** by CSV backfill. List `V9Rbbr` 24 → **58**, verified at profile level. *Still open:* the auto-sync has not yet been proven to carry consent on a new sale — see UNTESTED |
+| 2 | ~~**Consent stranded**~~ | **FIXED AND SIGNED OFF 13 Sep.** Two-sided check passes: Shopify **57** subscribed vs Klaviyo **56** emailable — a gap of 1, against 27+. *Still open:* the auto-sync is inconsistent, not proven — see UNTESTED |
 | 3 | **No reviews integration in Klaviyo** | All 37 Klaviyo metrics are Shopify / Klaviyo-internal / onsite-API. No Judge.me connector, no review metric, no flow that asks. **This does not mean no reviews** — Judge.me collects and displays them independently: 6 reviews at 5.0, live on the product page. Correction logged below |
-| 4 | **Warm Stack audiences empty** | Reach **9** on $1.33 across a full evening. Built against gate-era URLs |
-| 5 | `record_utm_params_on_submit: false` | Subscribers cannot be attributed to the ad or email that produced them |
+| 4 | **Warm Stack audiences empty** | Reach **9** on $1.33. Targeting re-read 13 Sep: **still pointed at `TEL - gate visitors 30d` and `tel gate visitors 180d`.** Never swapped |
+| 5 | `record_utm_params_on_submit: false` | Subscribers cannot be attributed to the ad or email that produced them. *(Ad-side UTM tagging is correct — this is the form only)* |
 | 6 | One form text line invisible | Inline `color: rgb(0,0,0)` overrides the corrected global gold, on a `#080808` panel |
 | 7 | Order #1046 | PayPal `SALE` stuck PENDING, $59.95. PayPal-side hold, not a gateway fault |
 | 8 | `WjZxaE` Squires exclusion list | **0 members** — the price-split guard was empty. Harmless (separate platforms) but not to be relied on |
+| 9 | **Ritual Drop is not delivering** | $40 of the $60/day budget. **$6.43 spent in eight days.** Reads ENABLED with ACTIVE, APPROVED ads — nothing in config explains it. Needs one look at the Delivery column in Ads Manager |
+| 10 | **No web order has ever come from the open store** | Both web orders first landed on `/password` — gate-era traffic. Not "2 web orders since launch"; **zero** |
 
 ## UNVERIFIED — reported saved, never re-read
 
@@ -440,3 +442,117 @@ to target.
 
 Its immediate uses, valid at any size: **exclusion** (stop paying to show discovery ads to
 existing engagers) and **accumulation**.
+
+---
+
+## CROSS-CHECK — Sun 13 Sep 2026, 13:07 AEST
+
+Full live read across Klaviyo, Shopify and Meta, run to establish what can be **signed off** as
+working. Every line below is an observed outcome or a direct API read, per rule 1.
+
+### SIGNED OFF — verified by outcome
+
+**1. The email consent chain. The two-sided check now passes.**
+
+| Side | Reading |
+|---|---|
+| Shopify — subscribed | **57** |
+| Shopify — not subscribed | 18 |
+| Shopify — total customers | 75 (57 + 18 = 75, both pages exhaustive) |
+| Klaviyo — emailable segment `YgyR87` | **56** |
+| Klaviyo — list `V9Rbbr` | 58 |
+
+**Gap of 1, against a gap of 27+ last night.** This is the fault that suppressed the launch and
+it is closed. The 2-profile difference between the list (58) and the emailable segment (56) is
+the customers who declined — consent relocated, never manufactured, still visible in the data.
+
+**2. The segment recalculated on its own: 23 → 56.** At 12:00 it still read 23 and that was
+called lag rather than a failed import. The call was right; it was lag.
+
+**3. `V9Rbbr` is single opt-in** — `opt_in_process: single_opt_in`, re-read, third confirmation.
+
+**4. Flows — 6 of 7 live.** `TEZ6PM`, `TPwqqq`, `UpBgzj`, `Vg9tuX`, `WnAETh`, `YgAs6b` all read
+`status: live`. Only `SuavPL` (back-in-stock) is genuinely `draft`. **Three live flows still
+carry "(DRAFT)" in their names** — the names lie, the status is the truth.
+
+**5. Ad account standing.** Both campaigns `ENABLED`. Both Ritual Drop ad sets `ENABLED`, both
+ads `ACTIVE` with `review.status: APPROVED`.
+
+**6. UTM tagging is correct on both ads** — `utm_source=meta&utm_medium=paid_social&
+utm_campaign=ritual_drop_sep26`, with `utm_content` split `broad_au` / `warm_stack`. The
+attribution plumbing is sound even though nothing has flowed through it yet.
+
+**7. Warm Entry v2 is holding.** 13 Sep to 13:07: $5.78, 570 impressions, 65 clicks, 53 LPV =
+**$0.109/LPV**, frequency 1.04.
+
+### A near-miss, recorded because it is the same trap as always
+`customersCount(query: "email_marketing_state:subscribed")` returned **75** — and so did
+`customersCount` with **no filter**, and so did a deliberately invalid filter. **The
+`customersCount` field silently ignores its query argument.** Reporting 75 subscribed would have
+invented 18 consenting customers who do not exist. The `customers` connection does filter
+correctly, and that is what the numbers above come from. **Control query first; a number that
+cannot be wrong has not been tested.**
+
+### STILL BROKEN — re-confirmed, not assumed
+
+| Thing | Reading |
+|---|---|
+| Form `WirxQ2` | `query_form_values` over `last_7_days` → **`results: []`** again. No views, no submits |
+| Warm Stack targeting | Read directly off the ad set: still `TEL - gate visitors 30d` and `tel gate visitors 180d`. **The dead audiences were never swapped out** |
+
+### NEW FINDING — Ritual Drop has delivered on one day in eight
+
+| Date | Warm Entry v2 | Ritual Drop (both ad sets) |
+|---|---|---|
+| 6 Sep | $15.67 | — |
+| 7 Sep | $9.24 | — |
+| 8 Sep | $27.55 | — |
+| 9 Sep | $45.61 | — |
+| 10 Sep | $39.35 | — |
+| 11 Sep | $11.84 | — |
+| 12 Sep | $4.81 | **$6.43** |
+| 13 Sep → 13:07 | $5.78 | **$0** |
+
+**Ritual Drop holds $40 of the $60/day budget — two thirds — and has spent $6.43 in eight
+days.** It reads ENABLED with approved, active ads, so nothing in the configuration explains it.
+
+Two further things this table shows:
+- **Total spend has collapsed** from ~$40/day (9–10 Sep) to ~$5/day. The 12 Sep underdelivery
+  was not a one-off ramp after the billing fix.
+- **Warm Entry spent $45.61 on 9 Sep against a campaign budget that now reads $20/day.** The
+  budget has been changed at some point since. Not resolvable from here.
+
+**What this cannot tell us:** whether the ad sets read "Learning limited", "Not delivering" or
+carry a payment flag. Supermetrics does not return delivery status. **This needs one look in
+Ads Manager at the Delivery column** — it is the highest-value 30 seconds available right now,
+because two thirds of the budget is inert.
+
+Candidate causes, none verified: a conversion campaign with zero purchase history cannot exit
+learning and gets throttled; Warm Stack cannot spend its share of the CBO pool because its
+audiences are empty; or a second billing-side limit.
+
+### WEB ORDERS — sharper than previously recorded
+
+Both web orders read `landingPage: "https://telcollection.com.au/password"` — **both buyers
+first arrived during the gate period.** Neither came from the open store.
+
+The accurate statement is therefore not "2 web orders since launch". It is: **no visitor who
+first arrived at the open store has ever purchased.** #1045 (paid) and #1046 (PayPal, still
+PENDING) were both gate-era traffic converting later.
+
+Latest order is still **#1054, 13 Sep 00:14 AEST, POS.** No orders at all since.
+
+### STILL UNTESTED — and honestly so
+
+**The POS consent sync.** No order has been placed since the backfill completed at 01:59, so the
+test has not been possible. But the profile read produced a genuine refinement:
+
+- A profile created **12 Sep 09:21** reads `method: SHOPIFY`, consent timestamped 40 minutes later
+- A profile created **9 Sep 09:28** reads `method: SHOPIFY`, consent timestamped 25 seconds later
+- Profiles created **11 Sep** read `NEVER_SUBSCRIBED`, never rescued until the manual import
+- Every 12 Sep POS profile reads `method: LIST_IMPORT` — **they were rescued by the backfill, not
+  by the sync**
+
+**So the sync is inconsistent, not dead.** It has carried consent at least twice. Because the
+backfill overwrote the POS profiles, the only clean test left is the next counter sale:
+`method: SHOPIFY` = working, `NEVER_SUBSCRIBED` = still faulty.
