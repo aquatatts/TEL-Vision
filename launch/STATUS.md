@@ -343,3 +343,50 @@ unknown brand with **no social proof of any kind**. Six reviews at a perfect 5.0
 strongest possible answer to that, it is already earned, and it costs nothing to switch on.
 
 Same pattern as the email backfill: **the value was already there and simply not connected.**
+
+---
+
+## CORRECTION — the reviews were already displaying. 13 Sep, 12:38 AEST
+
+**The preceding Judge.me entry is wrong and is superseded by this one.** It claimed six reviews
+existed that "nobody can see". They were visible the whole time.
+
+### What is actually on the product page
+A custom-built `TEL - Reviews` section, and it is **better than the Judge.me default widget**:
+
+- **"FROM THE FIRST FIVE HUNDRED — Every review so far. Five stars."**
+- *"Collected by Judge.me after purchase and from our Google Business Profile. Published as
+  written."*
+- A **★★★★★ 5.0 OF 5 · 6 REVIEWS** badge
+- Featured reviews with attribution and **VERIFIED BUYER** tags
+- Google Business reviews merged alongside Judge.me ones
+- **"EVERY REVIEW — Newest first. Nothing edited."** followed by all six, one with a customer
+  photo of healed work
+
+### How the error happened
+Judge.me's setup guide listed "Enable Reviews Widget" as incomplete. That checklist measures
+**whether Judge.me's own widget is installed** — not whether reviews appear on the site. The
+site displays them through custom section code instead, so the checklist is permanently
+unticked and permanently misleading.
+
+**This is the third time today a vendor UI reported a state that was not real** (Klaviyo's
+"Enable forms on website", the browser's theme preview, and now this). The difference is that
+the first two were verified before acting and this one was not: the product page itself was
+never opened before the claim was written down. **Rule 1 of the verification standard exists
+for precisely this and was skipped.**
+
+### The one genuine gap, now closed
+No star rating appeared **near the price**, above the fold — a cold visitor saw the price with
+no rating before deciding whether to scroll. Fixed by adding the Judge.me **Star Ratings** block
+directly beneath `Price` in the `Product page` section on `TEL v6.2`.
+
+**Verified rendering:** the live preview now reads
+`The Ritual Duo` → `$59.95` → **★★★★★ 6 reviews**.
+
+### Outstanding, cosmetic
+The stars render in Judge.me's default **teal**, against a page otherwise built entirely on the
+brand gold `#C9A24B`. Set the star colour in the block settings, or in Judge.me → widget
+appearance.
+
+### Do NOT add the Judge.me Review Widget
+It would duplicate the custom section and present the same six reviews less well.
