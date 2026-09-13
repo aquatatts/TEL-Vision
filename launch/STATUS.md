@@ -1,6 +1,6 @@
 # TEL Collection — current state
 
-**Read this file first.** Last verified: **Sun 13 Sep 2026, 13:07 AEST** (full cross-check).
+**Read this file first.** Last verified: **Sun 13 Sep 2026, 13:40 AEST** (deep audit).
 
 The dated sections below are appended in order and **later entries supersede earlier ones** — where
 they disagree, the later one was the verified read. The tables immediately below are kept current.
@@ -34,7 +34,7 @@ cannot be known yet — not the same as working).
 
 | # | Fault | Detail |
 |---|---|---|
-| 1 | **Form `WirxQ2` does not render** | **CONFIRMED, cause unknown.** Every setting reads correct — status Live, app embed on, no targeting, `content_for_header` present — and it still does not appear on the live site on a phone. `query_form_values` → `results: []`. **Recommendation: rebuild from scratch**, sequenced last (see below) |
+| 1 | **The Klaviyo onsite script has never run** | **ROOT CAUSE, found 13 Sep.** `Viewed Product` and `Active on Site` = **0 events in three months**. Every server-side Shopify event fires; every onsite-JS event is zero. This is why form `WirxQ2` does not render — **and why rebuilding it would not have helped.** First check: does the theme's app embed carry public key `TbNLXf`? |
 | 2 | ~~**Consent stranded**~~ | **FIXED AND SIGNED OFF 13 Sep.** Two-sided check passes: Shopify **57** subscribed vs Klaviyo **56** emailable — a gap of 1, against 27+. *Still open:* the auto-sync is inconsistent, not proven — see UNTESTED |
 | 3 | **No reviews integration in Klaviyo** | All 37 Klaviyo metrics are Shopify / Klaviyo-internal / onsite-API. No Judge.me connector, no review metric, no flow that asks. **This does not mean no reviews** — Judge.me collects and displays them independently: 6 reviews at 5.0, live on the product page. Correction logged below |
 | 4 | **Warm Stack audiences empty** | Reach **9** on $1.33. Targeting re-read 13 Sep: **still pointed at `TEL - gate visitors 30d` and `tel gate visitors 180d`.** Never swapped |
@@ -44,6 +44,10 @@ cannot be known yet — not the same as working).
 | 8 | `WjZxaE` Squires exclusion list | **0 members** — the price-split guard was empty. Harmless (separate platforms) but not to be relied on |
 | 9 | **Ritual Drop is not delivering** | $40 of the $60/day budget. **$6.43 spent in eight days.** Reads ENABLED with ACTIVE, APPROVED ads — nothing in config explains it. Needs one look at the Delivery column in Ads Manager |
 | 10 | **No web order has ever come from the open store** | Both web orders first landed on `/password` — gate-era traffic. Not "2 web orders since launch"; **zero** |
+| 11 | **Browse abandonment `YgAs6b` can never fire** | Live, triggers on `Viewed Product`, which has never once occurred. Dead until the onsite script runs |
+| 12 | **Abandoned checkout `Vg9tuX` has never sent** | Live. **69 `Checkout Started` events** and not one email. ~5 abandoned checkouts in the last 5 days, unchased |
+| 13 | **The import sent 39 unauthorised emails** | The 01:59 backfill triggered `Added to List` on the live welcome flow. 33 welcome + 6 healing guide. **Check the welcome email for a discount code before anything else** |
+| 14 | Sending domain DNS unverified | All 5 records `verified: false`. **Not currently harmful** — 100% delivery, 1 bounce in 132, 0 spam. Finish it for durability, do not blame it for anything |
 
 ## UNVERIFIED — reported saved, never re-read
 
@@ -556,3 +560,150 @@ test has not been possible. But the profile read produced a genuine refinement:
 **So the sync is inconsistent, not dead.** It has carried consent at least twice. Because the
 backfill overwrote the POS profiles, the only clean test left is the next counter sale:
 `method: SHOPIFY` = working, `NEVER_SUBSCRIBED` = still faulty.
+
+---
+
+## DEEP AUDIT — Sun 13 Sep 2026, ~13:40 AEST
+
+Run against the untested surface rather than the known-fault list, because every fault in this
+project has been a thing nobody had ever measured. Four findings, two of them material.
+
+### 1. ROOT CAUSE FOUND — the Klaviyo onsite script has NEVER run
+
+| Metric | Integration | Events, 15 Jun → 13 Sep |
+|---|---|---|
+| **Viewed Product** | API (onsite JS) | **0** |
+| **Active on Site** | API (onsite JS) | **0** |
+| Added to Cart | Shopify (server) | firing |
+| Checkout Started | Shopify (server) | firing, 69 events |
+| Placed Order | Shopify (server) | firing |
+
+**Every server-side Shopify event fires. Every onsite-JavaScript event is zero, across three
+months.** Not low — zero, in every month, including the launch weekend with thousands of
+sessions.
+
+`Active on Site` alone proves nothing (it only fires for identified profiles — that reasoning
+was correct and is unchanged). **`Viewed Product` fires for anonymous visitors.** Three months
+at zero with live traffic is conclusive: **the Klaviyo onsite script is not executing on
+telcollection.com.au.**
+
+#### This explains the form, and it changes the fix
+The app embed reads `"disabled": false` in `settings_data.json` on the live theme and
+`{{ content_for_header }}` is present — and the script still is not running. Same class of
+fault as everything else here: **configuration correct, outcome absent.**
+
+**Therefore: rebuilding the form would NOT have fixed it.** The previous recommendation — build
+a new form from scratch — would have produced a second form that also never rendered, because
+there is no script on the page to serve either of them. **That recommendation is withdrawn.**
+
+**Leading hypothesis, unverified:** this account's public API key is **`TbNLXf`**. If the
+theme's Klaviyo app embed carries a *different* key, the script would load and report to
+another Klaviyo account — producing exactly this signature: zero onsite events here, while the
+page looks correctly configured. This connects to the open question of which Klaviyo org the
+upgrade billed to. **Check the key in the app embed against `TbNLXf` before anything else.**
+
+#### Second casualty
+Flow `YgAs6b` (browse abandonment) triggers on **Viewed Product**. That event has never
+occurred. **The flow is live and can never fire.** It is not "untested" — it is dead until the
+script runs.
+
+### 2. The import sent 39 emails this morning that nobody authorised
+
+Flow report, **today only**:
+
+| Flow | Delivered today |
+|---|---|
+| `TEZ6PM` Welcome: The standard | **33** |
+| `WnAETh` Post-purchase: The Healing Guide | **6** |
+
+The CSV backfill added 44 profiles to `V9Rbbr` at **01:59**. `TEZ6PM` triggers on **Added to
+List**. The import therefore fired the welcome sequence at existing paying customers, and
+released healing-guide messages that had been held back for want of consent.
+
+**This was a foreseeable consequence of the import and it was not flagged before it ran.** It
+breaches the standing rule that nothing sends without Ben's word — not by intent, but the
+emails went out either way.
+
+- The **6 healing-guide sends are correct and welcome** — those customers bought on 12 Sep and
+  should receive it. The flow had been holding them because they were not subscribed.
+- The **33 welcome sends are the problem**: they greet people who have already bought.
+
+**URGENT, do before anything else: open the welcome email and check whether it contains an
+offer or discount code.** If it does, 33 customers who paid full price have just been handed a
+discount. If it is purely a welcome, the cost is cosmetic.
+
+**Rule to carry forward: before any import into a list, check what flows trigger on
+`Added to List` and pause them for the duration.**
+
+### 3. Abandoned checkout is real, and nothing chases it
+
+`Checkout Started` has fired **69 times** — 2 in June, 30 in July, 22 in August, 15 in
+September (9–13). Over 9–13 Sep: **15 checkouts started against 10 orders placed.**
+
+Flow `Vg9tuX` (abandoned checkout) is **live** and has **delivered 0 messages, ever**.
+
+*Caveat, stated rather than assumed:* these counts include POS, since the studio was selling
+through the gated period when the web store had no visitors. The gap is therefore roughly
+**five abandoned checkouts in five days**, not fifteen. Modest money — but it is money already
+at the till, the flow is already built, and it recovers nothing.
+
+**Also note: `Added to Cart` fired twice while `Checkout Started` fired 15 times.** Buyers are
+using the dynamic "Buy it now" button and skipping the cart entirely. Any logic anywhere that
+depends on Added to Cart is close to useless on this store.
+
+### 4. Deliverability — a red flag raised, then cleared by outcome
+
+`get_sending_domains` returns `send.telcollection.com.au` with `status: "active"` but **all five
+DNS records reading `verified: false`** (4 × NS to `ns1–4.klaviyo.com`, 1 × TXT site
+verification). Created 22 Aug, untouched since 26 Aug.
+
+That looked like a serious deliverability fault. **The outcome data says it is not hurting
+anything today:**
+
+| Send | Delivered | Delivery rate | Bounced | Spam complaints | Open rate |
+|---|---|---|---|---|---|
+| Welcome flow (all-time) | 38 | **100%** | 0 | 0 | 10.5% |
+| Healing guide (all-time) | 20 | **100%** | 0 | 0 | **35%** |
+| Doors Open campaign | 20 | 100% | 0 | 0 | 25% |
+| T-1 campaign | 20 | 95.2% | 1 | 0 | 25% |
+| T+3 campaign | 20 | 100% | 0 | 0 | 20% |
+| Review Ask campaign | 14 | 100% | 0 | 0 | 14% |
+
+**100% delivery, one bounce in 132 sends, zero spam complaints, open rates 14–35%.** Mail is
+arriving and being read.
+
+**Verdict: worth finishing, not a current fault.** Klaviyo falls back to its shared sending
+domain, which works fine at this volume. Finish the DNS delegation before the list is large
+enough for inbox providers to care — it is durability, not an emergency. Recorded so it is
+never re-diagnosed as the cause of something else.
+
+### Campaign history — four sends, and what they actually did
+
+| Campaign | Sent | Recipients | Opens | Clicks | Conversions |
+|---|---|---|---|---|---|
+| CH1 · T-1 | 9 Sep | 21 | 25% | 0 | **1 · $59.95** |
+| Doors Open — Founding Price | 10 Sep | 20 | 25% | **0** | 0 |
+| Chapter One Review Ask | 11 Sep | 14 | 14% | **0** | 0 |
+| CH1 · T+3 · Sets remaining | 12 Sep | 20 | 20% | **0** | 0 |
+
+Three consecutive sends with **zero clicks on 54 delivered emails**. Link tracking is **not**
+broken — the welcome flow records a 50% click-to-open — so this is audience size and content,
+not a technical fault. On 20 recipients, 4–5 opens and 0 clicks is unremarkable in isolation;
+across three sends it is a reminder that **a 20-person list cannot produce commercial signal**,
+whatever the copy says. The backfill to 56 is the fix, and it has now happened.
+
+**A review-ask campaign did go out on 11 Sep to 14 people** — separate from Judge.me's own 21
+requests. Two systems are asking the same customers for reviews. Worth reconciling before
+adding a third.
+
+### Flow send counts — which zeros are faults and which are expected
+
+| Flow | Delivered, all time | Reading |
+|---|---|---|
+| `TEZ6PM` Welcome | 38 | Working |
+| `WnAETh` Healing Guide | 20 | Working, 35% opens |
+| `TPwqqq` Online healing guide | **0** | **Expected** — needs a fulfilled *web* order; there have been none |
+| `UpBgzj` Reorder | **0** | **Expected** — 50-day delay, first sends due ~8–11 Oct |
+| `YgAs6b` Browse abandonment | **0** | **FAULT** — triggers on Viewed Product, which has never fired |
+| `Vg9tuX` Abandoned checkout | **0** | **FAULT** — 69 checkout-start events and not one message |
+| `SuavPL` Back in stock | **0** | Expected — still draft, 439 units in stock |
