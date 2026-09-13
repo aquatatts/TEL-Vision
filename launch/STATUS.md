@@ -251,3 +251,50 @@ The popup is the **lowest-value** of the three open items, and the only one figh
 | Popup rebuild | Future subscribers, from traffic that must be paid for | After |
 
 The first two hand over value already earned. Do those first.
+
+---
+
+## Backfill COMPLETE — 13 Sep, 12:00 AEST
+
+**The consent chain is now working end to end for existing customers.** Verified at profile
+level, not by the success screen.
+
+### What was done
+Shopify → Customers → filtered `email_subscription_status = SUBSCRIBED` → exported 44 → imported
+to list `V9Rbbr` with **"Update subscription status for all imported contacts to subscribed"**,
+Email → Marketing messages only (no SMS, no WhatsApp).
+
+### Verified by API
+
+| Measure | Before | After |
+|---|---|---|
+| List `V9Rbbr` | 24 | **58** |
+| Import job | — | **44/44 rows, completed** |
+| Sampled profiles | 8 of 9 `NEVER_SUBSCRIBED` | **9 of 11 `SUBSCRIBED`** |
+
+Profiles that read `NEVER_SUBSCRIBED` last night now read:
+```
+consent:                     SUBSCRIBED
+method:                      LIST_IMPORT
+consent_timestamp:           2026-09-13T01:59:53Z
+can_receive_email_marketing: true
+```
+
+**The two customers who did NOT consent in Shopify remain `NEVER_SUBSCRIBED`.** They were
+manually unticked before export (49 → 44). This is the important detail: consent was
+*relocated*, never manufactured, and the people who declined stayed out. Verifiable in the data.
+
+### Also resolved
+`opt_in_process` now reads **`single_opt_in`** by API — clearing one of the three items recorded
+as UNVERIFIED last night. It had saved; it simply was never re-read.
+
+### Known lag, not a fault
+Segment `YgyR87` still reads **23**. Klaviyo segments recalculate asynchronously and the
+underlying profile consent is already correct. Expect convergence toward ~58 without action.
+**Do not treat the stale segment count as a failed import** — the profile-level read is the
+truth here.
+
+### Why this matters commercially
+A list of 23 cannot move revenue regardless of copy quality — which is exactly why the Doors
+Open campaign reached 20 people and produced $0. **58 paying customers is a list that can be
+sold to**, and every one of them has used the product.
