@@ -1,6 +1,6 @@
 # TEL Collection — current state
 
-**Read this file first.** Last verified: **Sun 13 Sep 2026, ~01:30 AEST**.
+**Read this file first.** Last verified: **Sun 13 Sep 2026, 08:54 AEST** (morning check).
 
 Every line below carries one of three labels, per the verification standard in `README.md`:
 **WORKING** (an outcome was observed), **BROKEN** (a fault was observed), **UNTESTED** (state
@@ -97,3 +97,105 @@ that moved is a fact.**
 
 Nothing is currently losing money while these wait. The ads are delivering, the studio is
 selling, and the funnel's remaining faults are settings rather than damage.
+
+---
+
+## Morning check — Sun 13 Sep 2026, 08:54 AEST
+
+First full day of delivery after the billing fix. Verified by outcome, per the standard.
+
+### Last night's saves — one confirmed NOT applied, one still unverified
+
+| Change | Reading |
+|---|---|
+| Form `WirxQ2` → live | **NOT DONE.** Still `status: draft`, `updated_at` still **2026-09-04**. Untouched |
+| `V9Rbbr` → single opt-in | **STILL UNVERIFIED** — the connector dropped before it could be re-read. Not assumed done |
+| `V9Rbbr` → global unsubscribe | **STILL UNVERIFIED**, same reason |
+| Instagram bio | Changed, but see `website_clicks` below — it did not resolve the question |
+
+### Consent chain — no movement
+Segment `YgyR87` = **23**, unchanged. No backfill occurred, confirming the sync is
+forward-only. The CSV import is still required.
+
+### Form capture — still nothing
+`query_form_values` over `last_7_days` → `results: []`. Consistent with the form being draft.
+
+### Instagram — spike decaying, still well above baseline
+
+| Date | Profile views | Accounts engaged |
+|---|---|---|
+| 7 Sep | 91 | 3 |
+| 8 Sep | 145 | 5 |
+| 9 Sep | 152 | 3 |
+| 10 Sep | **2,612** | 51 |
+| 11 Sep | **2,718** | 52 |
+| 12 Sep | **682** | 8 |
+
+682 is off the peak but still **~4.5× the 91–152 baseline**. Normal decay from a launch moment,
+not a collapse.
+
+**`website_clicks` returned `null` on every day, including after the bio change.** That settles
+it as an **API limitation of the `IGI` source**, not a pending answer — it cannot be resolved
+from here at all. Ben must read link clicks in the Instagram app directly.
+
+### Ad delivery — 12 Sep, full day
+
+| Ad set | Platform | Cost | Impr | Reach | Freq | Clicks | LPV | Cost/LPV |
+|---|---|---|---|---|---|---|---|---|
+| Warm Entry v2 | facebook | $4.81 | 463 | 444 | 1.04 | 47 | 44 | **$0.109** |
+| Broad AU | instagram | $3.43 | 174 | 159 | 1.09 | 2 | 1 | $3.43 |
+| Broad AU | facebook | $1.64 | 108 | 100 | 1.08 | 1 | 1 | $1.64 |
+| Warm Stack | instagram | $1.36 | 13 | **8** | 1.63 | 0 | 0 | — |
+| Warm Stack | facebook | $0 | 2 | 2 | 1.00 | 0 | 0 | — |
+
+**Warm Entry v2 improved to $0.109/LPV**, better than its $0.115 and its historical $0.13.
+
+**Warm Stack confirmed dead again** — reach 8 on $1.36.
+
+**Severe budget underdelivery, flagged for watching.** Combined spend was **$11.24 against a
+$60/day budget — 19%.** Ritual Drop used $6.43 of $40; Warm Entry used $4.81 of $20. Likely
+Meta ramping after the billing interruption, compounded by Warm Stack being unable to spend its
+share of the CBO pool. Expect normalisation over 2–3 days. **If it has not recovered by Tue
+15 Sep, treat it as a real fault.**
+
+### Correction — the Instagram placement case is NOT supported by paid data
+
+A previous entry recommended shifting budget to Instagram. The paid numbers appear to
+contradict it ($3.43/LPV on Instagram against $0.109 on Facebook), **but this is not a valid
+comparison and must not be read as one**:
+
+- Warm Entry v2 is a **TRAFFIC** campaign optimising for landing page views, delivering 100%
+  Facebook.
+- Broad AU is a **SALES** campaign optimising `OFFSITE_CONVERSIONS` with zero purchase history,
+  still in learning, and is the only ad set on Instagram.
+
+A conversion campaign in learning always costs far more per click than a traffic campaign. The
+difference measured is **objective, not placement.**
+
+**There is still no clean Instagram-versus-Facebook read.** The Instagram case rests on
+*organic* evidence (5,330 profile views in two days at $0.01 paid), which remains valid and
+untested by this data. The experiment that would settle it: run **Warm Entry v2 — same
+objective, same creative, proven $0.109 — on Instagram placement** and compare like with like.
+
+### Orders — 54 lifetime, still no new web sales
+
+| Date (AEST) | Orders | Net |
+|---|---|---|
+| 10 Sep | 2 | $54.50 |
+| 11 Sep | 2 | $109 |
+| **12 Sep** | **6** | **$327** |
+| 13 Sep (to 08:54) | 1 | $54.50 |
+
+#1054 landed **00:14 AEST** — checked directly rather than assumed: `shippingAddress: null`,
+fulfilled at "Shop location" two seconds after creation, no tracking. **That is the POS
+signature**, a late Saturday studio sale, not a web order.
+
+**Zero new web orders. Zero `ritual_drop_sep26` UTM. Zero `TELTAKEOVER` redemptions.** Every
+dollar since launch remains POS.
+
+### Still outstanding
+1. Form `WirxQ2` → flip on the sign-up forms **list** row
+2. CSV backfill the stranded subscribers (Shopify 50+ vs Klaviyo 23)
+3. **Judge.me** → is the review-request email enabled, and what delay
+4. End-to-end test — own email through the popup, plus a real counter tick
+5. Re-read `V9Rbbr` to confirm last night's two saves actually applied
