@@ -46,7 +46,8 @@ cannot be known yet — not the same as working).
 | 10 | **No web order has ever come from the open store** | Both web orders first landed on `/password` — gate-era traffic. Not "2 web orders since launch"; **zero** |
 | 11 | **Browse abandonment `YgAs6b` can never fire** | Live, triggers on `Viewed Product`, which has never once occurred. Dead until the onsite script runs |
 | 12 | **Abandoned checkout `Vg9tuX` has never sent** | Live. **69 `Checkout Started` events** and not one email. ~5 abandoned checkouts in the last 5 days, unchased |
-| 13 | **The import sent 39 unauthorised emails** | The 01:59 backfill triggered `Added to List` on the live welcome flow. 33 welcome + 6 healing guide. **Check the welcome email for a discount code before anything else** |
+| 13 | **The import sent 39 unauthorised emails** | The 01:59 backfill triggered `Added to List` on the live welcome flow. 33 welcome + 6 healing guide. **Checked: no discount code, no offer — commercial cost nil.** Process rule now recorded: pause Added-to-List flows before any import |
+| 15 | Flow emails carry no UTM tags | The welcome email's button is a bare product URL. Email-driven purchases are unattributable |
 | 14 | Sending domain DNS unverified | All 5 records `verified: false`. **Not currently harmful** — 100% delivery, 1 bounce in 132, 0 spam. Finish it for durability, do not blame it for anything |
 
 ## UNVERIFIED — reported saved, never re-read
@@ -628,9 +629,20 @@ emails went out either way.
   should receive it. The flow had been holding them because they were not subscribed.
 - The **33 welcome sends are the problem**: they greet people who have already bought.
 
-**URGENT, do before anything else: open the welcome email and check whether it contains an
-offer or discount code.** If it does, 33 customers who paid full price have just been handed a
-discount. If it is purely a welcome, the cost is cosmetic.
+**RESOLVED — ALL CLEAR, checked 13 Sep ~13:55.** Template `SqWZAx` (`TEL · Welcome 1 · The
+standard`) read in full. **There is no discount code and no offer.** The email explicitly states:
+*"What the list gets: first look at every run, healing notes from a working studio, and priority
+when a run sells out. **No codes. Nothing else.**"* Subject *"You're in. Here's the standard."*,
+from *Benny at TEL Collection*, single button to the product page, correct unsubscribe and
+physical address.
+
+**Commercial cost of the 33 unplanned sends: nil.** It is a well-built brand email. The only
+awkwardness is greeting existing customers with "You're in", which is cosmetic.
+
+**One small real fault found while reading it:** the button links to
+`https://telcollection.com.au/products/tattoo-aftercare-kit` with **no UTM parameters**, so any
+purchase these 33 emails produce will not be attributable to the email. Worth adding tracking
+params to every flow message.
 
 **Rule to carry forward: before any import into a list, check what flows trigger on
 `Added to List` and pause them for the duration.**
