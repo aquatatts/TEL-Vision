@@ -772,3 +772,8 @@ not in the flow — it is capturing marketing consent at checkout, where the aba
 
 **Verification after fixing:** `Skipped Send` should fall and the flow report should show
 `delivered > 0`. Watch both.
+
+### The step-by-step lives in its own file
+**`launch/fix-walkthrough.md`** — both fixes written app-by-app with exact URLs, because earlier
+instructions moved between three websites without naming which. Store handle `iw0xvm-v5`,
+Klaviyo key `TbNLXf`.
